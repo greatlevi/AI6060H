@@ -1,0 +1,62 @@
+CROSS_COMPILE ?= arm-none-eabi-
+CROSS ?= $(CROSS_COMPILE)
+
+### Compiler definitions
+CC       = $(CROSS)gcc
+LD       = $(CROSS)gcc
+AS       = $(CROSS)as
+NM       = $(CROSS)nm
+OBJCOPY  = $(CROSS)objcopy
+STRIP    = $(CROSS)strip
+OBJDUMP  = $(CROSS)objdump
+
+AROPTS = rcf
+
+######################
+#	MODULE SWITCH    #
+######################
+BOOT_SECTOR_UPDATE=0
+DISABLE_ICOMM_DISCOVER=0
+MODULE_S092=1
+MODULE_6060Z=2
+MODULE_6060P=3
+#MODULE_ID_SKIP=4
+MODULE_HIFLYING=5
+MODULE_ID=5
+
+######################
+#	FUNCTION SWITCH  #
+######################
+FUNC_OTA_ON=0
+
+#####################
+#	VARIABLES  		#
+#####################
+ifeq ($(MODULE_ID),$(MODULE_S092))
+LINKERSCRIPT=cabrio.lds
+BOOT_CODE_AND_CONFIG_SIZE=16384
+BOOT_CODE_SIZE=8192
+#CONFIG_BIN=
+endif
+
+ifeq ($(MODULE_ID),$(MODULE_6060Z))
+LINKERSCRIPT=cabrio-e.lds
+BOOT_CODE_AND_CONFIG_SIZE=12288
+BOOT_CODE_SIZE=4096
+#CONFIG_BIN=
+endif
+
+ifeq ($(MODULE_ID),$(MODULE_6060P))
+LINKERSCRIPT=cabrio-e.lds
+BOOT_CODE_AND_CONFIG_SIZE=12288
+BOOT_CODE_SIZE=4096
+#CONFIG_BIN=
+endif
+
+ifeq ($(MODULE_ID),$(MODULE_HIFLYING))
+LINKERSCRIPT=cabrio.lds
+BOOT_CODE_AND_CONFIG_SIZE=16384
+BOOT_CODE_SIZE=8192
+#CONFIG_BIN=
+endif
+

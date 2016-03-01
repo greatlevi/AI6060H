@@ -1,0 +1,458 @@
+make -C icomlib
+make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomlib'
+make icomlib.a
+make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomlib'
+make[2]: `icomlib.a' is up to date.
+make[2]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomlib'
+make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomlib'
+make -C icomapps
+make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
+make icomapps.a 
+make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
+-----------------make z1 target:objs/atcmd.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c atcmd.c -o objs/atcmd.o
+atcmd.c: In function 'At_ShowNtpTime':
+atcmd.c:412:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+     printf("get time: %d sec\n", time);
+     ^
+atcmd.c: In function 'At_TCPChange_Timeout':
+atcmd.c:631:9: warning: unused variable 'pport' [-Wunused-variable]
+  char  *pport = 0;
+         ^
+atcmd.c: In function 'At_SET_AUTO_CONNECT':
+atcmd.c:1005:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c: In function 'At_SAVE_CONFIG':
+atcmd.c:1024:1: warning: label 'error_exit' defined but not used [-Wunused-label]
+ error_exit:
+ ^
+atcmd.c:1022:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c: In function 'At_SET_APCONFIG':
+atcmd.c:1070:9: warning: array subscript has type 'char' [-Wchar-subscripts]
+         a_gw_digit[loop_i] = (U8)toul_val;
+         ^
+atcmd.c:1046:18: warning: unused variable 'ip_addr' [-Wunused-variable]
+     uip_ipaddr_t ip_addr;
+                  ^
+atcmd.c: In function 'At_TestFlashErase':
+atcmd.c:1116:13: warning: array subscript has type 'char' [-Wchar-subscripts]
+             au32val[loop_i] = toul_val;
+             ^
+atcmd.c:1125:5: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+     if( (au32val[0] & 0xfff != 0x0) || (au32val[1] & 0xfff != 0x0))
+     ^
+atcmd.c:1125:5: warning: suggest parentheses around comparison in operand of '&' [-Wparentheses]
+atcmd.c:1142:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c:1097:15: warning: unused variable 'ip_addr' [-Wunused-variable]
+  uip_ipaddr_t ip_addr;
+               ^
+atcmd.c: In function 'At_TestFlashWrite':
+atcmd.c:1171:13: warning: array subscript has type 'char' [-Wchar-subscripts]
+             au32val[loop_i] = toul_val;
+             ^
+atcmd.c:1197:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c:1152:15: warning: unused variable 'ip_addr' [-Wunused-variable]
+  uip_ipaddr_t ip_addr;
+               ^
+atcmd.c: In function 'At_BenchFlashRead':
+atcmd.c:1236:13: warning: array subscript has type 'char' [-Wchar-subscripts]
+             au32val[loop_i] = toul_val;
+             ^
+atcmd.c:1267:13: warning: passing argument 1 of 'dbg_dump_binary' makes integer from pointer without a cast [enabled by default]
+             dbg_dump_binary(buf_dyn,rsize);
+             ^
+atcmd.c:52:13: note: expected 'U32' but argument is of type 'void *'
+ extern void dbg_dump_binary(U32 dump_addr,S32 length);
+             ^
+atcmd.c:1281:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c:1210:15: warning: unused variable 'ip_addr' [-Wunused-variable]
+  uip_ipaddr_t ip_addr;
+               ^
+atcmd.c: In function 'At_BenchFlashWrite':
+atcmd.c:1372:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c:1294:15: warning: unused variable 'ip_addr' [-Wunused-variable]
+  uip_ipaddr_t ip_addr;
+               ^
+atcmd.c: In function 'At_TestFlashRead':
+atcmd.c:1404:13: warning: array subscript has type 'char' [-Wchar-subscripts]
+             au32val[loop_i] = toul_val;
+             ^
+atcmd.c:1414:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+atcmd.c:1383:15: warning: unused variable 'ip_addr' [-Wunused-variable]
+  uip_ipaddr_t ip_addr;
+               ^
+atcmd.c: In function 'process_thread_tcp_connect_process':
+atcmd.c:1594:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+     printf("socked:%d connected\n", msg.socket);
+     ^
+atcmd.c:1601:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+     printf("socked:%d closed\n", msg.socket);
+     ^
+atcmd.c:1611:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+     printf("socked:%d send data ack\n", msg.socket);
+     ^
+atcmd.c:1625:7: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+       printf("%d:%c%c\n", msg.socket, buffer_in_dynamic[0],buffer_in_dynamic[1]);
+       ^
+atcmd.c:1632:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+      printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, buffer_in_dynamic, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
+      ^
+atcmd.c:1636:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+      printf("Illegal socket:%d\n", msg.socket);
+      ^
+atcmd.c:1645:6: warning: format '%d' expects argument of type 'int', but argument 3 has type 'NETSOCKET' [-Wformat=]
+      printf("new connected to listen port(%d), socket:%d\n", msg.lport, msg.socket);
+      ^
+atcmd.c: In function 'At_Parser':
+atcmd.c:1939:4: warning: missing braces around initializer [-Wmissing-braces]
+    stParam param = {0};
+    ^
+atcmd.c:1939:4: warning: (near initialization for 'param.atCmdBuf') [-Wmissing-braces]
+atcmd.c: At top level:
+atcmd.c:57:26: warning: 'conn' defined but not used [-Wunused-variable]
+ static struct uip_conn * conn;
+                          ^
+atcmd.c: In function 'At_Clean_Lists':
+atcmd.c:1032:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+-----------------make z1 target:objs/ota_api.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c ota_api.c -o objs/ota_api.o
+ota_api.c: In function 'filesave_from_phone':
+ota_api.c:534:80: warning: passing argument 1 of 'cal_ota_checksum' from incompatible pointer type [enabled by default]
+         cal_ota_checksum(ota_conf.comb_buf, ota_conf.comb_indx - sizeof(struct OTA_CHECK));
+                                                                                ^
+ota_api.c:85:6: note: expected 'int *' but argument is of type 'U8 *'
+ void cal_ota_checksum(int *data, int len) 
+      ^
+ota_api.c:546:13: warning: passing argument 1 of 'cal_ota_checksum' from incompatible pointer type [enabled by default]
+             cal_ota_checksum(ota_conf.comb_buf, ota_conf.comb_indx);
+             ^
+ota_api.c:85:6: note: expected 'int *' but argument is of type 'U8 *'
+ void cal_ota_checksum(int *data, int len) 
+      ^
+ota_api.c:519:9: warning: unused variable 'i' [-Wunused-variable]
+     int i = 0;
+         ^
+ota_api.c: In function 'process_thread_tcp_client_otaProcess':
+ota_api.c:713:21: warning: pointer targets in passing argument 1 of 'strcpy' differ in signedness [-Wpointer-sign]
+                     strcpy(ota_conf.comb_buf,"download start");
+                     ^
+In file included from /usr/arm-none-eabi/include/ctype.h:4:0,
+                 from ../icomlib/include/contiki-conf.h:184,
+                 from ../icomlib/include/net/uipopt.h:74,
+                 from ../icomlib/include/net/uip.h:56,
+                 from ota_api.c:1:
+/usr/arm-none-eabi/include/string.h:30:8: note: expected 'char *' but argument is of type 'U8 *'
+ char  *_EXFUN(strcpy,(char *__restrict, const char *__restrict));
+        ^
+ota_api.c:716:25: warning: pointer targets in passing argument 1 of 'strcpy' differ in signedness [-Wpointer-sign]
+                         strcpy(ota_conf.comb_buf,"download end");
+                         ^
+In file included from /usr/arm-none-eabi/include/ctype.h:4:0,
+                 from ../icomlib/include/contiki-conf.h:184,
+                 from ../icomlib/include/net/uipopt.h:74,
+                 from ../icomlib/include/net/uip.h:56,
+                 from ota_api.c:1:
+/usr/arm-none-eabi/include/string.h:30:8: note: expected 'char *' but argument is of type 'U8 *'
+ char  *_EXFUN(strcpy,(char *__restrict, const char *__restrict));
+        ^
+ota_api.c:718:25: warning: pointer targets in passing argument 1 of 'strcpy' differ in signedness [-Wpointer-sign]
+                         strcpy(ota_conf.comb_buf,"download fail");
+                         ^
+In file included from /usr/arm-none-eabi/include/ctype.h:4:0,
+                 from ../icomlib/include/contiki-conf.h:184,
+                 from ../icomlib/include/net/uipopt.h:74,
+                 from ../icomlib/include/net/uip.h:56,
+                 from ota_api.c:1:
+/usr/arm-none-eabi/include/string.h:30:8: note: expected 'char *' but argument is of type 'U8 *'
+ char  *_EXFUN(strcpy,(char *__restrict, const char *__restrict));
+        ^
+ota_api.c:721:17: warning: pointer targets in passing argument 1 of 'strlen' differ in signedness [-Wpointer-sign]
+                 if(tcpsend(msg.socket, ota_conf.comb_buf, strlen(ota_conf.comb_buf)) == -1) {
+                 ^
+In file included from /usr/arm-none-eabi/include/ctype.h:4:0,
+                 from ../icomlib/include/contiki-conf.h:184,
+                 from ../icomlib/include/net/uipopt.h:74,
+                 from ../icomlib/include/net/uip.h:56,
+                 from ota_api.c:1:
+/usr/arm-none-eabi/include/string.h:33:9: note: expected 'const char *' but argument is of type 'U8 *'
+ size_t  _EXFUN(strlen,(const char *));
+         ^
+ota_api.c:721:17: warning: pointer targets in passing argument 2 of 'tcpsend' differ in signedness [-Wpointer-sign]
+                 if(tcpsend(msg.socket, ota_conf.comb_buf, strlen(ota_conf.comb_buf)) == -1) {
+                 ^
+In file included from ota_api.c:2:0:
+../icomlib/include/net/socket_driver.h:90:5: note: expected 'char *' but argument is of type 'U8 *'
+ int tcpsend(NETSOCKET socket, char *data, U16 datalen);
+     ^
+ota_api.c:754:25: warning: pointer targets in passing argument 1 of 'filesave_from_phone' differ in signedness [-Wpointer-sign]
+                         filesave_from_phone(ota_conf.rece_buf, recvlen);
+                         ^
+ota_api.c:517:5: note: expected 'char *' but argument is of type 'U8 *'
+ int filesave_from_phone(char *data, int len)
+     ^
+ota_api.c: In function 'downloadFinish':
+ota_api.c:147:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+-----------------make z1 target:objs/socket_app.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c socket_app.c -o objs/socket_app.o
+socket_app.c: In function 'checkCmdAndSendData':
+socket_app.c:167:9: warning: pointer targets in passing argument 1 of 'get_local_mac' differ in signedness [-Wpointer-sign]
+         get_local_mac(mac,len);
+         ^
+In file included from socket_app.c:13:0:
+../icomlib/include/sys_status_api.h:6:4: note: expected 'U8 *' but argument is of type 'char *'
+ U8 get_local_mac(U8 *mac, U8 len);
+    ^
+socket_app.c:169:9: warning: pointer targets in passing argument 1 of 'get_connectAP_mac' differ in signedness [-Wpointer-sign]
+         get_connectAP_mac(mac,len);
+         ^
+In file included from socket_app.c:13:0:
+../icomlib/include/sys_status_api.h:7:4: note: expected 'U8 *' but argument is of type 'char *'
+ U8 get_connectAP_mac(U8 *mac, U8 len);
+    ^
+-----------------make z1 target:objs/soft_ap_init.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c soft_ap_init.c -o objs/soft_ap_init.o
+-----------------make z1 target:objs/tcp_server_demo.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c tcp_server_demo.c -o objs/tcp_server_demo.o
+tcp_server_demo.c: In function 'SetPWM':
+tcp_server_demo.c:23:9: warning: variable 'nRet' set but not used [-Wunused-but-set-variable]
+     int nRet = ERROR_SUCCESS;
+         ^
+-----------------make z1 target:objs/wifi_uart_demo.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c wifi_uart_demo.c -o objs/wifi_uart_demo.o
+wifi_uart_demo.c: In function 'sampleAppTCPSend':
+wifi_uart_demo.c:25:9: warning: pointer targets in passing argument 2 of 'tcpsend' differ in signedness [-Wpointer-sign]
+         if(tcpsend(app_res.tcpServerSock, buff, len) == -1) {
+         ^
+In file included from wifi_uart_demo.c:6:0:
+../icomlib/include/net/socket_driver.h:90:5: note: expected 'char *' but argument is of type 'unsigned char *'
+ int tcpsend(NETSOCKET socket, char *data, U16 datalen);
+     ^
+wifi_uart_demo.c: In function 'process_thread_tcp_server_wifiUartProcess':
+wifi_uart_demo.c:80:17: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+                 printf("socked:%d closed\n", msg.socket);
+                 ^
+wifi_uart_demo.c:86:17: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+                 printf("socked:%d send data ack\n", msg.socket);
+                 ^
+wifi_uart_demo.c:93:21: warning: pointer targets in passing argument 2 of 'tcprecv' differ in signedness [-Wpointer-sign]
+                     recvlen = tcprecv(msg.socket, app_res.rxBuffer, MAX_BUFFER);
+                     ^
+In file included from wifi_uart_demo.c:6:0:
+../icomlib/include/net/socket_driver.h:102:5: note: expected 'char *' but argument is of type 'U8 *'
+ int tcprecv(NETSOCKET socket, char *data, U16 datalen);
+     ^
+wifi_uart_demo.c:98:21: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+                     printf("Illegal socket:%d\n", msg.socket);
+                     ^
+wifi_uart_demo.c:106:21: warning: format '%d' expects argument of type 'int', but argument 3 has type 'NETSOCKET' [-Wformat=]
+                     printf("new connected to listen port(%d), socket:%d\n", msg.lport, msg.socket);
+                     ^
+echo "ar rcf icomapps.a objs/atcmd.o objs/ota_api.o objs/socket_app.o objs/soft_ap_init.o objs/tcp_server_demo.o objs/wifi_uart_demo.o"
+ar rcf icomapps.a objs/atcmd.o objs/ota_api.o objs/socket_app.o objs/soft_ap_init.o objs/tcp_server_demo.o objs/wifi_uart_demo.o
+ar rcf icomapps.a objs/atcmd.o objs/ota_api.o objs/socket_app.o objs/soft_ap_init.o objs/tcp_server_demo.o objs/wifi_uart_demo.o
+make[2]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
+make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
+make -C contikilib
+make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
+make contikilib.a 
+make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
+-----------------make z1 target:objs/dhcpc.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c dhcpc.c -o objs/dhcpc.o
+-----------------make z1 target:objs/dhcp_process.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c dhcp_process.c -o objs/dhcp_process.o
+-----------------make z1 target:objs/dhcps.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c dhcps.c -o objs/dhcps.o
+dhcps.c: In function 'get_leased_mac':
+dhcps.c:157:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:  
+ ^
+dhcps.c: In function 'lookup_lease_ip':
+dhcps.c:282:1: warning: label 'exit' defined but not used [-Wunused-label]
+ exit:
+ ^
+dhcps.c: In function 'dhcp_dump_info':
+dhcps.c:318:117: warning: format '%x' expects argument of type 'unsigned int', but argument 14 has type 'struct dhcps_client_lease *' [-Wformat=]
+                                                                                                                     ,p_ip[0],p_ip[1],p_ip[2],p_ip[3],lease->flags,lease);
+                                                                                                                     ^
+dhcps.c: In function 'release_address_by_mac':
+dhcps.c:508:5: warning: format '%x' expects argument of type 'unsigned int', but argument 8 has type 'struct dhcps_client_lease *' [-Wformat=]
+     printf("release_address_by_mac  mac=%x:%x:%x:%x:%x:%x lease=0x%x\n",p_mac[0],p_mac[1],p_mac[2],p_mac[3],p_mac[4],p_mac[5],lease);
+     ^
+-----------------make z1 target:objs/resolv.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c resolv.c -o objs/resolv.o
+resolv.c: In function 'newdata':
+resolv.c:1041:5: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+     uip_ipaddr_copy(&namemapptr->ipaddr, (uip_ipaddr_t *) ans->ipaddr);
+     ^
+-----------------make z1 target:objs/simple-udp.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c simple-udp.c -o objs/simple-udp.o
+-----------------make z1 target:objs/socket_driver.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c socket_driver.c -o objs/socket_driver.o
+-----------------make z1 target:objs/tcpip.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c tcpip.c -o objs/tcpip.o
+-----------------make z1 target:objs/uip_arp.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c uip_arp.c -o objs/uip_arp.o
+uip_arp.c: In function 'check_ip_in_arptable':
+uip_arp.c:496:9: warning: array subscript has type 'char' [-Wchar-subscripts]
+             status =  0;
+         ^
+-----------------make z1 target:objs/uip.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c uip.c -o objs/uip.o
+-----------------make z1 target:objs/uiplib.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c uiplib.c -o objs/uiplib.o
+-----------------make z1 target:objs/uip-udp-packet.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c uip-udp-packet.c -o objs/uip-udp-packet.o
+-----------------make z1 target:objs/ntp_client.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c ntp_client.c -o objs/ntp_client.o
+In file included from ntp_client.c:8:0:
+../icomlib/include/net/ntp_client.h:16:92: warning: backslash and newline separated by space [enabled by default]
+                                       ((data & 0x0000ff00) << 8) | /* left shift 1 byte */ \    
+ ^
+ntp_client.c: In function 'process_thread_ntp_connectPprocess':
+ntp_client.c:64:21: warning: pointer targets in passing argument 2 of 'udprecvfrom' differ in signedness [-Wpointer-sign]
+                     recvlen = udprecvfrom(msg.socket, ntp.buf, MAX_BUFFER, &peeraddr, &peerport);
+                     ^
+In file included from ntp_client.c:5:0:
+../icomlib/include/net/socket_driver.h:153:5: note: expected 'char *' but argument is of type 'U8 *'
+ int udprecvfrom(NETSOCKET socket, char *data, U16 datalen, uip_ipaddr_t *peeraddr, U16 *peerport);
+     ^
+ntp_client.c:47:9: warning: variable 'recvlen' set but not used [-Wunused-but-set-variable]
+     int recvlen;
+         ^
+echo "ar rcf contikilib.a objs/dhcpc.o objs/dhcp_process.o objs/dhcps.o objs/resolv.o objs/simple-udp.o objs/socket_driver.o objs/tcpip.o objs/uip_arp.o objs/uip.o objs/uiplib.o objs/uip-udp-packet.o objs/ntp_client.o"
+ar rcf contikilib.a objs/dhcpc.o objs/dhcp_process.o objs/dhcps.o objs/resolv.o objs/simple-udp.o objs/socket_driver.o objs/tcpip.o objs/uip_arp.o objs/uip.o objs/uiplib.o objs/uip-udp-packet.o objs/ntp_client.o
+ar rcf contikilib.a objs/dhcpc.o objs/dhcp_process.o objs/dhcps.o objs/resolv.o objs/simple-udp.o objs/socket_driver.o objs/tcpip.o objs/uip_arp.o objs/uip.o objs/uiplib.o objs/uip-udp-packet.o objs/ntp_client.o
+make[2]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
+make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
+make ssv6060-main.bin
+make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889'
+-----------------make z0 target:ssv6060-main.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DAUTOSTART_ENABLE ssv6060-main.c -c
+ssv6060-main.c: In function 'AT_WIFIUART_DEMO':
+ssv6060-main.c:124:6: warning: unused variable 'i' [-Wunused-variable]
+  int i = 0;
+      ^
+ssv6060-main.c: In function 'AT_TCPSERVER_DEMO':
+ssv6060-main.c:137:6: warning: unused variable 'i' [-Wunused-variable]
+  int i = 0;
+      ^
+# WARNING: if you need math.h. You need to add -lm into this linking stage.Please reference where -lm being added 
+#arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -flto -Wl,-Tcabrio.lds  -flto -Xlinker -M -Xlinker -Map=contiki-cabrio.map -nostartfiles boot.s -Wall -Wno-trigraphs -fno-builtin -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DAUTOSTART_ENABLE ssv6060-main.o icomlib/icomlib.a icomapps/icomapps.a contikilib/contikilib.a -lc icomlib/icomlib.a icomapps/icomapps.a contikilib/contikilib.a -lm -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss
+/bin/cp icomlib/icomlib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
+/bin/cp icomapps/icomapps.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
+/bin/cp contikilib/contikilib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
+arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -flto -Wl,-Tcabrio.lds  -flto -Xlinker -M -Xlinker -Map=contiki-cabrio.map -nostartfiles boot.s -Wall -Wno-trigraphs -fno-builtin -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DAUTOSTART_ENABLE ssv6060-main.o icomlib.a icomapps.a icomlib.a contikilib.a -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss 
+-----------------make 3 target:ssv6060-main.bin 1st-dep:ssv6060-main.elf -----------------
+arm-none-eabi-objcopy -O binary ssv6060-main.elf ssv6060-main.bin
+-e 
+-----Check bin file size:(ssv6060-main.bin)----->>>
+test `stat -c %s ssv6060-main.bin` -lt 384000	###acceptable if < 384KB### 
+-----Done:bin file size:ok-----<<<
+-----Generate bin for uart-upgrade-----
+dd skip=16384 if=ssv6060-main.bin of=ssv6060-main_os.bin bs=1
+216340+0 records in
+216340+0 records out
+216340 bytes (216 kB) copied, 0.381465 s, 567 kB/s
+dd skip=0 count=8192 if=ssv6060-main.bin of=boot_tmp.bin bs=1
+8192+0 records in
+8192+0 records out
+8192 bytes (8.2 kB) copied, 0.0171159 s, 479 kB/s
+cat boot_tmp.bin ssv6060_mac.hex ssv6060-main_os.bin > ssv6060-main.bin
+<----------------------check sram usage---------------------->(read dump.log by ./util/rpt_sram_usage.pl)
+Idx Name          Size      VMA       LMA
+  2 prog_in_sram  0000e728  02000000  03029994  00040000  2**2
+  3 .ARM          00000008  0200e728  030380bc  0004e728  2**2
+  4 .data         00000c4c  0200e730  030380c8  0004e730  2**3
+  5 .bss          00007ba0  0200f380  03038d18  0004f37c  2**4
+  6 boot_in_sram  00000cc0  02029000  030001e0  00009000  2**2
+  7 .boot_data    00000010  0202c000  03000ea0  0000c000  2**2
+  8 .boot_bss     000013f4  0202c010  03000eb0  0000c010  2**2
+
+-------------------------SRAM report-------------------------
+sram total  ----------->   192 KB
+sram in use ----------->    99 KB
+sram free   ----------->    88 KB
+
+
+-rwxrwxrwx 1 root root  232724 Feb 27 10:36 ssv6060-main.bin
+-rwxrwxrwx 1 root root 1121862 Feb 27 10:36 ssv6060-main.elf
+make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889'
+make[3]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/util'
+echo CFLAGS = -I../core/sys/ -I../platform/cabrio-e -I../core/net -I../core -I../include -I../cpu/cabrio-e
+CFLAGS = -I../core/sys/ -I../platform/cabrio-e -I../core/net -I../core -I../include -I../cpu/cabrio-e
+
+<FLASH layout>
+CFG_OTA_ENABLE = 1
+TOTAL FLASH SIZE = 2048 KB
+----------------------------------------
+|                                      |
+|       BOOT_SECTOR ADDR = 0x3000000   | 
+|       SIZE = 8(KB)                   | 
+----------------------------------------
+|                                      |
+|       MP ADDR = 0x3002000            | 
+|       SIZE = 4(KB)                   | 
+----------------------------------------
+|                                      |
+|       CONFIG ADDR = 0x3003000        | 
+|       SIZE = 4(KB)                   | 
+----------------------------------------
+|                                      |
+|       IMAGE0 ADDR = 0x3004000        | 
+|       SIZE = 240(KB)                 | 
+----------------------------------------
+|                                      |
+|       IMAGE1 ADDR = 0x3040000        | 
+|       SIZE = 240(KB)                 | 
+----------------------------------------
+|                                      |
+|       CUSTOMER ADDR = 0x307c000      | 
+|       SIZE = 4(KB)                   | 
+----------------------------------------
+|                                      |
+|       FILE_SYSTEM ADDR = 0x307d000   | 
+|       SIZE = 1548(KB)                | 
+----------------------------------------
+
+<SRAM layout>
+TOTAL_SRAM_SIZE = 192 KB
+----------------------------------------
+|                                      |
+|       BOOT SECTOR ADDR = 0x2000000   | 
+|       SIZE = 4(KB)                   | 
+----------------------------------------
+|                                      |
+|       OS ADDR = 0x2001000            | 
+|       SIZE = 181(KB)                 | 
+----------------------------------------
+|                                      |
+|       NORMAL STACK ADDR = 0x202e780  | 
+|       SIZE = 4(KB)                   | 
+----------------------------------------
+|                                      |
+|       IRQ STACK ADDR = 0x202f780     | 
+|       SIZE = 1(KB)                   | 
+----------------------------------------
+make[3]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/util'
+make[2]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889'
+#############################################################
+### You can use 'make asm' to generate dis-assembly file!!###
+#############################################################
+make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889'

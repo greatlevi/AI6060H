@@ -1,0 +1,19 @@
+#match svn v851
+#release for HF
+
+make version
+chmod +x util/*.pl
+chmod +x util/*.exe
+util/gen_mac_bin.exe 00-23-45-67-89-99
+
+cp -f Makefile.hf Makefile.mk
+grep -v '/bin/rm' icomlib/Makefile > icomlib/Makefile.tmp
+mv icomlib/Makefile.tmp icomlib/Makefile
+
+make
+
+if [ -f "ssv6060-main.bin" ]; then
+	rm -rf icomlib/wifi
+fi
+
+

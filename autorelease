@@ -1,0 +1,24 @@
+#match svn v851
+#release for general customer
+
+make version
+chmod +x util/*.pl
+chmod +x util/*.exe
+util/gen_mac_bin.exe 00-23-45-67-89-99
+
+cp -f Makefile.gen Makefile.mk
+grep -v '/bin/rm' icomlib/Makefile > icomlib/Makefile.tmp
+mv icomlib/Makefile.tmp icomlib/Makefile
+
+make
+
+if [ -f "ssv6060-main.bin" ]; then
+	rm -rf icomlib/wifi
+	rm -rf icomlib/encrypt_sw
+	rm -rf icomlib/misc
+	rm -rf icomlib/matrixssl
+	rm -rf icomlib/os
+	rm -rf icomlib/platform
+fi
+
+

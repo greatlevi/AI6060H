@@ -219,12 +219,11 @@ void Ac_Dns(char *buf)
 	bss_nslookup(buf);
 }
 
-void Test_Connect_GateWay(uip_ipaddr_t *ripaddr, uint16_t rport)
+void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("create socket:%d\n", gTcpSocket);
 }
-
 
 PROCESS_THREAD(ac_nslookup_process, ev, data)
 {
@@ -234,7 +233,6 @@ PROCESS_THREAD(ac_nslookup_process, ev, data)
 	PROCESS_BEGIN();
 	PROCESS_WAIT_EVENT_UNTIL(ev == resolv_event_found);
 	{
-        uip_ip4addr_t	remote_ip_addr;
 		uip_ipaddr_t addr;
 		uip_ipaddr_t *addrptr;
 		addrptr = &addr;
@@ -244,30 +242,10 @@ PROCESS_THREAD(ac_nslookup_process, ev, data)
 		{
 			resolv_lookup(pHostName, &addrptr);
 			uip_ipaddr_copy(&addr, addrptr);
-			printf("AT+NSLOOKUP=%d.%d.%d.%d\n", addr.u8[0] , addr.u8[1] , addr.u8[2] , addr.u8[3] );
+			printf("AT+NSLOOKUP=%d.%d.%d.%d\n", addr.u8[0], addr.u8[1], addr.u8[2], addr.u8[3]);
 
-            gTcpSocket = tcpconnect( &addr, 9100, &ac_tcp_connect_process);
+            gTcpSocket = tcpconnect( &addr, ZC_CLOUD_PORT, &ac_tcp_connect_process);
             printf("create socket:%d\n", gTcpSocket);
-#if 0
-    		//wait for TCP connected or uip_timeout.
-    		PROCESS_WAIT_EVENT_UNTIL(ev == PROCESS_EVENT_MSG || ev == PROCESS_EVENT_TIMER);
-    		if(ev == PROCESS_EVENT_MSG)
-    		{
-    			msg = *(SOCKETMSG *)data;
-    			if(msg.status != SOCKET_CONNECTED)
-    			{
-    				printf("TCP connect fail1! Post message type:%d\n", msg.status);
-    			}
-                else if (msg.status == SOCKET_CONNECTED)
-                {
-                    printf("Connect ok\n");
-                }
-    		}
-    		else
-    		{
-    			printf("TCP connect fail2!\n");
-    		}
-#endif
 		}
 	}
 	PROCESS_END();
@@ -313,6 +291,10 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
                 {
                     tcpclose(gTcpSocket);
 					gTcpSocket = -1;  
+                }
+                else
+                {
+                    tcpclose(msg.socket);
                 }
 			}
 			//Get ack, the data trasmission is done. We can send data after now.

@@ -1131,11 +1131,16 @@ void PCT_WakeUp()
         g_struProtocolController.pstruMoudleFun->pfunSetTimer(PCT_TIMER_REGISTER, 
             PCT_TIMER_INTERVAL_REGISTER, &g_struProtocolController.u8RegisterTimer);
     #endif
+        ZC_Printf("PCT_WakeUp\n");
         /*Intial Bc send Num*/
         g_struProtocolController.u16SendBcNum = 0;
         PCT_SendNotifyMsg(ZC_CODE_WIFI_CONNECTED);
         ZC_ClientWakeUp();
         g_struProtocolController.u8MainState = PCT_STATE_ACCESS_NET;
+    }
+    else
+    {
+        ZC_Printf("PCT_WakeUp: state is %d\n", g_struProtocolController.u8MainState);
     }
     
 }

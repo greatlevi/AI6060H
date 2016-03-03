@@ -264,7 +264,7 @@ void HF_Reboot(void)
 * History:
 *************************************************/
 extern void Ac_Dns(char *buf);
-extern void Test_Connect_GateWay(uip_ipaddr_t *ripaddr, unsigned short rport);
+extern void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, unsigned short rport);
 
 u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
 {
@@ -280,7 +280,7 @@ u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
         u16Port = g_struZcConfigDb.struSwitchInfo.u16ServerPort;
         u8 *ipaddr =(u8 *) &(g_struZcConfigDb.struSwitchInfo.u32ServerIp);
         uip_ipaddr(&ip,ipaddr[3],ipaddr[2],ipaddr[1],ipaddr[0]);
-        Test_Connect_GateWay(&ip, u16Port);
+        Ac_ConnectGateway(&ip, u16Port);
     }
     else
     { 
@@ -564,7 +564,7 @@ void HF_WakeUp(void)
 * Parameter: 
 * History:
 *************************************************/
-void HF_Sleep()
+void HF_Sleep(void)
 {
 #if 0
     u32 u32Index;
@@ -592,6 +592,14 @@ void HF_Sleep()
         }
     }
 #endif
+
+    ZC_Printf("HF_Sleep\n");
+
+    if (PCT_INVAILD_SOCKET != g_struProtocolController.struCloudConnection.u32Socket)
+    {
+        tcpclose(g_struProtocolController.struCloudConnection.u32Socket);
+        g_struProtocolController.struCloudConnection.u32Socket = PCT_INVAILD_SOCKET;
+    }    
     PCT_Sleep();
     
     g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;

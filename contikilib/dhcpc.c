@@ -347,6 +347,7 @@ msg_for_me(void)
   return -1;
 }
 /*---------------------------------------------------------------------------*/
+extern void HF_Sleep(void);
 static
 PT_THREAD(handle_dhcp(process_event_t ev, void *data))
 {
@@ -495,7 +496,11 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
   uip_udp_remove(s.conn);
   dhcpState = NOBEGIN;
   printf ("[handle_dhcp] ---\n");
+  /* hexin add */
+  HF_Sleep();
   PT_END(&s.pt);
+
+
 }
 /*---------------------------------------------------------------------------*/
 void

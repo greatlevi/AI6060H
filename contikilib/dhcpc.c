@@ -114,7 +114,6 @@ getDhcpState()
     return dhcpState;
 }
 /*---------------------------------------------------------------------------*/
-//extern void Test_Connect(void);
 extern void HF_WakeUp(void);
 
 void
@@ -145,7 +144,6 @@ dhcpc_configured(const struct dhcpc_state *s)
 #endif
 
     HF_WakeUp();
-    //Test_Connect();
 }
 void
 dhcpc_unconfigured(const struct dhcpc_state *s)

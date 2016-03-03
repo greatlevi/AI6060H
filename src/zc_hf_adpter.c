@@ -52,18 +52,8 @@ u8  g_u8BcSendBuffer[100];
 u32 g_u32BcSleepCount = 800;
 //struct sockaddr_in struRemoteAddr;
 
-u16 g_u16TiTimerCount[ZC_TIMER_MAX_NUM];
-//flash_t cloud_flash;
-
-u32 newImg2Addr = 0xFFFFFFFF;
-u32 oldImg2Addr = 0xFFFFFFFF;
-
 extern u8  g_u8ModuleKey[ZC_MODULE_KEY_LEN];
-//extern uart_socket_t *g_uart_socket;
 
-//u32 g_u32SmartConfigFlag = 0;
-
-//extern int write_ota_addr_to_system_data(flash_t *flash, u32 ota_addr);
 /*************************************************
 * Function: HF_ReadDataFormFlash
 * Description: 
@@ -125,7 +115,7 @@ void HF_TimerExpired(void)
 *************************************************/
 void HF_StopTimer(u8 u8TimerIndex)
 {
-    //g_struHfTimer[u8TimerIndex].u8ValidFlag = 0;
+    
 }
 
 /*************************************************
@@ -145,12 +135,11 @@ u32 HF_SetTimer(u8 u8Type, u32 u32Interval, u8 *pu8TimeIndex)
     {
         TIMER_AllocateTimer(u8Type, u8TimerIndex, (u8*)&g_struHfTimer[u8TimerIndex]);
         etimer_set(&g_struHfTimer[u8TimerIndex], u32Interval / 1000 * CLOCK_SECOND);
-        //timer_set(&g_struHfTimer[u8TimerIndex], u32Interval);
         *pu8TimeIndex = u8TimerIndex;
     }
     else
     {
-        ZC_Printf("MT_SetTimer: no idle timer\n");
+        ZC_Printf("HF_SetTimer: no idle timer\n");
     }
     return u32Retval;
 }
@@ -164,7 +153,7 @@ u32 HF_SetTimer(u8 u8Type, u32 u32Interval, u8 *pu8TimeIndex)
 *************************************************/
 u32 HF_FirmwareUpdateFinish(u32 u32TotalLen)
 {
-    return 0;
+    return ZC_RET_OK;
 }
 /*************************************************
 * Function: HF_FirmwareUpdate
@@ -213,7 +202,6 @@ void HF_Rest(void)
 *************************************************/
 void HF_SendTcpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruParam)
 {
-    //send(u32Fd, pu8Data, u16DataLen, 0);
     tcpsend(u32Fd, pu8Data, u16DataLen);
 }
 /*************************************************
@@ -248,17 +236,6 @@ void HF_SendUdpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruP
 *************************************************/
 void HF_GetMac(u8 *pu8Mac)
 {
-#if 0
-    u8 mac[32] = {0};
-    u8 macTmp[12] = {0};
-	wifi_get_mac_address((char*)mac);
-    sscanf(mac,
-            "%2x:%2x:%2x:%2x:%2x:%2x",
-            macTmp,macTmp+1,macTmp+2,macTmp+3,macTmp+4,macTmp+5);
-    
-    ZC_HexToString(mac, macTmp, ZC_SERVER_MAC_LEN / 2);
-    memcpy(pu8Mac, mac, ZC_SERVER_MAC_LEN);
-#endif
     u8 macTmp[6] = {0};
     u8 mac[12] = {0};
     get_local_mac(macTmp, 6);
@@ -286,7 +263,7 @@ void HF_Reboot(void)
 * Parameter: 
 * History:
 *************************************************/
-extern void Test_Connect(void);
+extern void Ac_Dns(char *buf);
 extern void Test_Connect_GateWay(uip_ipaddr_t *ripaddr, unsigned short rport);
 
 u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
@@ -308,7 +285,7 @@ u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
     else
     { 
        //u16Port = pstruConnection->u16Port;
-       Test_Connect();
+       Ac_Dns(g_struZcConfigDb.struCloudInfo.u8CloudAddr);
 #if 0
        ipaddr =  resolv_lookup(g_struZcConfigDb.struCloudInfo.u8CloudAddr);
        if(NULL == ipaddr)

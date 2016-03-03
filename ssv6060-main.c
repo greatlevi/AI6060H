@@ -212,9 +212,9 @@ PROCESS_THREAD(main_process, ev, data)
     PROCESS_END();
 }
 
-void Test_Connect(void)
+void Ac_Dns(char *buf)
 {
-    char *buf = "test.ablecloud.cn";
+    //char *buf = "test.ablecloud.cn";
 	process_start(&ac_nslookup_process, NULL);
 	bss_nslookup(buf);
 }

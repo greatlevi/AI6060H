@@ -6,7 +6,7 @@ icomlib.a(process.o)          icomlib.a(etimer.o) (process_post)
 icomlib.a(strformat.o)        icomlib.a(printf.o) (format_str_v)
 icomlib.a(timer.o)            icomlib.a(etimer.o) (timer_set)
 icomlib.a(atcmd_icomm.o)      ssv6060-main.o (At_Disconnect)
-icomlib.a(boot-hiflying.o)    /tmp/ccmDjWLP.o (boot_main)
+icomlib.a(boot-hiflying.o)    /tmp/ccwVHTJo.o (boot_main)
 icomlib.a(clock.o)            icomlib.a(etimer.o) (clock_time)
 icomlib.a(contiki-main.o)     icomlib.a(boot-hiflying.o) (main)
 icomlib.a(debug-uart.o)       icomlib.a(printf.o) (dbg_send_bytes)
@@ -236,7 +236,6 @@ tcpip_event         0x1               contikilib.a(tcpip.o)
 g_struRecvQueue     0x28              accloud.a(zc_hf_adpter.o)
 O_W                 0x1600            accloud.a(bignum.o)
 os_dbeg_dst         0x4               icomlib.a(boot-hiflying.o)
-g_u16TiTimerCount   0x14              accloud.a(zc_hf_adpter.o)
 uip_conns           0x258             contikilib.a(uip.o)
 i_cabrio_flash_cmd  0xe               icomlib.a(drv_flash.o)
 boot_au32spi_cmd    0x104             icomlib.a(boot-hiflying.o)
@@ -317,9 +316,9 @@ Linker script and memory map
 
 startup         0x03000000      0x1e0
  *(.startup1)
- .startup1      0x03000000       0x50 /tmp/ccmDjWLP.o
+ .startup1      0x03000000       0x50 /tmp/ccwVHTJo.o
  *(.startup2)
- .startup2      0x03000050      0x184 /tmp/ccmDjWLP.o
+ .startup2      0x03000050      0x184 /tmp/ccwVHTJo.o
                 0x03000194                endless_loop
                 0x030001e0                . = ALIGN (0x10)
  *fill*         0x030001d4        0xc 
@@ -328,16 +327,16 @@ startup         0x03000000      0x1e0
                 0x03004000                . = (ORIGIN (flash) + _boot_size)
                 0x03004000                _sitxt2 = .
 
-prog_in_flash   0x03004000    0x32394
+prog_in_flash   0x03004000    0x323a4
  *(.vars_second_boot)
  .vars_second_boot
-                0x03004000       0x48 /tmp/ccmDjWLP.o
+                0x03004000       0x48 /tmp/ccwVHTJo.o
  icomlib.a:contiki-main.o(.text.startup.main)
  .text.startup.main
                 0x03004048      0x104 icomlib.a(contiki-main.o)
                 0x03004048                main
  *(EXCLUDE_FILE(icomlib.a:ssv_lib.o icomlib.a:sha256.o icomlib.a:sha384.o icomlib.a:sha512.o icomlib.a:x905.o icomlib.a:asn1.o icomlib.a:pstmsqrcomba.o icomlib.a:pstmmulcomba.o icomlib.a:pstmmonreduce.o icomlib.a:pstm.o contikilib.a:socket_driver.o icomlib.a:powersave.o icomlib.a:hw_regs_api.o icomlib.a:flash_api.o icomlib.a:drv_flash.o icomlib.a:xmem.o icomlib.a:soft_ap.o icomlib.a:debug-uart.o icomlib.a:dbg-puts.o icomlib.a:strformat.o icomlib.a:dbg-printf.o icomlib.a:rate_control.o icomlib.a:throughput.o icomlib.a:ssv6200_tx.o icomlib.a:ssv6200_rx.o icomlib.a:ssvradio.o icomlib.a:drv_pktbuf.o icomlib.a:packetbuf.o icomlib.a:ieee80211_rdc.o icomlib.a:ieee80211_net.o contikilib.a:tcpip.o icomlib.a:etimer.o icomlib.a:clock.o icomlib.a:timer.o contikilib.a:uip.o icomlib.a:AES_decrypt.o icomlib.a:boot-hiflying.o) .text*)
- .text          0x0300414c        0x0 /tmp/ccmDjWLP.o
+ .text          0x0300414c        0x0 /tmp/ccwVHTJo.o
  .text          0x0300414c        0x0 ssv6060-main.o
  .text.AT_Customer
                 0x0300414c       0x18 ssv6060-main.o
@@ -368,9 +367,8 @@ prog_in_flash   0x03004000    0x32394
                 0x03004670       0xa0 ssv6060-main.o
  .text.SetLED   0x03004710       0x50 ssv6060-main.o
                 0x03004710                SetLED
- .text.Test_Connect
-                0x03004760       0x24 ssv6060-main.o
-                0x03004760                Test_Connect
+ .text.Ac_Dns   0x03004760       0x24 ssv6060-main.o
+                0x03004760                Ac_Dns
  .text.Test_Connect_GateWay
                 0x03004784       0x30 ssv6060-main.o
                 0x03004784                Test_Connect_GateWay
@@ -2296,749 +2294,749 @@ prog_in_flash   0x03004000    0x32394
                 0x03020160      0x13c contikilib.a(dhcpc.o)
                 0x03020160                dhcpc_configured
  .text.handle_dhcp.isra.0
-                0x0302029c      0x754 contikilib.a(dhcpc.o)
+                0x0302029c      0x760 contikilib.a(dhcpc.o)
  .text.dhcpc_unconfigured
-                0x030209f0        0xc contikilib.a(dhcpc.o)
-                0x030209f0                dhcpc_unconfigured
+                0x030209fc        0xc contikilib.a(dhcpc.o)
+                0x030209fc                dhcpc_unconfigured
  .text.dhcpc_init
-                0x030209fc       0x84 contikilib.a(dhcpc.o)
-                0x030209fc                dhcpc_init
+                0x03020a08       0x84 contikilib.a(dhcpc.o)
+                0x03020a08                dhcpc_init
  .text.dhcpc_appcall
-                0x03020a80        0x4 contikilib.a(dhcpc.o)
-                0x03020a80                dhcpc_appcall
+                0x03020a8c        0x4 contikilib.a(dhcpc.o)
+                0x03020a8c                dhcpc_appcall
  .text.dhcpc_request
-                0x03020a84       0x40 contikilib.a(dhcpc.o)
-                0x03020a84                dhcpc_request
- .text          0x03020ac4        0x0 accloud.a(zc_common.o)
+                0x03020a90       0x40 contikilib.a(dhcpc.o)
+                0x03020a90                dhcpc_request
+ .text          0x03020ad0        0x0 accloud.a(zc_common.o)
  .text.ZC_TraceData
-                0x03020ac4       0xe8 accloud.a(zc_common.o)
-                0x03020ac4                ZC_TraceData
- .text.ZC_Rand  0x03020bac       0x7c accloud.a(zc_common.o)
-                0x03020bac                ZC_Rand
+                0x03020ad0       0xe8 accloud.a(zc_common.o)
+                0x03020ad0                ZC_TraceData
+ .text.ZC_Rand  0x03020bb8       0x7c accloud.a(zc_common.o)
+                0x03020bb8                ZC_Rand
  .text.ZC_HexToString
-                0x03020c28       0x68 accloud.a(zc_common.o)
-                0x03020c28                ZC_HexToString
- .text          0x03020c90        0x0 accloud.a(zc_configuratio)
+                0x03020c34       0x68 accloud.a(zc_common.o)
+                0x03020c34                ZC_HexToString
+ .text          0x03020c9c        0x0 accloud.a(zc_configuratio)
  .text.ZC_ConfigInitDefault
-                0x03020c90       0x84 accloud.a(zc_configuratio)
-                0x03020c90                ZC_ConfigInitDefault
+                0x03020c9c       0x84 accloud.a(zc_configuratio)
+                0x03020c9c                ZC_ConfigInitDefault
  .text.ZC_ConfigInitPara
-                0x03020d14       0x6c accloud.a(zc_configuratio)
-                0x03020d14                ZC_ConfigInitPara
+                0x03020d20       0x6c accloud.a(zc_configuratio)
+                0x03020d20                ZC_ConfigInitPara
  .text.ZC_ConfigPara
-                0x03020d80      0x130 accloud.a(zc_configuratio)
-                0x03020d80                ZC_ConfigPara
+                0x03020d8c      0x130 accloud.a(zc_configuratio)
+                0x03020d8c                ZC_ConfigPara
  .text.ZC_StoreRegisterInfo
-                0x03020eb0       0xa4 accloud.a(zc_configuratio)
-                0x03020eb0                ZC_StoreRegisterInfo
+                0x03020ebc       0xa4 accloud.a(zc_configuratio)
+                0x03020ebc                ZC_StoreRegisterInfo
  .text.ZC_StoreTokenKey
-                0x03020f54       0x58 accloud.a(zc_configuratio)
-                0x03020f54                ZC_StoreTokenKey
+                0x03020f60       0x58 accloud.a(zc_configuratio)
+                0x03020f60                ZC_StoreTokenKey
  .text.ZC_StoreConnectionInfo
-                0x03020fac       0x70 accloud.a(zc_configuratio)
-                0x03020fac                ZC_StoreConnectionInfo
+                0x03020fb8       0x70 accloud.a(zc_configuratio)
+                0x03020fb8                ZC_StoreConnectionInfo
  .text.ZC_StoreAccessInfo
-                0x0302101c       0x78 accloud.a(zc_configuratio)
-                0x0302101c                ZC_StoreAccessInfo
+                0x03021028       0x78 accloud.a(zc_configuratio)
+                0x03021028                ZC_StoreAccessInfo
  .text.ZC_GetStoreInfor
-                0x03021094       0x60 accloud.a(zc_configuratio)
-                0x03021094                ZC_GetStoreInfor
+                0x030210a0       0x60 accloud.a(zc_configuratio)
+                0x030210a0                ZC_GetStoreInfor
  .text.ZC_ConfigUnBind
-                0x030210f4       0x40 accloud.a(zc_configuratio)
-                0x030210f4                ZC_ConfigUnBind
+                0x03021100       0x40 accloud.a(zc_configuratio)
+                0x03021100                ZC_ConfigUnBind
  .text.ZC_ConfigReset
-                0x03021134       0x6c accloud.a(zc_configuratio)
-                0x03021134                ZC_ConfigReset
- .text          0x030211a0        0x0 accloud.a(zc_message_queu)
+                0x03021140       0x6c accloud.a(zc_configuratio)
+                0x03021140                ZC_ConfigReset
+ .text          0x030211ac        0x0 accloud.a(zc_message_queu)
  .text.MSG_InitQueue
-                0x030211a0       0x40 accloud.a(zc_message_queu)
-                0x030211a0                MSG_InitQueue
+                0x030211ac       0x40 accloud.a(zc_message_queu)
+                0x030211ac                MSG_InitQueue
  .text.MSG_Init
-                0x030211e0       0x64 accloud.a(zc_message_queu)
-                0x030211e0                MSG_Init
+                0x030211ec       0x64 accloud.a(zc_message_queu)
+                0x030211ec                MSG_Init
  .text.MSG_PushMsg
-                0x03021244       0x24 accloud.a(zc_message_queu)
-                0x03021244                MSG_PushMsg
+                0x03021250       0x24 accloud.a(zc_message_queu)
+                0x03021250                MSG_PushMsg
  .text.MSG_PopMsg
-                0x03021268       0x2c accloud.a(zc_message_queu)
-                0x03021268                MSG_PopMsg
+                0x03021274       0x2c accloud.a(zc_message_queu)
+                0x03021274                MSG_PopMsg
  .text.MSG_RecvData
-                0x03021294      0x1b8 accloud.a(zc_message_queu)
-                0x03021294                MSG_RecvData
+                0x030212a0      0x1b8 accloud.a(zc_message_queu)
+                0x030212a0                MSG_RecvData
  .text.MSG_RecvDataFromCloud
-                0x0302144c       0x94 accloud.a(zc_message_queu)
-                0x0302144c                MSG_RecvDataFromCloud
+                0x03021458       0x94 accloud.a(zc_message_queu)
+                0x03021458                MSG_RecvDataFromCloud
  .text.MSG_SendDataToCloud
-                0x030214e0       0x80 accloud.a(zc_message_queu)
-                0x030214e0                MSG_SendDataToCloud
- .text          0x03021560        0x0 accloud.a(zc_protocol_con)
+                0x030214ec       0x80 accloud.a(zc_message_queu)
+                0x030214ec                MSG_SendDataToCloud
+ .text          0x0302156c        0x0 accloud.a(zc_protocol_con)
  .text.PCT_CheckCrc
-                0x03021560       0x60 accloud.a(zc_protocol_con)
-                0x03021560                PCT_CheckCrc
+                0x0302156c       0x60 accloud.a(zc_protocol_con)
+                0x0302156c                PCT_CheckCrc
  .text.PCT_SendNotifyMsg
-                0x030215c0       0x50 accloud.a(zc_protocol_con)
-                0x030215c0                PCT_SendNotifyMsg
+                0x030215cc       0x50 accloud.a(zc_protocol_con)
+                0x030215cc                PCT_SendNotifyMsg
  .text.PCT_Init
-                0x03021610       0x8c accloud.a(zc_protocol_con)
-                0x03021610                PCT_Init
+                0x0302161c       0x8c accloud.a(zc_protocol_con)
+                0x0302161c                PCT_Init
  .text.PCT_DisConnectCloud
-                0x0302169c       0x24 accloud.a(zc_protocol_con)
-                0x0302169c                PCT_DisConnectCloud
+                0x030216a8       0x24 accloud.a(zc_protocol_con)
+                0x030216a8                PCT_DisConnectCloud
  .text.PCT_ConnectCloud
-                0x030216c0       0x38 accloud.a(zc_protocol_con)
-                0x030216c0                PCT_ConnectCloud
+                0x030216cc       0x38 accloud.a(zc_protocol_con)
+                0x030216cc                PCT_ConnectCloud
  .text.PCT_ReconnectCloud
-                0x030216f8       0xb0 accloud.a(zc_protocol_con)
-                0x030216f8                PCT_ReconnectCloud
+                0x03021704       0xb0 accloud.a(zc_protocol_con)
+                0x03021704                PCT_ReconnectCloud
  .text.PCT_RecvAccessMsg4
-                0x030217a8      0x10c accloud.a(zc_protocol_con)
-                0x030217a8                PCT_RecvAccessMsg4
+                0x030217b4      0x10c accloud.a(zc_protocol_con)
+                0x030217b4                PCT_RecvAccessMsg4
  .text.PCT_HandleUnbindMsg
-                0x030218b4       0x9c accloud.a(zc_protocol_con)
-                0x030218b4                PCT_HandleUnbindMsg
+                0x030218c0       0x9c accloud.a(zc_protocol_con)
+                0x030218c0                PCT_HandleUnbindMsg
  .text.PCT_ModuleOtaFileBeginMsg
-                0x03021950       0x6c accloud.a(zc_protocol_con)
-                0x03021950                PCT_ModuleOtaFileBeginMsg
+                0x0302195c       0x6c accloud.a(zc_protocol_con)
+                0x0302195c                PCT_ModuleOtaFileBeginMsg
  .text.PCT_ModuleOtaFileChunkMsg
-                0x030219bc      0x14c accloud.a(zc_protocol_con)
-                0x030219bc                PCT_ModuleOtaFileChunkMsg
+                0x030219c8      0x14c accloud.a(zc_protocol_con)
+                0x030219c8                PCT_ModuleOtaFileChunkMsg
  .text.PCT_ModuleOtaFileEndMsg
-                0x03021b08       0x48 accloud.a(zc_protocol_con)
-                0x03021b08                PCT_ModuleOtaFileEndMsg
+                0x03021b14       0x48 accloud.a(zc_protocol_con)
+                0x03021b14                PCT_ModuleOtaFileEndMsg
  .text.PCT_HandleMoudleMsg
-                0x03021b50       0x8c accloud.a(zc_protocol_con)
-                0x03021b50                PCT_HandleMoudleMsg
+                0x03021b5c       0x8c accloud.a(zc_protocol_con)
+                0x03021b5c                PCT_HandleMoudleMsg
  .text.PCT_WakeUp
-                0x03021bdc       0x3c accloud.a(zc_protocol_con)
-                0x03021bdc                PCT_WakeUp
+                0x03021be8       0x3c accloud.a(zc_protocol_con)
+                0x03021be8                PCT_WakeUp
  .text.PCT_Sleep
-                0x03021c18       0x6c accloud.a(zc_protocol_con)
-                0x03021c18                PCT_Sleep
+                0x03021c24       0x6c accloud.a(zc_protocol_con)
+                0x03021c24                PCT_Sleep
  .text.PCT_SendMsgToCloud
-                0x03021c84      0x150 accloud.a(zc_protocol_con)
-                0x03021c84                PCT_SendMsgToCloud
+                0x03021c90      0x150 accloud.a(zc_protocol_con)
+                0x03021c90                PCT_SendMsgToCloud
  .text.PCT_SendHeartMsg
-                0x03021dd4       0x7c accloud.a(zc_protocol_con)
-                0x03021dd4                PCT_SendHeartMsg
+                0x03021de0       0x7c accloud.a(zc_protocol_con)
+                0x03021de0                PCT_SendHeartMsg
  .text.PCT_SendEmptyMsg
-                0x03021e50       0x58 accloud.a(zc_protocol_con)
-                0x03021e50                PCT_SendEmptyMsg
+                0x03021e5c       0x58 accloud.a(zc_protocol_con)
+                0x03021e5c                PCT_SendEmptyMsg
  .text.PCT_SendErrorMsg
-                0x03021ea8       0x64 accloud.a(zc_protocol_con)
-                0x03021ea8                PCT_SendErrorMsg
+                0x03021eb4       0x64 accloud.a(zc_protocol_con)
+                0x03021eb4                PCT_SendErrorMsg
  .text.PCT_SendMoudleTimeout
-                0x03021f0c       0x50 accloud.a(zc_protocol_con)
-                0x03021f0c                PCT_SendMoudleTimeout
+                0x03021f18       0x50 accloud.a(zc_protocol_con)
+                0x03021f18                PCT_SendMoudleTimeout
  .text.PCT_SendCloudAccessMsg1
-                0x03021f5c      0x14c accloud.a(zc_protocol_con)
-                0x03021f5c                PCT_SendCloudAccessMsg1
+                0x03021f68      0x14c accloud.a(zc_protocol_con)
+                0x03021f68                PCT_SendCloudAccessMsg1
  .text.PCT_SendCloudAccessMsg3
-                0x030220a8       0xec accloud.a(zc_protocol_con)
-                0x030220a8                PCT_SendCloudAccessMsg3
+                0x030220b4       0xec accloud.a(zc_protocol_con)
+                0x030220b4                PCT_SendCloudAccessMsg3
  .text.PCT_RecvAccessMsg2
-                0x03022194      0x198 accloud.a(zc_protocol_con)
-                0x03022194                PCT_RecvAccessMsg2
+                0x030221a0      0x198 accloud.a(zc_protocol_con)
+                0x030221a0                PCT_RecvAccessMsg2
  .text.PCT_HandleMoudleEvent
-                0x0302232c       0x74 accloud.a(zc_protocol_con)
-                0x0302232c                PCT_HandleMoudleEvent
+                0x03022338       0x74 accloud.a(zc_protocol_con)
+                0x03022338                PCT_HandleMoudleEvent
  .text.PCT_SendUnbindMsg
-                0x030223a0       0xb0 accloud.a(zc_protocol_con)
-                0x030223a0                PCT_SendUnbindMsg
+                0x030223ac       0xb0 accloud.a(zc_protocol_con)
+                0x030223ac                PCT_SendUnbindMsg
  .text.PCT_SendAckToCloud
-                0x03022450       0x68 accloud.a(zc_protocol_con)
-                0x03022450                PCT_SendAckToCloud
+                0x0302245c       0x68 accloud.a(zc_protocol_con)
+                0x0302245c                PCT_SendAckToCloud
  .text.PCT_HandleOtaBeginMsg
-                0x030224b8       0x38 accloud.a(zc_protocol_con)
-                0x030224b8                PCT_HandleOtaBeginMsg
+                0x030224c4       0x38 accloud.a(zc_protocol_con)
+                0x030224c4                PCT_HandleOtaBeginMsg
  .text.PCT_HandleOtaFileBeginMsg
-                0x030224f0       0x6c accloud.a(zc_protocol_con)
-                0x030224f0                PCT_HandleOtaFileBeginMsg
+                0x030224fc       0x6c accloud.a(zc_protocol_con)
+                0x030224fc                PCT_HandleOtaFileBeginMsg
  .text.PCT_HandleOtaFileChunkMsg
-                0x0302255c      0x138 accloud.a(zc_protocol_con)
-                0x0302255c                PCT_HandleOtaFileChunkMsg
+                0x03022568      0x138 accloud.a(zc_protocol_con)
+                0x03022568                PCT_HandleOtaFileChunkMsg
  .text.PCT_HandleOtaFileEndMsg
-                0x03022694       0x30 accloud.a(zc_protocol_con)
-                0x03022694                PCT_HandleOtaFileEndMsg
+                0x030226a0       0x30 accloud.a(zc_protocol_con)
+                0x030226a0                PCT_HandleOtaFileEndMsg
  .text.PCT_HandleOtaEndMsg
-                0x030226c4       0x78 accloud.a(zc_protocol_con)
-                0x030226c4                PCT_HandleOtaEndMsg
+                0x030226d0       0x78 accloud.a(zc_protocol_con)
+                0x030226d0                PCT_HandleOtaEndMsg
  .text.PCT_SetTokenKey
-                0x0302273c       0x28 accloud.a(zc_protocol_con)
-                0x0302273c                PCT_SetTokenKey
+                0x03022748       0x28 accloud.a(zc_protocol_con)
+                0x03022748                PCT_SetTokenKey
  .text.PCT_ResetNetWork
-                0x03022764       0x30 accloud.a(zc_protocol_con)
-                0x03022764                PCT_ResetNetWork
+                0x03022770       0x30 accloud.a(zc_protocol_con)
+                0x03022770                PCT_ResetNetWork
  .text.PCT_HandleEvent
-                0x03022794      0x204 accloud.a(zc_protocol_con)
-                0x03022794                PCT_HandleEvent
- .text.PCT_Run  0x03022998       0x8c accloud.a(zc_protocol_con)
-                0x03022998                PCT_Run
+                0x030227a0      0x204 accloud.a(zc_protocol_con)
+                0x030227a0                PCT_HandleEvent
+ .text.PCT_Run  0x030229a4       0x8c accloud.a(zc_protocol_con)
+                0x030229a4                PCT_Run
  .text.PCT_TurnOnOffLight
-                0x03022a24       0xd4 accloud.a(zc_protocol_con)
-                0x03022a24                PCT_TurnOnOffLight
- .text          0x03022af8        0x0 accloud.a(zc_sec_engine.o)
+                0x03022a30       0xd4 accloud.a(zc_protocol_con)
+                0x03022a30                PCT_TurnOnOffLight
+ .text          0x03022b04        0x0 accloud.a(zc_sec_engine.o)
  .text.SEC_InitRsaContextWithPublicKey
-                0x03022af8       0x50 accloud.a(zc_sec_engine.o)
-                0x03022af8                SEC_InitRsaContextWithPublicKey
+                0x03022b04       0x50 accloud.a(zc_sec_engine.o)
+                0x03022b04                SEC_InitRsaContextWithPublicKey
  .text.SEC_EncryptTextByRsa
-                0x03022b48      0x188 accloud.a(zc_sec_engine.o)
-                0x03022b48                SEC_EncryptTextByRsa
+                0x03022b54      0x188 accloud.a(zc_sec_engine.o)
+                0x03022b54                SEC_EncryptTextByRsa
  .text.SEC_InitRsaContextWithPrivateKey
-                0x03022cd0       0xe4 accloud.a(zc_sec_engine.o)
-                0x03022cd0                SEC_InitRsaContextWithPrivateKey
+                0x03022cdc       0xe4 accloud.a(zc_sec_engine.o)
+                0x03022cdc                SEC_InitRsaContextWithPrivateKey
  .text.SEC_DecryptTextByRsa
-                0x03022db4      0x1a0 accloud.a(zc_sec_engine.o)
-                0x03022db4                SEC_DecryptTextByRsa
+                0x03022dc0      0x1a0 accloud.a(zc_sec_engine.o)
+                0x03022dc0                SEC_DecryptTextByRsa
  .text.SEC_AesEncrypt
-                0x03022f54       0x7c accloud.a(zc_sec_engine.o)
-                0x03022f54                SEC_AesEncrypt
+                0x03022f60       0x7c accloud.a(zc_sec_engine.o)
+                0x03022f60                SEC_AesEncrypt
  .text.SEC_AesDecrypt
-                0x03022fd0       0x6c accloud.a(zc_sec_engine.o)
-                0x03022fd0                SEC_AesDecrypt
+                0x03022fdc       0x6c accloud.a(zc_sec_engine.o)
+                0x03022fdc                SEC_AesDecrypt
  .text.SEC_PaddingCheck
-                0x0302303c       0x7c accloud.a(zc_sec_engine.o)
-                0x0302303c                SEC_PaddingCheck
+                0x03023048       0x7c accloud.a(zc_sec_engine.o)
+                0x03023048                SEC_PaddingCheck
  .text.SEC_Encrypt
-                0x030230b8       0xe0 accloud.a(zc_sec_engine.o)
-                0x030230b8                SEC_Encrypt
+                0x030230c4       0xe0 accloud.a(zc_sec_engine.o)
+                0x030230c4                SEC_Encrypt
  .text.SEC_Decrypt
-                0x03023198      0x100 accloud.a(zc_sec_engine.o)
-                0x03023198                SEC_Decrypt
- .text          0x03023298        0x0 accloud.a(zc_timer.o)
+                0x030231a4      0x100 accloud.a(zc_sec_engine.o)
+                0x030231a4                SEC_Decrypt
+ .text          0x030232a4        0x0 accloud.a(zc_timer.o)
  .text.TIMER_Init
-                0x03023298       0x24 accloud.a(zc_timer.o)
-                0x03023298                TIMER_Init
+                0x030232a4       0x24 accloud.a(zc_timer.o)
+                0x030232a4                TIMER_Init
  .text.TIMER_FindIdleTimer
-                0x030232bc       0x3c accloud.a(zc_timer.o)
-                0x030232bc                TIMER_FindIdleTimer
+                0x030232c8       0x3c accloud.a(zc_timer.o)
+                0x030232c8                TIMER_FindIdleTimer
  .text.TIMER_AllocateTimer
-                0x030232f8       0x20 accloud.a(zc_timer.o)
-                0x030232f8                TIMER_AllocateTimer
+                0x03023304       0x20 accloud.a(zc_timer.o)
+                0x03023304                TIMER_AllocateTimer
  .text.TIMER_GetTimerStatus
-                0x03023318       0x14 accloud.a(zc_timer.o)
-                0x03023318                TIMER_GetTimerStatus
+                0x03023324       0x14 accloud.a(zc_timer.o)
+                0x03023324                TIMER_GetTimerStatus
  .text.TIMER_TimeoutAction
-                0x0302332c       0xe8 accloud.a(zc_timer.o)
-                0x0302332c                TIMER_TimeoutAction
+                0x03023338       0xe8 accloud.a(zc_timer.o)
+                0x03023338                TIMER_TimeoutAction
  .text.TIMER_StopTimer
-                0x03023414       0x2c accloud.a(zc_timer.o)
-                0x03023414                TIMER_StopTimer
- .text          0x03023440        0x0 accloud.a(zc_hf_adpter.o)
+                0x03023420       0x2c accloud.a(zc_timer.o)
+                0x03023420                TIMER_StopTimer
+ .text          0x0302344c        0x0 accloud.a(zc_hf_adpter.o)
  .text.HF_StopTimer
-                0x03023440        0x4 accloud.a(zc_hf_adpter.o)
-                0x03023440                HF_StopTimer
+                0x0302344c        0x4 accloud.a(zc_hf_adpter.o)
+                0x0302344c                HF_StopTimer
  .text.HF_FirmwareUpdateFinish
-                0x03023444        0x8 accloud.a(zc_hf_adpter.o)
-                0x03023444                HF_FirmwareUpdateFinish
+                0x03023450        0x8 accloud.a(zc_hf_adpter.o)
+                0x03023450                HF_FirmwareUpdateFinish
  .text.HF_FirmwareUpdate
-                0x0302344c        0x8 accloud.a(zc_hf_adpter.o)
-                0x0302344c                HF_FirmwareUpdate
+                0x03023458        0x8 accloud.a(zc_hf_adpter.o)
+                0x03023458                HF_FirmwareUpdate
  .text.HF_ListenClient
-                0x03023454        0x8 accloud.a(zc_hf_adpter.o)
-                0x03023454                HF_ListenClient
+                0x03023460        0x8 accloud.a(zc_hf_adpter.o)
+                0x03023460                HF_ListenClient
  .text.HF_ReadDataFromFlash
-                0x0302345c       0x18 accloud.a(zc_hf_adpter.o)
-                0x0302345c                HF_ReadDataFromFlash
+                0x03023468       0x18 accloud.a(zc_hf_adpter.o)
+                0x03023468                HF_ReadDataFromFlash
  .text.HF_WriteDataToFlash
-                0x03023474       0x38 accloud.a(zc_hf_adpter.o)
-                0x03023474                HF_WriteDataToFlash
+                0x03023480       0x38 accloud.a(zc_hf_adpter.o)
+                0x03023480                HF_WriteDataToFlash
  .text.HF_SendDataToMoudle
-                0x030234ac       0x10 accloud.a(zc_hf_adpter.o)
-                0x030234ac                HF_SendDataToMoudle
- .text.HF_Rest  0x030234bc        0x4 accloud.a(zc_hf_adpter.o)
-                0x030234bc                HF_Rest
+                0x030234b8       0x10 accloud.a(zc_hf_adpter.o)
+                0x030234b8                HF_SendDataToMoudle
+ .text.HF_Rest  0x030234c8        0x4 accloud.a(zc_hf_adpter.o)
+                0x030234c8                HF_Rest
  .text.HF_Reboot
-                0x030234c0        0x4 accloud.a(zc_hf_adpter.o)
-                0x030234c0                HF_Reboot
+                0x030234cc        0x4 accloud.a(zc_hf_adpter.o)
+                0x030234cc                HF_Reboot
  .text.HF_SendTcpData
-                0x030234c4        0x4 accloud.a(zc_hf_adpter.o)
-                0x030234c4                HF_SendTcpData
+                0x030234d0        0x4 accloud.a(zc_hf_adpter.o)
+                0x030234d0                HF_SendTcpData
  .text.HF_SendUdpData
-                0x030234c8       0x30 accloud.a(zc_hf_adpter.o)
-                0x030234c8                HF_SendUdpData
+                0x030234d4       0x30 accloud.a(zc_hf_adpter.o)
+                0x030234d4                HF_SendUdpData
  .text.HF_GetMac
-                0x030234f8       0x60 accloud.a(zc_hf_adpter.o)
-                0x030234f8                HF_GetMac
+                0x03023504       0x60 accloud.a(zc_hf_adpter.o)
+                0x03023504                HF_GetMac
  .text.HF_Printf
-                0x03023558       0x4c accloud.a(zc_hf_adpter.o)
-                0x03023558                HF_Printf
+                0x03023564       0x4c accloud.a(zc_hf_adpter.o)
+                0x03023564                HF_Printf
  .text.HF_SetTimer
-                0x030235a4       0x9c accloud.a(zc_hf_adpter.o)
-                0x030235a4                HF_SetTimer
+                0x030235b0       0x9c accloud.a(zc_hf_adpter.o)
+                0x030235b0                HF_SetTimer
  .text.HF_ConnectToCloud
-                0x03023640       0xa4 accloud.a(zc_hf_adpter.o)
-                0x03023640                HF_ConnectToCloud
+                0x0302364c       0xa8 accloud.a(zc_hf_adpter.o)
+                0x0302364c                HF_ConnectToCloud
  .text.HF_TimerExpired
-                0x030236e4       0x64 accloud.a(zc_hf_adpter.o)
-                0x030236e4                HF_TimerExpired
+                0x030236f4       0x64 accloud.a(zc_hf_adpter.o)
+                0x030236f4                HF_TimerExpired
  .text.HF_BcInit
-                0x03023748        0x4 accloud.a(zc_hf_adpter.o)
-                0x03023748                HF_BcInit
- .text.HF_Init  0x0302374c      0x178 accloud.a(zc_hf_adpter.o)
-                0x0302374c                HF_Init
+                0x03023758        0x4 accloud.a(zc_hf_adpter.o)
+                0x03023758                HF_BcInit
+ .text.HF_Init  0x0302375c      0x178 accloud.a(zc_hf_adpter.o)
+                0x0302375c                HF_Init
  .text.HF_WakeUp
-                0x030238c4       0x28 accloud.a(zc_hf_adpter.o)
-                0x030238c4                HF_WakeUp
+                0x030238d4       0x28 accloud.a(zc_hf_adpter.o)
+                0x030238d4                HF_WakeUp
  .text.HF_Sleep
-                0x030238ec       0x20 accloud.a(zc_hf_adpter.o)
-                0x030238ec                HF_Sleep
- .text.HF_Run   0x0302390c       0x18 accloud.a(zc_hf_adpter.o)
-                0x0302390c                HF_Run
+                0x030238fc       0x20 accloud.a(zc_hf_adpter.o)
+                0x030238fc                HF_Sleep
+ .text.HF_Run   0x0302391c       0x18 accloud.a(zc_hf_adpter.o)
+                0x0302391c                HF_Run
  .text.AC_UartSend
-                0x03023924        0x4 accloud.a(zc_hf_adpter.o)
-                0x03023924                AC_UartSend
- .text          0x03023928        0x0 accloud.a(ac_api.o)
+                0x03023934        0x4 accloud.a(zc_hf_adpter.o)
+                0x03023934                AC_UartSend
+ .text          0x03023938        0x0 accloud.a(ac_api.o)
  .text.AC_BuildOption
-                0x03023928       0xb8 accloud.a(ac_api.o)
-                0x03023928                AC_BuildOption
+                0x03023938       0xb8 accloud.a(ac_api.o)
+                0x03023938                AC_BuildOption
  .text.AC_BuildMessage
-                0x030239e0       0xc0 accloud.a(ac_api.o)
-                0x030239e0                AC_BuildMessage
+                0x030239f0       0xc0 accloud.a(ac_api.o)
+                0x030239f0                AC_BuildMessage
  .text.AC_SendDeviceStart
-                0x03023aa0       0x50 accloud.a(ac_api.o)
-                0x03023aa0                AC_SendDeviceStart
+                0x03023ab0       0x50 accloud.a(ac_api.o)
+                0x03023ab0                AC_SendDeviceStart
  .text.AC_SendMessage
-                0x03023af0        0x4 accloud.a(ac_api.o)
-                0x03023af0                AC_SendMessage
+                0x03023b00        0x4 accloud.a(ac_api.o)
+                0x03023b00                AC_SendMessage
  .text.AC_SendRestMsg
-                0x03023af4       0x4c accloud.a(ac_api.o)
-                0x03023af4                AC_SendRestMsg
+                0x03023b04       0x4c accloud.a(ac_api.o)
+                0x03023b04                AC_SendRestMsg
  .text.AC_SendUbindMsg
-                0x03023b40       0x50 accloud.a(ac_api.o)
-                0x03023b40                AC_SendUbindMsg
+                0x03023b50       0x50 accloud.a(ac_api.o)
+                0x03023b50                AC_SendUbindMsg
  .text.AC_ParseOption
-                0x03023b90       0xbc accloud.a(ac_api.o)
-                0x03023b90                AC_ParseOption
+                0x03023ba0       0xbc accloud.a(ac_api.o)
+                0x03023ba0                AC_ParseOption
  .text.AC_SendDeviceRegsiterWithMac
-                0x03023c4c       0x98 accloud.a(ac_api.o)
-                0x03023c4c                AC_SendDeviceRegsiterWithMac
+                0x03023c5c       0x98 accloud.a(ac_api.o)
+                0x03023c5c                AC_SendDeviceRegsiterWithMac
  .text.AC_RecvMessage
-                0x03023ce4       0x70 accloud.a(ac_api.o)
-                0x03023ce4                AC_RecvMessage
+                0x03023cf4       0x70 accloud.a(ac_api.o)
+                0x03023cf4                AC_RecvMessage
  .text.AC_CalcSum
-                0x03023d54       0x28 accloud.a(ac_api.o)
-                0x03023d54                AC_CalcSum
+                0x03023d64       0x28 accloud.a(ac_api.o)
+                0x03023d64                AC_CalcSum
  .text.AC_BuildEasyMessage
-                0x03023d7c       0xf4 accloud.a(ac_api.o)
-                0x03023d7c                AC_BuildEasyMessage
+                0x03023d8c       0xf4 accloud.a(ac_api.o)
+                0x03023d8c                AC_BuildEasyMessage
  .text.AC_CheckSum
-                0x03023e70       0x30 accloud.a(ac_api.o)
-                0x03023e70                AC_CheckSum
- .text          0x03023ea0        0x0 accloud.a(ac_hal.o)
+                0x03023e80       0x30 accloud.a(ac_api.o)
+                0x03023e80                AC_CheckSum
+ .text          0x03023eb0        0x0 accloud.a(ac_hal.o)
  .text.AC_UartProcess
-                0x03023ea0      0x11c accloud.a(ac_hal.o)
-                0x03023ea0                AC_UartProcess
+                0x03023eb0      0x11c accloud.a(ac_hal.o)
+                0x03023eb0                AC_UartProcess
  .text.AC_UartRecv
-                0x03023fbc       0xdc accloud.a(ac_hal.o)
-                0x03023fbc                AC_UartRecv
+                0x03023fcc       0xdc accloud.a(ac_hal.o)
+                0x03023fcc                AC_UartRecv
  .text.AC_SendLedStatus2Server
-                0x03024098       0x5c accloud.a(ac_hal.o)
-                0x03024098                AC_SendLedStatus2Server
+                0x030240a8       0x5c accloud.a(ac_hal.o)
+                0x030240a8                AC_SendLedStatus2Server
  .text.AC_ConfigWifi
-                0x030240f4       0x30 accloud.a(ac_hal.o)
-                0x030240f4                AC_ConfigWifi
+                0x03024104       0x30 accloud.a(ac_hal.o)
+                0x03024104                AC_ConfigWifi
  .text.AC_DealNotifyMessage
-                0x03024124       0x7c accloud.a(ac_hal.o)
-                0x03024124                AC_DealNotifyMessage
+                0x03024134       0x7c accloud.a(ac_hal.o)
+                0x03024134                AC_DealNotifyMessage
  .text.AC_StoreStatus
-                0x030241a0       0x2c accloud.a(ac_hal.o)
-                0x030241a0                AC_StoreStatus
+                0x030241b0       0x2c accloud.a(ac_hal.o)
+                0x030241b0                AC_StoreStatus
  .text.AC_BlinkLed
-                0x030241cc        0x4 accloud.a(ac_hal.o)
-                0x030241cc                AC_BlinkLed
+                0x030241dc        0x4 accloud.a(ac_hal.o)
+                0x030241dc                AC_BlinkLed
  .text.AC_DealLed
-                0x030241d0       0x78 accloud.a(ac_hal.o)
-                0x030241d0                AC_DealLed
+                0x030241e0       0x78 accloud.a(ac_hal.o)
+                0x030241e0                AC_DealLed
  .text.AC_DealEvent
-                0x03024248       0x10 accloud.a(ac_hal.o)
-                0x03024248                AC_DealEvent
+                0x03024258       0x10 accloud.a(ac_hal.o)
+                0x03024258                AC_DealEvent
  .text.AC_GetStoreStatus
-                0x03024258       0x34 accloud.a(ac_hal.o)
-                0x03024258                AC_GetStoreStatus
- .text.AC_Init  0x0302428c        0x4 accloud.a(ac_hal.o)
-                0x0302428c                AC_Init
- .text          0x03024290        0x0 accloud.a(aes_cbc.o)
+                0x03024268       0x34 accloud.a(ac_hal.o)
+                0x03024268                AC_GetStoreStatus
+ .text.AC_Init  0x0302429c        0x4 accloud.a(ac_hal.o)
+                0x0302429c                AC_Init
+ .text          0x030242a0        0x0 accloud.a(aes_cbc.o)
  .text.AES_cbc_core
-                0x03024290      0x2d8 accloud.a(aes_cbc.o)
-                0x03024290                AES_cbc_core
+                0x030242a0      0x2d8 accloud.a(aes_cbc.o)
+                0x030242a0                AES_cbc_core
  .text.AES_CBC_Encrypt
-                0x03024568       0x54 accloud.a(aes_cbc.o)
-                0x03024568                AES_CBC_Encrypt
+                0x03024578       0x54 accloud.a(aes_cbc.o)
+                0x03024578                AES_CBC_Encrypt
  .text.AES_CBC_Decrypt
-                0x030245bc       0x54 accloud.a(aes_cbc.o)
-                0x030245bc                AES_CBC_Decrypt
- .text          0x03024610        0x0 accloud.a(aes_core.o)
+                0x030245cc       0x54 accloud.a(aes_cbc.o)
+                0x030245cc                AES_CBC_Decrypt
+ .text          0x03024620        0x0 accloud.a(aes_core.o)
  .text.AES_set_encrypt_key
-                0x03024610      0x3ec accloud.a(aes_core.o)
-                0x03024610                AES_set_encrypt_key
+                0x03024620      0x3ec accloud.a(aes_core.o)
+                0x03024620                AES_set_encrypt_key
  .text.AES_set_decrypt_key
-                0x030249fc      0x200 accloud.a(aes_core.o)
-                0x030249fc                AES_set_decrypt_key
+                0x03024a0c      0x200 accloud.a(aes_core.o)
+                0x03024a0c                AES_set_decrypt_key
  .text.AES_encrypt_ext
-                0x03024bfc      0x4b0 accloud.a(aes_core.o)
-                0x03024bfc                AES_encrypt_ext
+                0x03024c0c      0x4b0 accloud.a(aes_core.o)
+                0x03024c0c                AES_encrypt_ext
  .text.AES_decrypt_ext
-                0x030250ac      0x4c0 accloud.a(aes_core.o)
-                0x030250ac                AES_decrypt_ext
- .text          0x0302556c        0x0 accloud.a(crc.o)
+                0x030250bc      0x4c0 accloud.a(aes_core.o)
+                0x030250bc                AES_decrypt_ext
+ .text          0x0302557c        0x0 accloud.a(crc.o)
  .text.crc_cal_by_bit
-                0x0302556c       0x54 accloud.a(crc.o)
-                0x0302556c                crc_cal_by_bit
+                0x0302557c       0x54 accloud.a(crc.o)
+                0x0302557c                crc_cal_by_bit
  .text.crc_cal_by_byte
-                0x030255c0       0x3c accloud.a(crc.o)
-                0x030255c0                crc_cal_by_byte
+                0x030255d0       0x3c accloud.a(crc.o)
+                0x030255d0                crc_cal_by_byte
  .text.crc_cal_by_halfbyte
-                0x030255fc       0x58 accloud.a(crc.o)
-                0x030255fc                crc_cal_by_halfbyte
+                0x0302560c       0x58 accloud.a(crc.o)
+                0x0302560c                crc_cal_by_halfbyte
  .text.crc16_ccitt
-                0x03025654       0x14 accloud.a(crc.o)
-                0x03025654                crc16_ccitt
- .text          0x03025668        0x0 accloud.a(bignum.o)
+                0x03025664       0x14 accloud.a(crc.o)
+                0x03025664                crc16_ccitt
+ .text          0x03025678        0x0 accloud.a(bignum.o)
  .text.mpi_sub_hlp
-                0x03025668       0x84 accloud.a(bignum.o)
+                0x03025678       0x84 accloud.a(bignum.o)
  .text.mpi_mul_hlp
-                0x030256ec      0x398 accloud.a(bignum.o)
+                0x030256fc      0x398 accloud.a(bignum.o)
  .text.mpi_grow.part.1
-                0x03025a84       0x3c accloud.a(bignum.o)
+                0x03025a94       0x3c accloud.a(bignum.o)
  .text.mpi_init
-                0x03025ac0       0x24 accloud.a(bignum.o)
-                0x03025ac0                mpi_init
+                0x03025ad0       0x24 accloud.a(bignum.o)
+                0x03025ad0                mpi_init
  .text.mpi_free
-                0x03025ae4       0x2c accloud.a(bignum.o)
-                0x03025ae4                mpi_free
+                0x03025af4       0x2c accloud.a(bignum.o)
+                0x03025af4                mpi_free
  .text.mpi_grow
-                0x03025b10       0x10 accloud.a(bignum.o)
-                0x03025b10                mpi_grow
+                0x03025b20       0x10 accloud.a(bignum.o)
+                0x03025b20                mpi_grow
  .text.mpi_copy
-                0x03025b20       0x9c accloud.a(bignum.o)
-                0x03025b20                mpi_copy
+                0x03025b30       0x9c accloud.a(bignum.o)
+                0x03025b30                mpi_copy
  .text.mpi_swap
-                0x03025bbc       0x48 accloud.a(bignum.o)
-                0x03025bbc                mpi_swap
+                0x03025bcc       0x48 accloud.a(bignum.o)
+                0x03025bcc                mpi_swap
  .text.mpi_lset
-                0x03025c04       0x54 accloud.a(bignum.o)
-                0x03025c04                mpi_lset
- .text.mpi_lsb  0x03025c58       0x58 accloud.a(bignum.o)
-                0x03025c58                mpi_lsb
- .text.mpi_msb  0x03025cb0       0x5c accloud.a(bignum.o)
-                0x03025cb0                mpi_msb
+                0x03025c14       0x54 accloud.a(bignum.o)
+                0x03025c14                mpi_lset
+ .text.mpi_lsb  0x03025c68       0x58 accloud.a(bignum.o)
+                0x03025c68                mpi_lsb
+ .text.mpi_msb  0x03025cc0       0x5c accloud.a(bignum.o)
+                0x03025cc0                mpi_msb
  .text.mpi_size
-                0x03025d0c       0x14 accloud.a(bignum.o)
-                0x03025d0c                mpi_size
+                0x03025d1c       0x14 accloud.a(bignum.o)
+                0x03025d1c                mpi_size
  .text.mpi_read_binary
-                0x03025d20       0xb0 accloud.a(bignum.o)
-                0x03025d20                mpi_read_binary
+                0x03025d30       0xb0 accloud.a(bignum.o)
+                0x03025d30                mpi_read_binary
  .text.mpi_write_binary
-                0x03025dd0       0x78 accloud.a(bignum.o)
-                0x03025dd0                mpi_write_binary
+                0x03025de0       0x78 accloud.a(bignum.o)
+                0x03025de0                mpi_write_binary
  .text.mpi_shift_l
-                0x03025e48      0x10c accloud.a(bignum.o)
-                0x03025e48                mpi_shift_l
+                0x03025e58      0x10c accloud.a(bignum.o)
+                0x03025e58                mpi_shift_l
  .text.mpi_shift_r
-                0x03025f54       0xc8 accloud.a(bignum.o)
-                0x03025f54                mpi_shift_r
+                0x03025f64       0xc8 accloud.a(bignum.o)
+                0x03025f64                mpi_shift_r
  .text.mpi_cmp_abs
-                0x0302601c       0xd0 accloud.a(bignum.o)
-                0x0302601c                mpi_cmp_abs
+                0x0302602c       0xd0 accloud.a(bignum.o)
+                0x0302602c                mpi_cmp_abs
  .text.mpi_montmul.constprop.5
-                0x030260ec      0x118 accloud.a(bignum.o)
+                0x030260fc      0x118 accloud.a(bignum.o)
  .text.mpi_cmp_mpi
-                0x03026204      0x100 accloud.a(bignum.o)
-                0x03026204                mpi_cmp_mpi
+                0x03026214      0x100 accloud.a(bignum.o)
+                0x03026214                mpi_cmp_mpi
  .text.mpi_cmp_int
-                0x03026304       0x3c accloud.a(bignum.o)
-                0x03026304                mpi_cmp_int
+                0x03026314       0x3c accloud.a(bignum.o)
+                0x03026314                mpi_cmp_int
  .text.mpi_add_abs
-                0x03026340      0x13c accloud.a(bignum.o)
-                0x03026340                mpi_add_abs
+                0x03026350      0x13c accloud.a(bignum.o)
+                0x03026350                mpi_add_abs
  .text.mpi_sub_abs
-                0x0302647c       0xcc accloud.a(bignum.o)
-                0x0302647c                mpi_sub_abs
+                0x0302648c       0xcc accloud.a(bignum.o)
+                0x0302648c                mpi_sub_abs
  .text.mpi_add_mpi
-                0x03026548       0x78 accloud.a(bignum.o)
-                0x03026548                mpi_add_mpi
+                0x03026558       0x78 accloud.a(bignum.o)
+                0x03026558                mpi_add_mpi
  .text.mpi_sub_mpi
-                0x030265c0       0x7c accloud.a(bignum.o)
-                0x030265c0                mpi_sub_mpi
+                0x030265d0       0x7c accloud.a(bignum.o)
+                0x030265d0                mpi_sub_mpi
  .text.mpi_add_int
-                0x0302663c       0x3c accloud.a(bignum.o)
-                0x0302663c                mpi_add_int
+                0x0302664c       0x3c accloud.a(bignum.o)
+                0x0302664c                mpi_add_int
  .text.mpi_sub_int
-                0x03026678       0x3c accloud.a(bignum.o)
-                0x03026678                mpi_sub_int
+                0x03026688       0x3c accloud.a(bignum.o)
+                0x03026688                mpi_sub_int
  .text.mpi_mul_mpi
-                0x030266b4      0x14c accloud.a(bignum.o)
-                0x030266b4                mpi_mul_mpi
+                0x030266c4      0x14c accloud.a(bignum.o)
+                0x030266c4                mpi_mul_mpi
  .text.mpi_mul_int
-                0x03026800       0x28 accloud.a(bignum.o)
-                0x03026800                mpi_mul_int
+                0x03026810       0x28 accloud.a(bignum.o)
+                0x03026810                mpi_mul_int
  .text.mpi_div_mpi
-                0x03026828      0x5b0 accloud.a(bignum.o)
-                0x03026828                mpi_div_mpi
+                0x03026838      0x5b0 accloud.a(bignum.o)
+                0x03026838                mpi_div_mpi
  .text.mpi_div_int
-                0x03026dd8       0x3c accloud.a(bignum.o)
-                0x03026dd8                mpi_div_int
+                0x03026de8       0x3c accloud.a(bignum.o)
+                0x03026de8                mpi_div_int
  .text.mpi_mod_mpi
-                0x03026e14       0x98 accloud.a(bignum.o)
-                0x03026e14                mpi_mod_mpi
+                0x03026e24       0x98 accloud.a(bignum.o)
+                0x03026e24                mpi_mod_mpi
  .text.mpi_mod_int
-                0x03026eac       0xb0 accloud.a(bignum.o)
-                0x03026eac                mpi_mod_int
+                0x03026ebc       0xb0 accloud.a(bignum.o)
+                0x03026ebc                mpi_mod_int
  .text.mpi_exp_mod
-                0x03026f5c      0x4f4 accloud.a(bignum.o)
-                0x03026f5c                mpi_exp_mod
+                0x03026f6c      0x4f4 accloud.a(bignum.o)
+                0x03026f6c                mpi_exp_mod
  .text.mpi_is_prime.part.3
-                0x03027450      0x328 accloud.a(bignum.o)
- .text.mpi_gcd  0x03027778      0x19c accloud.a(bignum.o)
-                0x03027778                mpi_gcd
+                0x03027460      0x328 accloud.a(bignum.o)
+ .text.mpi_gcd  0x03027788      0x19c accloud.a(bignum.o)
+                0x03027788                mpi_gcd
  .text.mpi_inv_mod
-                0x03027914      0x3e8 accloud.a(bignum.o)
-                0x03027914                mpi_inv_mod
+                0x03027924      0x3e8 accloud.a(bignum.o)
+                0x03027924                mpi_inv_mod
  .text.mpi_is_prime
-                0x03027cfc       0x34 accloud.a(bignum.o)
-                0x03027cfc                mpi_is_prime
+                0x03027d0c       0x34 accloud.a(bignum.o)
+                0x03027d0c                mpi_is_prime
  .text.mpi_gen_prime
-                0x03027d30      0x1c8 accloud.a(bignum.o)
-                0x03027d30                mpi_gen_prime
- .text          0x03027ef8        0x0 accloud.a(rsa.o)
+                0x03027d40      0x1c8 accloud.a(bignum.o)
+                0x03027d40                mpi_gen_prime
+ .text          0x03027f08        0x0 accloud.a(rsa.o)
  .text.rsa_init
-                0x03027ef8       0x38 accloud.a(rsa.o)
-                0x03027ef8                rsa_init
+                0x03027f08       0x38 accloud.a(rsa.o)
+                0x03027f08                rsa_init
  .text.rsa_public
-                0x03027f30       0xc0 accloud.a(rsa.o)
-                0x03027f30                rsa_public
+                0x03027f40       0xc0 accloud.a(rsa.o)
+                0x03027f40                rsa_public
  .text.rsa_private
-                0x03027ff0      0x184 accloud.a(rsa.o)
-                0x03027ff0                rsa_private
+                0x03028000      0x184 accloud.a(rsa.o)
+                0x03028000                rsa_private
  .text.rsa_pkcs1_encrypt
-                0x03028174       0xd4 accloud.a(rsa.o)
-                0x03028174                rsa_pkcs1_encrypt
+                0x03028184       0xd4 accloud.a(rsa.o)
+                0x03028184                rsa_pkcs1_encrypt
  .text.rsa_pkcs1_decrypt
-                0x03028248       0xec accloud.a(rsa.o)
-                0x03028248                rsa_pkcs1_decrypt
+                0x03028258       0xec accloud.a(rsa.o)
+                0x03028258                rsa_pkcs1_decrypt
  .text.rsa_free
-                0x03028334       0x64 accloud.a(rsa.o)
-                0x03028334                rsa_free
- .text          0x03028398        0x0 accloud.a(zc_client_manag)
+                0x03028344       0x64 accloud.a(rsa.o)
+                0x03028344                rsa_free
+ .text          0x030283a8        0x0 accloud.a(zc_client_manag)
  .text.ZC_ClientDisconnect
-                0x03028398       0x54 accloud.a(zc_client_manag)
-                0x03028398                ZC_ClientDisconnect
+                0x030283a8       0x54 accloud.a(zc_client_manag)
+                0x030283a8                ZC_ClientDisconnect
  .text.ZC_ClientConnect
-                0x030283ec       0x4c accloud.a(zc_client_manag)
-                0x030283ec                ZC_ClientConnect
+                0x030283fc       0x4c accloud.a(zc_client_manag)
+                0x030283fc                ZC_ClientConnect
  .text.ZC_ClientInit
-                0x03028438       0x28 accloud.a(zc_client_manag)
-                0x03028438                ZC_ClientInit
+                0x03028448       0x28 accloud.a(zc_client_manag)
+                0x03028448                ZC_ClientInit
  .text.ZC_CheckClientIdle
-                0x03028460       0x2c accloud.a(zc_client_manag)
-                0x03028460                ZC_CheckClientIdle
+                0x03028470       0x2c accloud.a(zc_client_manag)
+                0x03028470                ZC_CheckClientIdle
  .text.ZC_SetClientBusy
-                0x0302848c       0x18 accloud.a(zc_client_manag)
-                0x0302848c                ZC_SetClientBusy
+                0x0302849c       0x18 accloud.a(zc_client_manag)
+                0x0302849c                ZC_SetClientBusy
  .text.ZC_SetClientFree
-                0x030284a4       0x14 accloud.a(zc_client_manag)
-                0x030284a4                ZC_SetClientFree
+                0x030284b4       0x14 accloud.a(zc_client_manag)
+                0x030284b4                ZC_SetClientFree
  .text.ZC_StartClientListen
-                0x030284b8       0x40 accloud.a(zc_client_manag)
-                0x030284b8                ZC_StartClientListen
+                0x030284c8       0x40 accloud.a(zc_client_manag)
+                0x030284c8                ZC_StartClientListen
  .text.ZC_ClientWakeUp
-                0x030284f8       0x14 accloud.a(zc_client_manag)
-                0x030284f8                ZC_ClientWakeUp
+                0x03028508       0x14 accloud.a(zc_client_manag)
+                0x03028508                ZC_ClientWakeUp
  .text.ZC_ClientSleep
-                0x0302850c        0x4 accloud.a(zc_client_manag)
-                0x0302850c                ZC_ClientSleep
+                0x0302851c        0x4 accloud.a(zc_client_manag)
+                0x0302851c                ZC_ClientSleep
  .text.ZC_RecvDataFromClient
-                0x03028510      0x3dc accloud.a(zc_client_manag)
-                0x03028510                ZC_RecvDataFromClient
- .text          0x030288ec        0x0 accloud.a(zc_cloud_event.)
+                0x03028520      0x3dc accloud.a(zc_client_manag)
+                0x03028520                ZC_RecvDataFromClient
+ .text          0x030288fc        0x0 accloud.a(zc_cloud_event.)
  .text.EVENT_BuildEmptyMsg
-                0x030288ec       0x5c accloud.a(zc_cloud_event.)
-                0x030288ec                EVENT_BuildEmptyMsg
+                0x030288fc       0x5c accloud.a(zc_cloud_event.)
+                0x030288fc                EVENT_BuildEmptyMsg
  .text.EVENT_BuildHeartMsg
-                0x03028948       0x5c accloud.a(zc_cloud_event.)
-                0x03028948                EVENT_BuildHeartMsg
+                0x03028958       0x5c accloud.a(zc_cloud_event.)
+                0x03028958                EVENT_BuildHeartMsg
  .text.EVENT_BuildMsg
-                0x030289a4       0x88 accloud.a(zc_cloud_event.)
-                0x030289a4                EVENT_BuildMsg
+                0x030289b4       0x88 accloud.a(zc_cloud_event.)
+                0x030289b4                EVENT_BuildMsg
  .text.EVENT_BuildBcMsg
-                0x03028a2c       0xbc accloud.a(zc_cloud_event.)
-                0x03028a2c                EVENT_BuildBcMsg
+                0x03028a3c       0xbc accloud.a(zc_cloud_event.)
+                0x03028a3c                EVENT_BuildBcMsg
  .text.EVENT_ParseOption
-                0x03028ae8       0xbc accloud.a(zc_cloud_event.)
-                0x03028ae8                EVENT_ParseOption
+                0x03028af8       0xbc accloud.a(zc_cloud_event.)
+                0x03028af8                EVENT_ParseOption
  .text.EVENT_BuildOption
-                0x03028ba4       0xb8 accloud.a(zc_cloud_event.)
-                0x03028ba4                EVENT_BuildOption
- .text          0x03028c5c        0x0 accloud.a(zc_moudle_manag)
+                0x03028bb4       0xb8 accloud.a(zc_cloud_event.)
+                0x03028bb4                EVENT_BuildOption
+ .text          0x03028c6c        0x0 accloud.a(zc_moudle_manag)
  .text.ZC_DealSessionOpt
-                0x03028c5c      0x1e0 accloud.a(zc_moudle_manag)
-                0x03028c5c                ZC_DealSessionOpt
+                0x03028c6c      0x1e0 accloud.a(zc_moudle_manag)
+                0x03028c6c                ZC_DealSessionOpt
  .text.ZC_DealExtCode
-                0x03028e3c       0x90 accloud.a(zc_moudle_manag)
-                0x03028e3c                ZC_DealExtCode
+                0x03028e4c       0x90 accloud.a(zc_moudle_manag)
+                0x03028e4c                ZC_DealExtCode
  .text.ZC_RecvDataFromMoudle
-                0x03028ecc      0x250 accloud.a(zc_moudle_manag)
-                0x03028ecc                ZC_RecvDataFromMoudle
+                0x03028edc      0x250 accloud.a(zc_moudle_manag)
+                0x03028edc                ZC_RecvDataFromMoudle
  .text.ZC_AssemblePkt
-                0x0302911c      0x260 accloud.a(zc_moudle_manag)
-                0x0302911c                ZC_AssemblePkt
+                0x0302912c      0x260 accloud.a(zc_moudle_manag)
+                0x0302912c                ZC_AssemblePkt
  .text.ZC_Moudlefunc
-                0x0302937c       0x78 accloud.a(zc_moudle_manag)
-                0x0302937c                ZC_Moudlefunc
- .text          0x030293f4      0x85c ./thirdPartyLib/libairkiss.a(airkiss.o)
-                0x03029420                airkiss_version
-                0x0302942c                airkiss_init
-                0x030294a0                airkiss_recv
-                0x03029b54                airkiss_get_result
-                0x03029bf8                airkiss_change_channel
- .text          0x03029c50      0x114 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivsi3.o)
-                0x03029c50                __udivsi3
-                0x03029c50                __aeabi_uidiv
-                0x03029d44                __aeabi_uidivmod
- .text          0x03029d64      0x148 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divsi3.o)
-                0x03029d64                __aeabi_idiv
-                0x03029d64                __divsi3
-                0x03029e8c                __aeabi_idivmod
- .text          0x03029eac        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_dvmd_tls.o)
-                0x03029eac                __aeabi_ldiv0
-                0x03029eac                __aeabi_idiv0
- .text          0x03029eb0       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_aeabi_uldivmod.o)
-                0x03029eb0                __aeabi_uldivmod
- .text          0x03029eec       0x84 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(bpabi.o)
-                0x03029eec                __gnu_ldivmod_helper
-                0x03029f30                __gnu_uldivmod_helper
- .text          0x03029f70      0x4d0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divdi3.o)
-                0x03029f70                __divdi3
- .text          0x0302a440      0x470 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivdi3.o)
-                0x0302a440                __udivdi3
- .text          0x0302a8b0       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_clzsi2.o)
-                0x0302a8b0                __clzsi2
- .text          0x0302a8f8        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
- .text.atoi     0x0302a8f8       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
-                0x0302a8f8                atoi
- .text._atoi_r  0x0302a910       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
-                0x0302a910                _atoi_r
- .text          0x0302a928        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-errno.o)
- .text.__errno  0x0302a928       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-errno.o)
-                0x0302a928                __errno
- .text          0x0302a938        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
- .text          0x0302a938        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
- .text.malloc   0x0302a938       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
-                0x0302a938                malloc
- .text.free     0x0302a958       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
-                0x0302a958                free
- .text          0x0302a978        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memmove.o)
- .text.memmove  0x0302a978       0x64 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memmove.o)
-                0x0302a978                memmove
- .text          0x0302a9dc        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-freer.o)
- .text._free_r  0x0302a9dc      0x104 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-freer.o)
-                0x0302a9dc                _free_r
- .text          0x0302aae0        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-mallocr.o)
+                0x0302938c       0x78 accloud.a(zc_moudle_manag)
+                0x0302938c                ZC_Moudlefunc
+ .text          0x03029404      0x85c ./thirdPartyLib/libairkiss.a(airkiss.o)
+                0x03029430                airkiss_version
+                0x0302943c                airkiss_init
+                0x030294b0                airkiss_recv
+                0x03029b64                airkiss_get_result
+                0x03029c08                airkiss_change_channel
+ .text          0x03029c60      0x114 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivsi3.o)
+                0x03029c60                __udivsi3
+                0x03029c60                __aeabi_uidiv
+                0x03029d54                __aeabi_uidivmod
+ .text          0x03029d74      0x148 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divsi3.o)
+                0x03029d74                __aeabi_idiv
+                0x03029d74                __divsi3
+                0x03029e9c                __aeabi_idivmod
+ .text          0x03029ebc        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_dvmd_tls.o)
+                0x03029ebc                __aeabi_ldiv0
+                0x03029ebc                __aeabi_idiv0
+ .text          0x03029ec0       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_aeabi_uldivmod.o)
+                0x03029ec0                __aeabi_uldivmod
+ .text          0x03029efc       0x84 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(bpabi.o)
+                0x03029efc                __gnu_ldivmod_helper
+                0x03029f40                __gnu_uldivmod_helper
+ .text          0x03029f80      0x4d0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divdi3.o)
+                0x03029f80                __divdi3
+ .text          0x0302a450      0x470 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivdi3.o)
+                0x0302a450                __udivdi3
+ .text          0x0302a8c0       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_clzsi2.o)
+                0x0302a8c0                __clzsi2
+ .text          0x0302a908        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
+ .text.atoi     0x0302a908       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
+                0x0302a908                atoi
+ .text._atoi_r  0x0302a920       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-atoi.o)
+                0x0302a920                _atoi_r
+ .text          0x0302a938        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-errno.o)
+ .text.__errno  0x0302a938       0x10 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-errno.o)
+                0x0302a938                __errno
+ .text          0x0302a948        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
+ .text          0x0302a948        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
+ .text.malloc   0x0302a948       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
+                0x0302a948                malloc
+ .text.free     0x0302a968       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-malloc.o)
+                0x0302a968                free
+ .text          0x0302a988        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memmove.o)
+ .text.memmove  0x0302a988       0x64 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memmove.o)
+                0x0302a988                memmove
+ .text          0x0302a9ec        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-freer.o)
+ .text._free_r  0x0302a9ec      0x104 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-freer.o)
+                0x0302a9ec                _free_r
+ .text          0x0302aaf0        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-mallocr.o)
  .text._malloc_r
-                0x0302aae0      0x124 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-mallocr.o)
-                0x0302aae0                _malloc_r
- .text          0x0302ac04        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
- .text.srand    0x0302ac04       0xa4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
-                0x0302ac04                srand
- .text.rand     0x0302aca8       0xcc /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
-                0x0302aca8                rand
- .text          0x0302ad74        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-sbrkr.o)
- .text._sbrk_r  0x0302ad74       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-sbrkr.o)
-                0x0302ad74                _sbrk_r
- .text          0x0302adb0        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcasecmp.o)
+                0x0302aaf0      0x124 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-mallocr.o)
+                0x0302aaf0                _malloc_r
+ .text          0x0302ac14        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
+ .text.srand    0x0302ac14       0xa4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
+                0x0302ac14                srand
+ .text.rand     0x0302acb8       0xcc /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-rand.o)
+                0x0302acb8                rand
+ .text          0x0302ad84        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-sbrkr.o)
+ .text._sbrk_r  0x0302ad84       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-sbrkr.o)
+                0x0302ad84                _sbrk_r
+ .text          0x0302adc0        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcasecmp.o)
  .text.strcasecmp
-                0x0302adb0       0x64 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcasecmp.o)
-                0x0302adb0                strcasecmp
- .text          0x0302ae14        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcpy.o)
- .text.strcpy   0x0302ae14       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcpy.o)
-                0x0302ae14                strcpy
- .text          0x0302ae2c        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strncmp.o)
- .text.strncmp  0x0302ae2c       0x5c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strncmp.o)
-                0x0302ae2c                strncmp
- .text          0x0302ae88        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
+                0x0302adc0       0x64 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcasecmp.o)
+                0x0302adc0                strcasecmp
+ .text          0x0302ae24        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcpy.o)
+ .text.strcpy   0x0302ae24       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strcpy.o)
+                0x0302ae24                strcpy
+ .text          0x0302ae3c        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strncmp.o)
+ .text.strncmp  0x0302ae3c       0x5c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strncmp.o)
+                0x0302ae3c                strncmp
+ .text          0x0302ae98        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
  .text._strtol_r
-                0x0302ae88      0x1c0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
-                0x0302ae88                _strtol_r
- .text.strtol   0x0302b048       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
-                0x0302b048                strtol
- .text          0x0302b074        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
+                0x0302ae98      0x1c0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
+                0x0302ae98                _strtol_r
+ .text.strtol   0x0302b058       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtol.o)
+                0x0302b058                strtol
+ .text          0x0302b084        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
  .text._strtoul_r
-                0x0302b074      0x194 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
-                0x0302b074                _strtoul_r
- .text.strtoul  0x0302b208       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
-                0x0302b208                strtoul
- .text          0x0302b234        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
+                0x0302b084      0x194 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
+                0x0302b084                _strtoul_r
+ .text.strtoul  0x0302b218       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-strtoul.o)
+                0x0302b218                strtoul
+ .text          0x0302b244        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
  .text._vsnprintf_r
-                0x0302b234       0x84 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
-                0x0302b234                _vsnprintf_r
-                0x0302b234                _vsniprintf_r
+                0x0302b244       0x84 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
+                0x0302b244                _vsnprintf_r
+                0x0302b244                _vsniprintf_r
  .text.vsnprintf
-                0x0302b2b8       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
-                0x0302b2b8                vsnprintf
-                0x0302b2b8                vsniprintf
- .text          0x0302b2f4        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
- .text          0x0302b2f4        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
+                0x0302b2c8       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vsnprintf.o)
+                0x0302b2c8                vsnprintf
+                0x0302b2c8                vsniprintf
+ .text          0x0302b304        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
+ .text          0x0302b304        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
  .text.cleanup_glue
-                0x0302b2f4       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
-                0x0302b2f4                cleanup_glue
+                0x0302b304       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
+                0x0302b304                cleanup_glue
  .text._reclaim_reent
-                0x0302b320      0x148 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
-                0x0302b320                _reclaim_reent
- .text          0x0302b468        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
+                0x0302b330      0x148 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
+                0x0302b330                _reclaim_reent
+ .text          0x0302b478        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
  .text.__ssputs_r
-                0x0302b468      0x124 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
-                0x0302b468                __ssputs_r
+                0x0302b478      0x124 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
+                0x0302b478                __ssputs_r
  .text.__ssprint_r
-                0x0302b58c      0x188 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
-                0x0302b58c                __ssprint_r
+                0x0302b59c      0x188 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
+                0x0302b59c                __ssprint_r
  .text._svfprintf_r
-                0x0302b714      0x30c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
-                0x0302b714                _svfprintf_r
-                0x0302b714                _svfiprintf_r
- .text          0x0302ba20        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
+                0x0302b724      0x30c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
+                0x0302b724                _svfprintf_r
+                0x0302b724                _svfiprintf_r
+ .text          0x0302ba30        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
  .text._printf_common
-                0x0302ba20      0x16c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
-                0x0302ba20                _printf_common
+                0x0302ba30      0x16c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
+                0x0302ba30                _printf_common
  .text._printf_i
-                0x0302bb8c      0x3c8 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
-                0x0302bb8c                _printf_i
- .text          0x0302bf54        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memchr-stub.o)
- .text.memchr   0x0302bf54       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memchr-stub.o)
-                0x0302bf54                memchr
- .text          0x0302bf88        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-reallocr.o)
+                0x0302bb9c      0x3c8 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
+                0x0302bb9c                _printf_i
+ .text          0x0302bf64        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memchr-stub.o)
+ .text.memchr   0x0302bf64       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-memchr-stub.o)
+                0x0302bf64                memchr
+ .text          0x0302bf98        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-reallocr.o)
  .text._realloc_r
-                0x0302bf88       0x7c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-reallocr.o)
-                0x0302bf88                _realloc_r
- .text          0x0302c004        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-msizer.o)
+                0x0302bf98       0x7c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-reallocr.o)
+                0x0302bf98                _realloc_r
+ .text          0x0302c014        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-msizer.o)
  .text._malloc_usable_size_r
-                0x0302c004       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-msizer.o)
-                0x0302c004                _malloc_usable_size_r
+                0x0302c014       0x1c /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-msizer.o)
+                0x0302c014                _malloc_usable_size_r
  *(EXCLUDE_FILE(icomlib.a:ssv_lib.o icomlib.a:sha256.o icomlib.a:sha384.o icomlib.a:sha512.o icomlib.a:x905.o icomlib.a:asn1.o icomlib.a:pstmsqrcomba.o icomlib.a:pstmmulcomba.o icomlib.a:pstmmonreduce.o icomlib.a:pstm.o contikilib.a:socket_driver.o icomlib.a:powersave.o icomlib.a:hw_regs_api.o icomlib.a:flash_api.o icomlib.a:drv_flash.o icomlib.a:xmem.o icomlib.a:soft_ap.o icomlib.a:debug-uart.o icomlib.a:dbg-puts.o icomlib.a:strformat.o icomlib.a:dbg-printf.o icomlib.a:rate_control.o icomlib.a:throughput.o icomlib.a:ssv6200_tx.o icomlib.a:ssv6200_rx.o icomlib.a:ssvradio.o icomlib.a:drv_pktbuf.o icomlib.a:packetbuf.o icomlib.a:ieee80211_rdc.o icomlib.a:ieee80211_net.o contikilib.a:tcpip.o icomlib.a:etimer.o icomlib.a:clock.o icomlib.a:timer.o contikilib.a:uip.o icomlib.a:AES_decrypt.o icomlib.a:boot-hiflying.o) .text.*)
  *(EXCLUDE_FILE(icomlib.a:ssv_lib.o icomlib.a:sha256.o icomlib.a:sha384.o icomlib.a:sha512.o icomlib.a:x905.o icomlib.a:asn1.o icomlib.a:pstmsqrcomba.o icomlib.a:pstmmulcomba.o icomlib.a:pstmmonreduce.o icomlib.a:pstm.o contikilib.a:socket_driver.o icomlib.a:powersave.o icomlib.a:hw_regs_api.o icomlib.a:flash_api.o icomlib.a:drv_flash.o icomlib.a:xmem.o icomlib.a:soft_ap.o icomlib.a:debug-uart.o icomlib.a:dbg-puts.o icomlib.a:strformat.o icomlib.a:dbg-printf.o icomlib.a:rate_control.o icomlib.a:throughput.o icomlib.a:ssv6200_tx.o icomlib.a:ssv6200_rx.o icomlib.a:ssvradio.o icomlib.a:drv_pktbuf.o icomlib.a:packetbuf.o icomlib.a:ieee80211_rdc.o icomlib.a:ieee80211_net.o contikilib.a:tcpip.o icomlib.a:etimer.o icomlib.a:clock.o icomlib.a:timer.o contikilib.a:uip.o icomlib.a:AES_decrypt.o icomlib.a:boot-hiflying.o) .rodata)
- .rodata        0x0302c020       0x3c icomlib.a(contiki-main.o)
- .rodata        0x0302c05c       0x14 icomlib.a(systemconf.o)
- .rodata        0x0302c070        0x6 icomlib.a(ieee80211_mac.o)
- .rodata        0x0302c076        0x6 accloud.a(zc_sec_engine.o)
- .rodata        0x0302c07c        0x4 accloud.a(zc_moudle_manag)
- .rodata        0x0302c080      0x100 ./thirdPartyLib/libairkiss.a(airkiss.o)
+ .rodata        0x0302c030       0x3c icomlib.a(contiki-main.o)
+ .rodata        0x0302c06c       0x14 icomlib.a(systemconf.o)
+ .rodata        0x0302c080        0x6 icomlib.a(ieee80211_mac.o)
+ .rodata        0x0302c086        0x6 accloud.a(zc_sec_engine.o)
+ .rodata        0x0302c08c        0x4 accloud.a(zc_moudle_manag)
+ .rodata        0x0302c090      0x100 ./thirdPartyLib/libairkiss.a(airkiss.o)
  *(EXCLUDE_FILE(icomlib.a:ssv_lib.o icomlib.a:sha256.o icomlib.a:sha384.o icomlib.a:sha512.o icomlib.a:x905.o icomlib.a:asn1.o icomlib.a:pstmsqrcomba.o icomlib.a:pstmmulcomba.o icomlib.a:pstmmonreduce.o icomlib.a:pstm.o contikilib.a:socket_driver.o icomlib.a:powersave.o icomlib.a:hw_regs_api.o icomlib.a:flash_api.o icomlib.a:drv_flash.o icomlib.a:xmem.o icomlib.a:soft_ap.o icomlib.a:debug-uart.o icomlib.a:dbg-puts.o icomlib.a:strformat.o icomlib.a:dbg-printf.o icomlib.a:rate_control.o icomlib.a:throughput.o icomlib.a:ssv6200_tx.o icomlib.a:ssv6200_rx.o icomlib.a:ssvradio.o icomlib.a:drv_pktbuf.o icomlib.a:packetbuf.o icomlib.a:ieee80211_rdc.o icomlib.a:ieee80211_net.o contikilib.a:tcpip.o icomlib.a:etimer.o icomlib.a:clock.o icomlib.a:timer.o contikilib.a:uip.o icomlib.a:AES_decrypt.o icomlib.a:boot-hiflying.o) .rodata*)
  .rodata.autostart_processes
-                0x0302c180        0xc ssv6060-main.o
-                0x0302c180                autostart_processes
+                0x0302c190        0xc ssv6060-main.o
+                0x0302c190                autostart_processes
  .rodata.str1.1
-                0x0302c18c      0x286 ssv6060-main.o
-                                0x299 (size before relaxing)
+                0x0302c19c      0x274 ssv6060-main.o
+                                0x287 (size before relaxing)
  .rodata.str1.1
-                0x0302c412       0x61 icomlib.a(printf.o)
+                0x0302c410       0x61 icomlib.a(printf.o)
  .rodata.str1.1
-                0x0302c473       0x46 icomlib.a(process.o)
+                0x0302c471       0x46 icomlib.a(process.o)
  .rodata.str1.1
-                0x0302c4b9     0x1210 icomlib.a(atcmd_icomm.o)
+                0x0302c4b7     0x1210 icomlib.a(atcmd_icomm.o)
                                0x122a (size before relaxing)
  .rodata.str1.1
-                0x0302d6c9       0x86 icomlib.a(contiki-main.o)
+                0x0302d6c7       0x86 icomlib.a(contiki-main.o)
                                  0x98 (size before relaxing)
- *fill*         0x0302d74f        0x1 
+ *fill*         0x0302d74d        0x3 
  .rodata.uarts  0x0302d750        0x8 icomlib.a(drv_uart.o)
  .rodata.asic_rf_setting
                 0x0302d758      0x1b8 icomlib.a(hw_init.o)
@@ -3298,74 +3296,73 @@ prog_in_flash   0x03004000    0x32394
  .rodata.str1.1
                 0x030332bd       0xaa accloud.a(zc_common.o)
  .rodata.str1.1
-                0x03033367       0x41 accloud.a(zc_configuratio)
-                                 0x53 (size before relaxing)
+                0x03033367       0x53 accloud.a(zc_configuratio)
  .rodata.str1.1
-                0x030333a8       0x18 accloud.a(zc_message_queu)
+                0x030333ba       0x18 accloud.a(zc_message_queu)
  .rodata.str1.1
-                0x030333c0      0x257 accloud.a(zc_protocol_con)
+                0x030333d2      0x257 accloud.a(zc_protocol_con)
  .rodata.str1.1
-                0x03033617       0x7f accloud.a(zc_sec_engine.o)
+                0x03033629       0x7f accloud.a(zc_sec_engine.o)
  .rodata.str1.1
-                0x03033696       0x37 accloud.a(zc_timer.o)
+                0x030336a8       0x37 accloud.a(zc_timer.o)
  .rodata.str1.1
-                0x030336cd       0x68 accloud.a(zc_hf_adpter.o)
+                0x030336df       0x68 accloud.a(zc_hf_adpter.o)
                                  0x78 (size before relaxing)
  .rodata.str1.1
-                0x03033735       0x14 accloud.a(ac_hal.o)
- *fill*         0x03033749        0x3 
- .rodata.Te3    0x0303374c      0x400 accloud.a(aes_core.o)
- .rodata.Td0    0x03033b4c      0x400 accloud.a(aes_core.o)
- .rodata.Td1    0x03033f4c      0x400 accloud.a(aes_core.o)
- .rodata.rcon   0x0303434c       0x28 accloud.a(aes_core.o)
- .rodata.Td3    0x03034374      0x400 accloud.a(aes_core.o)
- .rodata.Td4    0x03034774      0x400 accloud.a(aes_core.o)
- .rodata.Te0    0x03034b74      0x400 accloud.a(aes_core.o)
- .rodata.Te1    0x03034f74      0x400 accloud.a(aes_core.o)
- .rodata.Te2    0x03035374      0x400 accloud.a(aes_core.o)
- .rodata.Td2    0x03035774      0x400 accloud.a(aes_core.o)
- .rodata.Te4    0x03035b74      0x400 accloud.a(aes_core.o)
+                0x03033747       0x14 accloud.a(ac_hal.o)
+ *fill*         0x0303375b        0x1 
+ .rodata.Te3    0x0303375c      0x400 accloud.a(aes_core.o)
+ .rodata.Td0    0x03033b5c      0x400 accloud.a(aes_core.o)
+ .rodata.Td1    0x03033f5c      0x400 accloud.a(aes_core.o)
+ .rodata.rcon   0x0303435c       0x28 accloud.a(aes_core.o)
+ .rodata.Td3    0x03034384      0x400 accloud.a(aes_core.o)
+ .rodata.Td4    0x03034784      0x400 accloud.a(aes_core.o)
+ .rodata.Te0    0x03034b84      0x400 accloud.a(aes_core.o)
+ .rodata.Te1    0x03034f84      0x400 accloud.a(aes_core.o)
+ .rodata.Te2    0x03035384      0x400 accloud.a(aes_core.o)
+ .rodata.Td2    0x03035784      0x400 accloud.a(aes_core.o)
+ .rodata.Te4    0x03035b84      0x400 accloud.a(aes_core.o)
  .rodata.small_prime
-                0x03035f74      0x2a0 accloud.a(bignum.o)
+                0x03035f84      0x2a0 accloud.a(bignum.o)
  .rodata.str1.1
-                0x03036214       0x46 ./thirdPartyLib/libairkiss.a(airkiss.o)
+                0x03036224       0x46 ./thirdPartyLib/libairkiss.a(airkiss.o)
  .rodata.str1.1
                 0x00000000       0x46 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
                                   0x2 (size before relaxing)
- *fill*         0x0303625a        0x2 
+ *fill*         0x0303626a        0x2 
  .rodata._global_impure_ptr
-                0x0303625c        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
-                0x0303625c                _global_impure_ptr
+                0x0303626c        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
+                0x0303626c                _global_impure_ptr
  .rodata._ctype_
-                0x03036260      0x101 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
-                0x03036260                _ctype_
+                0x03036270      0x101 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
+                0x03036270                _ctype_
  .rodata.str1.1
-                0x03036361       0x11 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
+                0x03036371       0x11 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-svfprintf.o)
  .rodata.str1.1
-                0x03036372       0x22 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
+                0x03036382       0x22 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-vfprintf_i.o)
  *(.glue_7)
  .glue_7        0x00000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x00000000        0x0 linker stubs
  *(.ARM.extab)
- .ARM.extab     0x03036394        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divdi3.o)
- .ARM.extab     0x03036394        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivdi3.o)
+ .ARM.extab     0x030363a4        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divdi3.o)
+ .ARM.extab     0x030363a4        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivdi3.o)
  *(.gnu.linkonce.armextab.*)
  *(.vfp11_veneer)
  .vfp11_veneer  0x00000000        0x0 linker stubs
  *(.v4_bx)
  .v4_bx         0x00000000        0x0 linker stubs
  *(.iplt)
- .iplt          0x00000000        0x0 /tmp/ccmDjWLP.o
+ .iplt          0x00000000        0x0 /tmp/ccwVHTJo.o
  *(.rel.dyn)
  *(.rel.iplt)
- .rel.iplt      0x00000000        0x0 /tmp/ccmDjWLP.o
-                0x03036394                . = ALIGN (0x4)
+ .rel.iplt      0x00000000        0x0 /tmp/ccwVHTJo.o
+                0x030363a4                . = ALIGN (0x4)
 
-prog_in_sram    0x02000000     0xe728 load address 0x03036394
+prog_in_sram    0x02000000     0xe728 load address 0x030363a4
  *(.startup_clone)
  .startup_clone
-                0x02000000       0x50 /tmp/ccmDjWLP.o
+                0x02000000       0x50 /tmp/ccwVHTJo.o
  *(keep_in_sram)
  keep_in_sram   0x02000050       0x9c icomlib.a(etimer.o)
                 0x02000050                etimer_request_poll
@@ -4355,21 +4352,21 @@ prog_in_sram    0x02000000     0xe728 load address 0x03036394
                 0x0200e728                . = ALIGN (0x4)
  *fill*         0x0200e726        0x2 
                 0x02000000                _tbeg_dst = ORIGIN (ram)
-                0x03036394                _sitxt3 = (LOADADDR (prog_in_flash) + SIZEOF (prog_in_flash))
-                0x03036394                _tbeg_src = LOADADDR (prog_in_sram)
+                0x030363a4                _sitxt3 = (LOADADDR (prog_in_flash) + SIZEOF (prog_in_flash))
+                0x030363a4                _tbeg_src = LOADADDR (prog_in_sram)
                 0x0200e728                _tend_dst = (_tbeg_dst + SIZEOF (prog_in_sram))
 
-.ARM            0x0200e728        0x8 load address 0x03044abc
+.ARM            0x0200e728        0x8 load address 0x03044acc
  *(.ARM.exidx*)
  .ARM.exidx     0x0200e728        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_divdi3.o)
  .ARM.exidx     0x0200e730        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/libgcc.a(_udivdi3.o)
                                   0x8 (size before relaxing)
                 0x0200e730                _tend_dst = .
 
-.data           0x0200e730     0x1180 load address 0x03044ac8
+.data           0x0200e730     0x1178 load address 0x03044ad8
                 0x0200e730                _dbeg_dst = .
  *(EXCLUDE_FILE(icomlib.a:boot-hiflying.o) .data)
- .data          0x0200e730        0x0 /tmp/ccmDjWLP.o
+ .data          0x0200e730        0x0 /tmp/ccwVHTJo.o
  .data          0x0200e730        0x0 ssv6060-main.o
  .data          0x0200e730        0x0 icomlib.a(etimer.o)
  .data          0x0200e730        0x0 icomlib.a(printf.o)
@@ -4804,49 +4801,43 @@ prog_in_sram    0x02000000     0xe728 load address 0x03036394
  .data.g_u8DefaultCloudKey
                 0x0200f350       0x24 accloud.a(zc_configuratio)
                 0x0200f350                g_u8DefaultCloudKey
- .data.oldImg2Addr
-                0x0200f374        0x4 accloud.a(zc_hf_adpter.o)
-                0x0200f374                oldImg2Addr
  .data.g_u32BcSleepCount
-                0x0200f378        0x4 accloud.a(zc_hf_adpter.o)
-                0x0200f378                g_u32BcSleepCount
- .data.newImg2Addr
-                0x0200f37c        0x4 accloud.a(zc_hf_adpter.o)
-                0x0200f37c                newImg2Addr
+                0x0200f374        0x4 accloud.a(zc_hf_adpter.o)
+                0x0200f374                g_u32BcSleepCount
  .data.g_u8DeviceId
-                0x0200f380       0x10 accloud.a(ac_hal.o)
-                0x0200f380                g_u8DeviceId
+                0x0200f378       0x10 accloud.a(ac_hal.o)
+                0x0200f378                g_u8DeviceId
  .data.g_u64Domain
-                0x0200f390        0x8 accloud.a(ac_hal.o)
-                0x0200f390                g_u64Domain
+                0x0200f388        0x8 accloud.a(ac_hal.o)
+                0x0200f388                g_u64Domain
  .data.g_u8ModuleKey
-                0x0200f398       0x70 accloud.a(ac_hal.o)
-                0x0200f398                g_u8ModuleKey
+                0x0200f390       0x70 accloud.a(ac_hal.o)
+                0x0200f390                g_u8ModuleKey
  .data.crc_ta_4
-                0x0200f408       0x40 accloud.a(crc.o)
-                0x0200f408                crc_ta_4
+                0x0200f400       0x40 accloud.a(crc.o)
+                0x0200f400                crc_ta_4
  .data.crc_ta_8
-                0x0200f448      0x400 accloud.a(crc.o)
-                0x0200f448                crc_ta_8
+                0x0200f440      0x400 accloud.a(crc.o)
+                0x0200f440                crc_ta_8
  .data.impure_data
-                0x0200f848       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
+                0x0200f840       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
  .data._impure_ptr
-                0x0200f8a8        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
-                0x0200f8a8                _impure_ptr
+                0x0200f8a0        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-impure.o)
+                0x0200f8a0                _impure_ptr
  .data.__ctype_ptr__
-                0x0200f8ac        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
-                0x0200f8ac                __ctype_ptr__
-                0x0200f8b0                _dend_dst = .
-                0x03044ac8                _dbeg_src = LOADADDR (.data)
+                0x0200f8a4        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-ctype_.o)
+                0x0200f8a4                __ctype_ptr__
+                0x0200f8a8                _dend_dst = .
+                0x03044ad8                _dbeg_src = LOADADDR (.data)
 
-.igot.plt       0x0200f8b0        0x0 load address 0x03045c48
- .igot.plt      0x00000000        0x0 /tmp/ccmDjWLP.o
+.igot.plt       0x0200f8a8        0x0 load address 0x03045c50
+ .igot.plt      0x00000000        0x0 /tmp/ccwVHTJo.o
 
-.bss            0x0200f8b0     0xb4d0 load address 0x03045c48
+.bss            0x0200f8b0     0xb4b0 load address 0x03045c58
                 0x0200f8b0                . = ALIGN (0x10)
                 0x0200f8b0                __bss_beg__ = .
  *(EXCLUDE_FILE(icomlib.a:boot-hiflying.o) .bss)
- .bss           0x0200f8b0        0x0 /tmp/ccmDjWLP.o
+ .bss           0x0200f8b0        0x0 /tmp/ccwVHTJo.o
  .bss           0x0200f8b0        0x0 ssv6060-main.o
  .bss           0x0200f8b0        0x0 icomlib.a(etimer.o)
  .bss           0x0200f8b0        0x0 icomlib.a(printf.o)
@@ -5490,7 +5481,7 @@ prog_in_sram    0x02000000     0xe728 load address 0x03036394
                 0x02017648                g_struProtocolController
  COMMON         0x020176d0       0x50 accloud.a(zc_timer.o)
                 0x020176d0                g_struTimer
- COMMON         0x02017720     0x1a76 accloud.a(zc_hf_adpter.o)
+ COMMON         0x02017720     0x1a62 accloud.a(zc_hf_adpter.o)
                 0x02017720                g_struClientBuffer
                 0x02017980                g_u16TcpMss
                 0x02017982                g_u8BcSendBuffer
@@ -5500,36 +5491,34 @@ prog_in_sram    0x02000000     0xe728 load address 0x03036394
                 0x02017d80                g_u8MsgBuildBuffer
                 0x02017fd8                g_struSendQueue
                 0x02018000                g_struRecvQueue
-                0x02018028                g_u16TiTimerCount
-                0x0201803c                g_struRetxBuffer
-                0x0201829c                g_struSendBuffer
-                0x020189bc                g_struUartBuffer
-                0x02018dac                g_u8recvbuffer
-                0x02019194                g_u16LocalPort
- COMMON         0x02019196      0x200 accloud.a(ac_hal.o)
-                0x02019196                g_u8DevMsgBuildBuffer
- *fill*         0x02019396        0x2 
- COMMON         0x02019398     0x1868 accloud.a(bignum.o)
-                0x02019398                O_T1
-                0x020193f0                Y
-                0x02019448                O_RR
-                0x020194a0                O_T
-                0x020194f8                O_W
-                0x0201aaf8                O_T2
-                0x0201ab50                Z
-                0x0201aba8                X
- COMMON         0x0201ac00      0x148 accloud.a(rsa.o)
-                0x0201ac00                T2
-                0x0201ac58                T
-                0x0201acb0                T1
-                0x0201ad08                buf
- COMMON         0x0201ad48       0x28 accloud.a(zc_client_manag)
-                0x0201ad48                g_struClientInfo
- COMMON         0x0201ad70        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
-                0x0201ad70                errno
-                0x0201ad74                __bss_end__ = .
-                0x0201ad80                . = ALIGN (0x10)
- *fill*         0x0201ad74        0xc 
+                0x02018028                g_struRetxBuffer
+                0x02018288                g_struSendBuffer
+                0x020189a8                g_struUartBuffer
+                0x02018d98                g_u8recvbuffer
+                0x02019180                g_u16LocalPort
+ COMMON         0x02019182      0x200 accloud.a(ac_hal.o)
+                0x02019182                g_u8DevMsgBuildBuffer
+ *fill*         0x02019382        0x2 
+ COMMON         0x02019384     0x1868 accloud.a(bignum.o)
+                0x02019384                O_T1
+                0x020193dc                Y
+                0x02019434                O_RR
+                0x0201948c                O_T
+                0x020194e4                O_W
+                0x0201aae4                O_T2
+                0x0201ab3c                Z
+                0x0201ab94                X
+ COMMON         0x0201abec      0x148 accloud.a(rsa.o)
+                0x0201abec                T2
+                0x0201ac44                T
+                0x0201ac9c                T1
+                0x0201acf4                buf
+ COMMON         0x0201ad34       0x28 accloud.a(zc_client_manag)
+                0x0201ad34                g_struClientInfo
+ COMMON         0x0201ad5c        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-reent.o)
+                0x0201ad5c                errno
+                0x0201ad60                __bss_end__ = .
+                0x0201ad60                . = ALIGN (0x10)
                 0x030001e0                _btext_beg_src = LOADADDR (boot_in_sram)
                 0x02029000                _btext_beg_dst = _vma_boot_text_beg
                 0x02029cc0                _btext_end_dst = (_btext_beg_dst + SIZEOF (boot_in_sram))
@@ -5671,14 +5660,14 @@ boot_in_sram    0x02029000      0xcc0 load address 0x030001e0
                 0x0202d404                . = ALIGN (0x4)
                 0x0202d404                _end = .
                 0x0202d404                __end__ = .
-                0x0201ad74                __heap_start__ = __bss_end__
+                0x0201ad60                __heap_start__ = __bss_end__
                 0x0202e380                __heap_end__ = ((ORIGIN (ram) + 0x30000) - TOTAL_STACK_SIZE)
 
 .ARM.attributes
                 0x00000000       0x2c
  *(.ARM.attributes)
  .ARM.attributes
-                0x00000000       0x18 /tmp/ccmDjWLP.o
+                0x00000000       0x18 /tmp/ccwVHTJo.o
  .ARM.attributes
                 0x00000018       0x28 ssv6060-main.o
  .ARM.attributes
@@ -5959,7 +5948,7 @@ boot_in_sram    0x02029000      0xcc0 load address 0x030001e0
                 0x00001620       0x30 /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libg_s.a(lib_a-nano-msizer.o)
  *(ARM.attributes)
                 0x00001650                PROVIDE (end, .)
-LOAD /tmp/ccmDjWLP.o
+LOAD /tmp/ccwVHTJo.o
 LOAD ssv6060-main.o
 LOAD icomlib.a
 LOAD icomapps.a
@@ -5984,342 +5973,342 @@ LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/libno
 END GROUP
 OUTPUT(ssv6060-main.elf elf32-littlearm)
 
-.debug_line     0x00000000    0x1385d
- .debug_line    0x00000000       0xe3 /tmp/ccmDjWLP.o
- .debug_line    0x000000e3      0x3fe ssv6060-main.o
- .debug_line    0x000004e1      0x20a icomlib.a(etimer.o)
- .debug_line    0x000006eb      0x39a icomlib.a(printf.o)
- .debug_line    0x00000a85      0x226 icomlib.a(process.o)
- .debug_line    0x00000cab      0x289 icomlib.a(strformat.o)
- .debug_line    0x00000f34       0xc9 icomlib.a(timer.o)
- .debug_line    0x00000ffd      0x7ba icomlib.a(atcmd_icomm.o)
- .debug_line    0x000017b7      0x476 icomlib.a(boot-hiflying.o)
- .debug_line    0x00001c2d      0x1e4 icomlib.a(clock.o)
- .debug_line    0x00001e11      0x2e3 icomlib.a(contiki-main.o)
- .debug_line    0x000020f4       0xb6 icomlib.a(debug-uart.o)
- .debug_line    0x000021aa       0xe7 icomlib.a(gpio_api.o)
- .debug_line    0x00002291       0x98 icomlib.a(drv_timer.o)
- .debug_line    0x00002329      0x1bd icomlib.a(drv_uart.o)
- .debug_line    0x000024e6      0x3a7 icomlib.a(hw_init.o)
- .debug_line    0x0000288d       0x8b icomlib.a(hw_regs_api.o)
- .debug_line    0x00002918      0x1dd icomlib.a(ssv_lib.o)
- .debug_line    0x00002af5      0x10f icomlib.a(ssv_lib_slow.o)
- .debug_line    0x00002c04      0x1f8 icomlib.a(swpwm.o)
- .debug_line    0x00002dfc      0x3b1 icomlib.a(systemconf.o)
- .debug_line    0x000031ad      0x197 icomlib.a(wdog_api.o)
- .debug_line    0x00003344      0x1ad icomlib.a(xmem.o)
- .debug_line    0x000034f1      0x279 icomlib.a(bsp.o)
- .debug_line    0x0000376a      0x19f icomlib.a(crypthw.o)
- .debug_line    0x00003909      0xcc4 icomlib.a(dbg-atcmd-api.o)
- .debug_line    0x000045cd      0x216 icomlib.a(drv_mac.o)
- .debug_line    0x000047e3      0xb8b icomlib.a(drv_phy.o)
- .debug_line    0x0000536e      0x1db icomlib.a(drv_pktbuf.o)
- .debug_line    0x00005549       0xeb icomlib.a(drv_pktbuf_slow)
- .debug_line    0x00005634      0x104 icomlib.a(hash_alg.o)
- .debug_line    0x00005738      0x11d icomlib.a(hmac_md5.o)
- .debug_line    0x00005855      0x16d icomlib.a(hmac_sha1.o)
- .debug_line    0x000059c2      0x9c0 icomlib.a(ieee80211_mgmt.)
- .debug_line    0x00006382      0x1f1 icomlib.a(ieee80211_rdc.o)
- .debug_line    0x00006573      0x160 icomlib.a(irq.o)
- .debug_line    0x000066d3       0x82 icomlib.a(netstack.o)
- .debug_line    0x00006755      0x31c icomlib.a(powersave.o)
- .debug_line    0x00006a71      0x1eb icomlib.a(rate_control.o)
- .debug_line    0x00006c5c      0x104 icomlib.a(sha1.o)
- .debug_line    0x00006d60      0xa09 icomlib.a(soft_ap.o)
- .debug_line    0x00007769      0x4ae icomlib.a(ssv6200_rx.o)
- .debug_line    0x00007c17      0x329 icomlib.a(ssvradio.o)
- .debug_line    0x00007f40      0x63b icomlib.a(wpa.o)
- .debug_line    0x0000857b      0x1e8 icomlib.a(sys_status_api.)
- .debug_line    0x00008763      0x371 icomlib.a(AES_decrypt.o)
- .debug_line    0x00008ad4       0xbe icomlib.a(arc4.o)
- .debug_line    0x00008b92      0x272 icomlib.a(md5.o)
- .debug_line    0x00008e04      0x407 icomlib.a(wep.o)
- .debug_line    0x0000920b       0x95 icomlib.a(autostart.o)
- .debug_line    0x000092a0      0x1bb icomlib.a(shell-ping.o)
- .debug_line    0x0000945b       0x74 icomlib.a(random.o)
- .debug_line    0x000094cf      0x2e7 icomlib.a(airkiss.o)
- .debug_line    0x000097b6      0x2c6 icomlib.a(bsp_info.o)
- .debug_line    0x00009a7c      0x53f icomlib.a(cfs-coffee.o)
- .debug_line    0x00009fbb      0x16f icomlib.a(console.o)
- .debug_line    0x0000a12a      0x207 icomlib.a(drv_flash.o)
- .debug_line    0x0000a331      0x14d icomlib.a(drv_gpio.o)
- .debug_line    0x0000a47e      0x27c icomlib.a(drv_pmu.o)
- .debug_line    0x0000a6fa       0xab icomlib.a(drv_wdog.o)
- .debug_line    0x0000a7a5       0x9c icomlib.a(fence.o)
- .debug_line    0x0000a841      0x228 icomlib.a(flash_api.o)
- .debug_line    0x0000aa69      0x449 icomlib.a(smartComm.o)
- .debug_line    0x0000aeb2      0x401 icomlib.a(smartConf.o)
- .debug_line    0x0000b2b3      0x37c icomlib.a(userSmart.o)
- .debug_line    0x0000b62f      0x41c icomlib.a(ieee80211_mac.o)
- .debug_line    0x0000ba4b      0x259 icomlib.a(ieee80211_net.o)
- .debug_line    0x0000bca4      0x266 icomlib.a(ssv6200_tx.o)
- .debug_line    0x0000bf0a       0x82 icomlib.a(drv_fence.o)
- .debug_line    0x0000bf8c       0x7a icomlib.a(drv_mbox.o)
- .debug_line    0x0000c006      0x1c1 icomlib.a(EAPOL.o)
- .debug_line    0x0000c1c7      0xba7 icomapps.a(atcmd.o)
- .debug_line    0x0000cd6e      0x3fc icomapps.a(socket_app.o)
- .debug_line    0x0000d16a      0x289 icomapps.a(soft_ap_init.o)
- .debug_line    0x0000d3f3      0x336 icomapps.a(tcp_server_demo)
- .debug_line    0x0000d729      0x284 icomapps.a(wifi_uart_demo.)
- .debug_line    0x0000d9ad      0x38b icomapps.a(ota_api.o)
- .debug_line    0x0000dd38       0x91 icomlib.a(pwm_api.o)
- .debug_line    0x0000ddc9       0xc9 icomlib.a(serial_api.o)
- .debug_line    0x0000de92       0xaf icomlib.a(drv_pwm.o)
- .debug_line    0x0000df41      0x237 contikilib.a(dhcp_process.o)
- .debug_line    0x0000e178      0x4e7 contikilib.a(dhcps.o)
- .debug_line    0x0000e65f      0x326 contikilib.a(resolv.o)
- .debug_line    0x0000e985      0x1e7 contikilib.a(simple-udp.o)
- .debug_line    0x0000eb6c      0x359 contikilib.a(socket_driver.o)
- .debug_line    0x0000eec5      0x435 contikilib.a(tcpip.o)
- .debug_line    0x0000f2fa      0x38c contikilib.a(uip_arp.o)
- .debug_line    0x0000f686      0x7cb contikilib.a(uip.o)
- .debug_line    0x0000fe51       0xfc contikilib.a(uiplib.o)
- .debug_line    0x0000ff4d      0x13b contikilib.a(uip-udp-packet.)
- .debug_line    0x00010088      0x236 contikilib.a(ntp_client.o)
- .debug_line    0x000102be      0x431 contikilib.a(dhcpc.o)
- .debug_line    0x000106ef      0x162 accloud.a(zc_common.o)
- .debug_line    0x00010851      0x216 accloud.a(zc_configuratio)
- .debug_line    0x00010a67      0x204 accloud.a(zc_message_queu)
- .debug_line    0x00010c6b      0x636 accloud.a(zc_protocol_con)
+.debug_line     0x00000000    0x13853
+ .debug_line    0x00000000       0xe3 /tmp/ccwVHTJo.o
+ .debug_line    0x000000e3      0x400 ssv6060-main.o
+ .debug_line    0x000004e3      0x20a icomlib.a(etimer.o)
+ .debug_line    0x000006ed      0x39a icomlib.a(printf.o)
+ .debug_line    0x00000a87      0x226 icomlib.a(process.o)
+ .debug_line    0x00000cad      0x289 icomlib.a(strformat.o)
+ .debug_line    0x00000f36       0xc9 icomlib.a(timer.o)
+ .debug_line    0x00000fff      0x7ba icomlib.a(atcmd_icomm.o)
+ .debug_line    0x000017b9      0x476 icomlib.a(boot-hiflying.o)
+ .debug_line    0x00001c2f      0x1e4 icomlib.a(clock.o)
+ .debug_line    0x00001e13      0x2e3 icomlib.a(contiki-main.o)
+ .debug_line    0x000020f6       0xb6 icomlib.a(debug-uart.o)
+ .debug_line    0x000021ac       0xe7 icomlib.a(gpio_api.o)
+ .debug_line    0x00002293       0x98 icomlib.a(drv_timer.o)
+ .debug_line    0x0000232b      0x1bd icomlib.a(drv_uart.o)
+ .debug_line    0x000024e8      0x3a7 icomlib.a(hw_init.o)
+ .debug_line    0x0000288f       0x8b icomlib.a(hw_regs_api.o)
+ .debug_line    0x0000291a      0x1dd icomlib.a(ssv_lib.o)
+ .debug_line    0x00002af7      0x10f icomlib.a(ssv_lib_slow.o)
+ .debug_line    0x00002c06      0x1f8 icomlib.a(swpwm.o)
+ .debug_line    0x00002dfe      0x3b1 icomlib.a(systemconf.o)
+ .debug_line    0x000031af      0x197 icomlib.a(wdog_api.o)
+ .debug_line    0x00003346      0x1ad icomlib.a(xmem.o)
+ .debug_line    0x000034f3      0x279 icomlib.a(bsp.o)
+ .debug_line    0x0000376c      0x19f icomlib.a(crypthw.o)
+ .debug_line    0x0000390b      0xcc4 icomlib.a(dbg-atcmd-api.o)
+ .debug_line    0x000045cf      0x216 icomlib.a(drv_mac.o)
+ .debug_line    0x000047e5      0xb8b icomlib.a(drv_phy.o)
+ .debug_line    0x00005370      0x1db icomlib.a(drv_pktbuf.o)
+ .debug_line    0x0000554b       0xeb icomlib.a(drv_pktbuf_slow)
+ .debug_line    0x00005636      0x104 icomlib.a(hash_alg.o)
+ .debug_line    0x0000573a      0x11d icomlib.a(hmac_md5.o)
+ .debug_line    0x00005857      0x16d icomlib.a(hmac_sha1.o)
+ .debug_line    0x000059c4      0x9c0 icomlib.a(ieee80211_mgmt.)
+ .debug_line    0x00006384      0x1f1 icomlib.a(ieee80211_rdc.o)
+ .debug_line    0x00006575      0x160 icomlib.a(irq.o)
+ .debug_line    0x000066d5       0x82 icomlib.a(netstack.o)
+ .debug_line    0x00006757      0x31c icomlib.a(powersave.o)
+ .debug_line    0x00006a73      0x1eb icomlib.a(rate_control.o)
+ .debug_line    0x00006c5e      0x104 icomlib.a(sha1.o)
+ .debug_line    0x00006d62      0xa09 icomlib.a(soft_ap.o)
+ .debug_line    0x0000776b      0x4ae icomlib.a(ssv6200_rx.o)
+ .debug_line    0x00007c19      0x329 icomlib.a(ssvradio.o)
+ .debug_line    0x00007f42      0x63b icomlib.a(wpa.o)
+ .debug_line    0x0000857d      0x1e8 icomlib.a(sys_status_api.)
+ .debug_line    0x00008765      0x371 icomlib.a(AES_decrypt.o)
+ .debug_line    0x00008ad6       0xbe icomlib.a(arc4.o)
+ .debug_line    0x00008b94      0x272 icomlib.a(md5.o)
+ .debug_line    0x00008e06      0x407 icomlib.a(wep.o)
+ .debug_line    0x0000920d       0x95 icomlib.a(autostart.o)
+ .debug_line    0x000092a2      0x1bb icomlib.a(shell-ping.o)
+ .debug_line    0x0000945d       0x74 icomlib.a(random.o)
+ .debug_line    0x000094d1      0x2e7 icomlib.a(airkiss.o)
+ .debug_line    0x000097b8      0x2c6 icomlib.a(bsp_info.o)
+ .debug_line    0x00009a7e      0x53f icomlib.a(cfs-coffee.o)
+ .debug_line    0x00009fbd      0x16f icomlib.a(console.o)
+ .debug_line    0x0000a12c      0x207 icomlib.a(drv_flash.o)
+ .debug_line    0x0000a333      0x14d icomlib.a(drv_gpio.o)
+ .debug_line    0x0000a480      0x27c icomlib.a(drv_pmu.o)
+ .debug_line    0x0000a6fc       0xab icomlib.a(drv_wdog.o)
+ .debug_line    0x0000a7a7       0x9c icomlib.a(fence.o)
+ .debug_line    0x0000a843      0x228 icomlib.a(flash_api.o)
+ .debug_line    0x0000aa6b      0x449 icomlib.a(smartComm.o)
+ .debug_line    0x0000aeb4      0x401 icomlib.a(smartConf.o)
+ .debug_line    0x0000b2b5      0x37c icomlib.a(userSmart.o)
+ .debug_line    0x0000b631      0x41c icomlib.a(ieee80211_mac.o)
+ .debug_line    0x0000ba4d      0x259 icomlib.a(ieee80211_net.o)
+ .debug_line    0x0000bca6      0x266 icomlib.a(ssv6200_tx.o)
+ .debug_line    0x0000bf0c       0x82 icomlib.a(drv_fence.o)
+ .debug_line    0x0000bf8e       0x7a icomlib.a(drv_mbox.o)
+ .debug_line    0x0000c008      0x1c1 icomlib.a(EAPOL.o)
+ .debug_line    0x0000c1c9      0xba7 icomapps.a(atcmd.o)
+ .debug_line    0x0000cd70      0x3fc icomapps.a(socket_app.o)
+ .debug_line    0x0000d16c      0x289 icomapps.a(soft_ap_init.o)
+ .debug_line    0x0000d3f5      0x336 icomapps.a(tcp_server_demo)
+ .debug_line    0x0000d72b      0x284 icomapps.a(wifi_uart_demo.)
+ .debug_line    0x0000d9af      0x38b icomapps.a(ota_api.o)
+ .debug_line    0x0000dd3a       0x91 icomlib.a(pwm_api.o)
+ .debug_line    0x0000ddcb       0xc9 icomlib.a(serial_api.o)
+ .debug_line    0x0000de94       0xaf icomlib.a(drv_pwm.o)
+ .debug_line    0x0000df43      0x237 contikilib.a(dhcp_process.o)
+ .debug_line    0x0000e17a      0x4e7 contikilib.a(dhcps.o)
+ .debug_line    0x0000e661      0x326 contikilib.a(resolv.o)
+ .debug_line    0x0000e987      0x1e7 contikilib.a(simple-udp.o)
+ .debug_line    0x0000eb6e      0x359 contikilib.a(socket_driver.o)
+ .debug_line    0x0000eec7      0x435 contikilib.a(tcpip.o)
+ .debug_line    0x0000f2fc      0x38c contikilib.a(uip_arp.o)
+ .debug_line    0x0000f688      0x7cb contikilib.a(uip.o)
+ .debug_line    0x0000fe53       0xfc contikilib.a(uiplib.o)
+ .debug_line    0x0000ff4f      0x13b contikilib.a(uip-udp-packet.)
+ .debug_line    0x0001008a      0x236 contikilib.a(ntp_client.o)
+ .debug_line    0x000102c0      0x431 contikilib.a(dhcpc.o)
+ .debug_line    0x000106f1      0x162 accloud.a(zc_common.o)
+ .debug_line    0x00010853      0x216 accloud.a(zc_configuratio)
+ .debug_line    0x00010a69      0x204 accloud.a(zc_message_queu)
+ .debug_line    0x00010c6d      0x634 accloud.a(zc_protocol_con)
  .debug_line    0x000112a1      0x280 accloud.a(zc_sec_engine.o)
  .debug_line    0x00011521      0x137 accloud.a(zc_timer.o)
- .debug_line    0x00011658      0x4bd accloud.a(zc_hf_adpter.o)
- .debug_line    0x00011b15      0x2a3 accloud.a(ac_api.o)
- .debug_line    0x00011db8      0x23f accloud.a(ac_hal.o)
- .debug_line    0x00011ff7      0x180 accloud.a(aes_cbc.o)
- .debug_line    0x00012177      0x396 accloud.a(aes_core.o)
- .debug_line    0x0001250d       0xa0 accloud.a(crc.o)
- .debug_line    0x000125ad      0x982 accloud.a(bignum.o)
- .debug_line    0x00012f2f      0x1c8 accloud.a(rsa.o)
- .debug_line    0x000130f7      0x292 accloud.a(zc_client_manag)
- .debug_line    0x00013389      0x212 accloud.a(zc_cloud_event.)
- .debug_line    0x0001359b      0x2c2 accloud.a(zc_moudle_manag)
+ .debug_line    0x00011658      0x4b3 accloud.a(zc_hf_adpter.o)
+ .debug_line    0x00011b0b      0x2a3 accloud.a(ac_api.o)
+ .debug_line    0x00011dae      0x23f accloud.a(ac_hal.o)
+ .debug_line    0x00011fed      0x180 accloud.a(aes_cbc.o)
+ .debug_line    0x0001216d      0x396 accloud.a(aes_core.o)
+ .debug_line    0x00012503       0xa0 accloud.a(crc.o)
+ .debug_line    0x000125a3      0x982 accloud.a(bignum.o)
+ .debug_line    0x00012f25      0x1c8 accloud.a(rsa.o)
+ .debug_line    0x000130ed      0x292 accloud.a(zc_client_manag)
+ .debug_line    0x0001337f      0x212 accloud.a(zc_cloud_event.)
+ .debug_line    0x00013591      0x2c2 accloud.a(zc_moudle_manag)
 
-.debug_info     0x00000000    0x671fc
- .debug_info    0x00000000       0x59 /tmp/ccmDjWLP.o
- .debug_info    0x00000059     0x15d5 ssv6060-main.o
- .debug_info    0x0000162e      0x7b5 icomlib.a(etimer.o)
- .debug_info    0x00001de3      0xb8a icomlib.a(printf.o)
- .debug_info    0x0000296d      0x7f8 icomlib.a(process.o)
- .debug_info    0x00003165      0x9b3 icomlib.a(strformat.o)
- .debug_info    0x00003b18      0x1b3 icomlib.a(timer.o)
- .debug_info    0x00003ccb     0x39ce icomlib.a(atcmd_icomm.o)
- .debug_info    0x00007699     0x14f9 icomlib.a(boot-hiflying.o)
- .debug_info    0x00008b92      0xbd0 icomlib.a(clock.o)
- .debug_info    0x00009762      0xc25 icomlib.a(contiki-main.o)
- .debug_info    0x0000a387      0x23d icomlib.a(debug-uart.o)
- .debug_info    0x0000a5c4      0x3f2 icomlib.a(gpio_api.o)
- .debug_info    0x0000a9b6      0x257 icomlib.a(drv_timer.o)
- .debug_info    0x0000ac0d      0x574 icomlib.a(drv_uart.o)
- .debug_info    0x0000b181     0x1dc3 icomlib.a(hw_init.o)
- .debug_info    0x0000cf44      0x1ae icomlib.a(hw_regs_api.o)
- .debug_info    0x0000d0f2      0x4d1 icomlib.a(ssv_lib.o)
- .debug_info    0x0000d5c3      0x360 icomlib.a(ssv_lib_slow.o)
- .debug_info    0x0000d923      0x497 icomlib.a(swpwm.o)
- .debug_info    0x0000ddba     0x1852 icomlib.a(systemconf.o)
- .debug_info    0x0000f60c      0x581 icomlib.a(wdog_api.o)
- .debug_info    0x0000fb8d      0x6bf icomlib.a(xmem.o)
- .debug_info    0x0001024c      0x57d icomlib.a(bsp.o)
- .debug_info    0x000107c9      0x8c1 icomlib.a(crypthw.o)
- .debug_info    0x0001108a     0x4aca icomlib.a(dbg-atcmd-api.o)
- .debug_info    0x00015b54      0xe8c icomlib.a(drv_mac.o)
- .debug_info    0x000169e0     0x22fb icomlib.a(drv_phy.o)
- .debug_info    0x00018cdb      0x6ca icomlib.a(drv_pktbuf.o)
- .debug_info    0x000193a5      0x5db icomlib.a(drv_pktbuf_slow)
- .debug_info    0x00019980      0x806 icomlib.a(hash_alg.o)
- .debug_info    0x0001a186      0x46e icomlib.a(hmac_md5.o)
- .debug_info    0x0001a5f4      0x48e icomlib.a(hmac_sha1.o)
- .debug_info    0x0001aa82     0x4bb4 icomlib.a(ieee80211_mgmt.)
- .debug_info    0x0001f636      0x6f5 icomlib.a(ieee80211_rdc.o)
- .debug_info    0x0001fd2b      0x3f0 icomlib.a(irq.o)
- .debug_info    0x0002011b      0x284 icomlib.a(netstack.o)
- .debug_info    0x0002039f     0x1204 icomlib.a(powersave.o)
- .debug_info    0x000215a3      0xbdb icomlib.a(rate_control.o)
- .debug_info    0x0002217e      0x23d icomlib.a(sha1.o)
- .debug_info    0x000223bb     0x44c9 icomlib.a(soft_ap.o)
- .debug_info    0x00026884     0x1958 icomlib.a(ssv6200_rx.o)
- .debug_info    0x000281dc     0x11fa icomlib.a(ssvradio.o)
- .debug_info    0x000293d6     0x2ddc icomlib.a(wpa.o)
- .debug_info    0x0002c1b2      0xb8b icomlib.a(sys_status_api.)
- .debug_info    0x0002cd3d      0xc3f icomlib.a(AES_decrypt.o)
- .debug_info    0x0002d97c      0x313 icomlib.a(arc4.o)
- .debug_info    0x0002dc8f      0x4ee icomlib.a(md5.o)
- .debug_info    0x0002e17d     0x1408 icomlib.a(wep.o)
- .debug_info    0x0002f585      0x26d icomlib.a(autostart.o)
- .debug_info    0x0002f7f2      0x753 icomlib.a(shell-ping.o)
- .debug_info    0x0002ff45       0xe7 icomlib.a(random.o)
- .debug_info    0x0003002c     0x12c8 icomlib.a(airkiss.o)
- .debug_info    0x000312f4      0xf54 icomlib.a(bsp_info.o)
- .debug_info    0x00032248     0x1817 icomlib.a(cfs-coffee.o)
- .debug_info    0x00033a5f      0x51e icomlib.a(console.o)
- .debug_info    0x00033f7d      0x752 icomlib.a(drv_flash.o)
- .debug_info    0x000346cf      0x48f icomlib.a(drv_gpio.o)
- .debug_info    0x00034b5e      0xd8a icomlib.a(drv_pmu.o)
- .debug_info    0x000358e8       0xd7 icomlib.a(drv_wdog.o)
- .debug_info    0x000359bf      0x188 icomlib.a(fence.o)
- .debug_info    0x00035b47      0x83a icomlib.a(flash_api.o)
- .debug_info    0x00036381     0x1779 icomlib.a(smartComm.o)
- .debug_info    0x00037afa     0x1e6f icomlib.a(smartConf.o)
- .debug_info    0x00039969     0x1202 icomlib.a(userSmart.o)
- .debug_info    0x0003ab6b     0x1cce icomlib.a(ieee80211_mac.o)
- .debug_info    0x0003c839     0x1249 icomlib.a(ieee80211_net.o)
- .debug_info    0x0003da82     0x12d6 icomlib.a(ssv6200_tx.o)
- .debug_info    0x0003ed58      0x142 icomlib.a(drv_fence.o)
- .debug_info    0x0003ee9a      0x10d icomlib.a(drv_mbox.o)
- .debug_info    0x0003efa7     0x117c icomlib.a(EAPOL.o)
- .debug_info    0x00040123     0x5d7a icomapps.a(atcmd.o)
- .debug_info    0x00045e9d     0x1571 icomapps.a(socket_app.o)
- .debug_info    0x0004740e      0xfbd icomapps.a(soft_ap_init.o)
- .debug_info    0x000483cb      0xe0e icomapps.a(tcp_server_demo)
- .debug_info    0x000491d9      0xada icomapps.a(wifi_uart_demo.)
- .debug_info    0x00049cb3     0x10ff icomapps.a(ota_api.o)
- .debug_info    0x0004adb2      0x13d icomlib.a(pwm_api.o)
- .debug_info    0x0004aeef      0x345 icomlib.a(serial_api.o)
- .debug_info    0x0004b234      0x102 icomlib.a(drv_pwm.o)
- .debug_info    0x0004b336      0xd9d contikilib.a(dhcp_process.o)
- .debug_info    0x0004c0d3     0x1dc1 contikilib.a(dhcps.o)
- .debug_info    0x0004de94      0xe0d contikilib.a(resolv.o)
- .debug_info    0x0004eca1      0x8fa contikilib.a(simple-udp.o)
- .debug_info    0x0004f59b      0xe7b contikilib.a(socket_driver.o)
- .debug_info    0x00050416     0x14db contikilib.a(tcpip.o)
- .debug_info    0x000518f1      0xce0 contikilib.a(uip_arp.o)
- .debug_info    0x000525d1     0x1642 contikilib.a(uip.o)
- .debug_info    0x00053c13      0x202 contikilib.a(uiplib.o)
- .debug_info    0x00053e15      0x577 contikilib.a(uip-udp-packet.)
- .debug_info    0x0005438c      0xaa8 contikilib.a(ntp_client.o)
- .debug_info    0x00054e34     0x1cd6 contikilib.a(dhcpc.o)
- .debug_info    0x00056b0a      0x8ae accloud.a(zc_common.o)
- .debug_info    0x000573b8      0xe8e accloud.a(zc_configuratio)
- .debug_info    0x00058246      0xaa7 accloud.a(zc_message_queu)
- .debug_info    0x00058ced     0x2507 accloud.a(zc_protocol_con)
- .debug_info    0x0005b1f4     0x1189 accloud.a(zc_sec_engine.o)
- .debug_info    0x0005c37d      0x81b accloud.a(zc_timer.o)
- .debug_info    0x0005cb98     0x19b7 accloud.a(zc_hf_adpter.o)
- .debug_info    0x0005e54f      0xc46 accloud.a(ac_api.o)
- .debug_info    0x0005f195      0xb1d accloud.a(ac_hal.o)
- .debug_info    0x0005fcb2      0x5ea accloud.a(aes_cbc.o)
- .debug_info    0x0006029c      0x4ff accloud.a(aes_core.o)
- .debug_info    0x0006079b      0x1f1 accloud.a(crc.o)
- .debug_info    0x0006098c     0x3101 accloud.a(bignum.o)
- .debug_info    0x00063a8d      0xa67 accloud.a(rsa.o)
- .debug_info    0x000644f4      0xe81 accloud.a(zc_client_manag)
- .debug_info    0x00065375      0xc74 accloud.a(zc_cloud_event.)
- .debug_info    0x00065fe9     0x1213 accloud.a(zc_moudle_manag)
+.debug_info     0x00000000    0x671c6
+ .debug_info    0x00000000       0x59 /tmp/ccwVHTJo.o
+ .debug_info    0x00000059     0x15d0 ssv6060-main.o
+ .debug_info    0x00001629      0x7b5 icomlib.a(etimer.o)
+ .debug_info    0x00001dde      0xb8a icomlib.a(printf.o)
+ .debug_info    0x00002968      0x7f8 icomlib.a(process.o)
+ .debug_info    0x00003160      0x9b3 icomlib.a(strformat.o)
+ .debug_info    0x00003b13      0x1b3 icomlib.a(timer.o)
+ .debug_info    0x00003cc6     0x39ce icomlib.a(atcmd_icomm.o)
+ .debug_info    0x00007694     0x14f9 icomlib.a(boot-hiflying.o)
+ .debug_info    0x00008b8d      0xbd0 icomlib.a(clock.o)
+ .debug_info    0x0000975d      0xc25 icomlib.a(contiki-main.o)
+ .debug_info    0x0000a382      0x23d icomlib.a(debug-uart.o)
+ .debug_info    0x0000a5bf      0x3f2 icomlib.a(gpio_api.o)
+ .debug_info    0x0000a9b1      0x257 icomlib.a(drv_timer.o)
+ .debug_info    0x0000ac08      0x574 icomlib.a(drv_uart.o)
+ .debug_info    0x0000b17c     0x1dc3 icomlib.a(hw_init.o)
+ .debug_info    0x0000cf3f      0x1ae icomlib.a(hw_regs_api.o)
+ .debug_info    0x0000d0ed      0x4d1 icomlib.a(ssv_lib.o)
+ .debug_info    0x0000d5be      0x360 icomlib.a(ssv_lib_slow.o)
+ .debug_info    0x0000d91e      0x497 icomlib.a(swpwm.o)
+ .debug_info    0x0000ddb5     0x1852 icomlib.a(systemconf.o)
+ .debug_info    0x0000f607      0x581 icomlib.a(wdog_api.o)
+ .debug_info    0x0000fb88      0x6bf icomlib.a(xmem.o)
+ .debug_info    0x00010247      0x57d icomlib.a(bsp.o)
+ .debug_info    0x000107c4      0x8c1 icomlib.a(crypthw.o)
+ .debug_info    0x00011085     0x4aca icomlib.a(dbg-atcmd-api.o)
+ .debug_info    0x00015b4f      0xe8c icomlib.a(drv_mac.o)
+ .debug_info    0x000169db     0x22fb icomlib.a(drv_phy.o)
+ .debug_info    0x00018cd6      0x6ca icomlib.a(drv_pktbuf.o)
+ .debug_info    0x000193a0      0x5db icomlib.a(drv_pktbuf_slow)
+ .debug_info    0x0001997b      0x806 icomlib.a(hash_alg.o)
+ .debug_info    0x0001a181      0x46e icomlib.a(hmac_md5.o)
+ .debug_info    0x0001a5ef      0x48e icomlib.a(hmac_sha1.o)
+ .debug_info    0x0001aa7d     0x4bb4 icomlib.a(ieee80211_mgmt.)
+ .debug_info    0x0001f631      0x6f5 icomlib.a(ieee80211_rdc.o)
+ .debug_info    0x0001fd26      0x3f0 icomlib.a(irq.o)
+ .debug_info    0x00020116      0x284 icomlib.a(netstack.o)
+ .debug_info    0x0002039a     0x1204 icomlib.a(powersave.o)
+ .debug_info    0x0002159e      0xbdb icomlib.a(rate_control.o)
+ .debug_info    0x00022179      0x23d icomlib.a(sha1.o)
+ .debug_info    0x000223b6     0x44c9 icomlib.a(soft_ap.o)
+ .debug_info    0x0002687f     0x1958 icomlib.a(ssv6200_rx.o)
+ .debug_info    0x000281d7     0x11fa icomlib.a(ssvradio.o)
+ .debug_info    0x000293d1     0x2ddc icomlib.a(wpa.o)
+ .debug_info    0x0002c1ad      0xb8b icomlib.a(sys_status_api.)
+ .debug_info    0x0002cd38      0xc3f icomlib.a(AES_decrypt.o)
+ .debug_info    0x0002d977      0x313 icomlib.a(arc4.o)
+ .debug_info    0x0002dc8a      0x4ee icomlib.a(md5.o)
+ .debug_info    0x0002e178     0x1408 icomlib.a(wep.o)
+ .debug_info    0x0002f580      0x26d icomlib.a(autostart.o)
+ .debug_info    0x0002f7ed      0x753 icomlib.a(shell-ping.o)
+ .debug_info    0x0002ff40       0xe7 icomlib.a(random.o)
+ .debug_info    0x00030027     0x12c8 icomlib.a(airkiss.o)
+ .debug_info    0x000312ef      0xf54 icomlib.a(bsp_info.o)
+ .debug_info    0x00032243     0x1817 icomlib.a(cfs-coffee.o)
+ .debug_info    0x00033a5a      0x51e icomlib.a(console.o)
+ .debug_info    0x00033f78      0x752 icomlib.a(drv_flash.o)
+ .debug_info    0x000346ca      0x48f icomlib.a(drv_gpio.o)
+ .debug_info    0x00034b59      0xd8a icomlib.a(drv_pmu.o)
+ .debug_info    0x000358e3       0xd7 icomlib.a(drv_wdog.o)
+ .debug_info    0x000359ba      0x188 icomlib.a(fence.o)
+ .debug_info    0x00035b42      0x83a icomlib.a(flash_api.o)
+ .debug_info    0x0003637c     0x1779 icomlib.a(smartComm.o)
+ .debug_info    0x00037af5     0x1e6f icomlib.a(smartConf.o)
+ .debug_info    0x00039964     0x1202 icomlib.a(userSmart.o)
+ .debug_info    0x0003ab66     0x1cce icomlib.a(ieee80211_mac.o)
+ .debug_info    0x0003c834     0x1249 icomlib.a(ieee80211_net.o)
+ .debug_info    0x0003da7d     0x12d6 icomlib.a(ssv6200_tx.o)
+ .debug_info    0x0003ed53      0x142 icomlib.a(drv_fence.o)
+ .debug_info    0x0003ee95      0x10d icomlib.a(drv_mbox.o)
+ .debug_info    0x0003efa2     0x117c icomlib.a(EAPOL.o)
+ .debug_info    0x0004011e     0x5d7a icomapps.a(atcmd.o)
+ .debug_info    0x00045e98     0x1571 icomapps.a(socket_app.o)
+ .debug_info    0x00047409      0xfbd icomapps.a(soft_ap_init.o)
+ .debug_info    0x000483c6      0xe0e icomapps.a(tcp_server_demo)
+ .debug_info    0x000491d4      0xada icomapps.a(wifi_uart_demo.)
+ .debug_info    0x00049cae     0x10ff icomapps.a(ota_api.o)
+ .debug_info    0x0004adad      0x13d icomlib.a(pwm_api.o)
+ .debug_info    0x0004aeea      0x345 icomlib.a(serial_api.o)
+ .debug_info    0x0004b22f      0x102 icomlib.a(drv_pwm.o)
+ .debug_info    0x0004b331      0xd9d contikilib.a(dhcp_process.o)
+ .debug_info    0x0004c0ce     0x1dc1 contikilib.a(dhcps.o)
+ .debug_info    0x0004de8f      0xe0d contikilib.a(resolv.o)
+ .debug_info    0x0004ec9c      0x8fa contikilib.a(simple-udp.o)
+ .debug_info    0x0004f596      0xe7b contikilib.a(socket_driver.o)
+ .debug_info    0x00050411     0x14db contikilib.a(tcpip.o)
+ .debug_info    0x000518ec      0xce0 contikilib.a(uip_arp.o)
+ .debug_info    0x000525cc     0x1642 contikilib.a(uip.o)
+ .debug_info    0x00053c0e      0x202 contikilib.a(uiplib.o)
+ .debug_info    0x00053e10      0x577 contikilib.a(uip-udp-packet.)
+ .debug_info    0x00054387      0xaa8 contikilib.a(ntp_client.o)
+ .debug_info    0x00054e2f     0x1cd5 contikilib.a(dhcpc.o)
+ .debug_info    0x00056b04      0x8ae accloud.a(zc_common.o)
+ .debug_info    0x000573b2      0xe8e accloud.a(zc_configuratio)
+ .debug_info    0x00058240      0xaa7 accloud.a(zc_message_queu)
+ .debug_info    0x00058ce7     0x2507 accloud.a(zc_protocol_con)
+ .debug_info    0x0005b1ee     0x1189 accloud.a(zc_sec_engine.o)
+ .debug_info    0x0005c377      0x81b accloud.a(zc_timer.o)
+ .debug_info    0x0005cb92     0x1987 accloud.a(zc_hf_adpter.o)
+ .debug_info    0x0005e519      0xc46 accloud.a(ac_api.o)
+ .debug_info    0x0005f15f      0xb1d accloud.a(ac_hal.o)
+ .debug_info    0x0005fc7c      0x5ea accloud.a(aes_cbc.o)
+ .debug_info    0x00060266      0x4ff accloud.a(aes_core.o)
+ .debug_info    0x00060765      0x1f1 accloud.a(crc.o)
+ .debug_info    0x00060956     0x3101 accloud.a(bignum.o)
+ .debug_info    0x00063a57      0xa67 accloud.a(rsa.o)
+ .debug_info    0x000644be      0xe81 accloud.a(zc_client_manag)
+ .debug_info    0x0006533f      0xc74 accloud.a(zc_cloud_event.)
+ .debug_info    0x00065fb3     0x1213 accloud.a(zc_moudle_manag)
 
-.debug_abbrev   0x00000000    0x123af
- .debug_abbrev  0x00000000       0x12 /tmp/ccmDjWLP.o
- .debug_abbrev  0x00000012      0x424 ssv6060-main.o
- .debug_abbrev  0x00000436      0x3c0 icomlib.a(etimer.o)
- .debug_abbrev  0x000007f6      0x38a icomlib.a(printf.o)
- .debug_abbrev  0x00000b80      0x3f6 icomlib.a(process.o)
- .debug_abbrev  0x00000f76      0x2b0 icomlib.a(strformat.o)
- .debug_abbrev  0x00001226       0xee icomlib.a(timer.o)
- .debug_abbrev  0x00001314      0x493 icomlib.a(atcmd_icomm.o)
- .debug_abbrev  0x000017a7      0x3da icomlib.a(boot-hiflying.o)
- .debug_abbrev  0x00001b81      0x2ac icomlib.a(clock.o)
- .debug_abbrev  0x00001e2d      0x315 icomlib.a(contiki-main.o)
- .debug_abbrev  0x00002142      0x150 icomlib.a(debug-uart.o)
- .debug_abbrev  0x00002292      0x18d icomlib.a(gpio_api.o)
- .debug_abbrev  0x0000241f      0x133 icomlib.a(drv_timer.o)
- .debug_abbrev  0x00002552      0x1e9 icomlib.a(drv_uart.o)
- .debug_abbrev  0x0000273b      0x4d7 icomlib.a(hw_init.o)
- .debug_abbrev  0x00002c12       0xeb icomlib.a(hw_regs_api.o)
- .debug_abbrev  0x00002cfd      0x171 icomlib.a(ssv_lib.o)
- .debug_abbrev  0x00002e6e      0x166 icomlib.a(ssv_lib_slow.o)
- .debug_abbrev  0x00002fd4      0x1b7 icomlib.a(swpwm.o)
- .debug_abbrev  0x0000318b      0x3d2 icomlib.a(systemconf.o)
- .debug_abbrev  0x0000355d      0x2a2 icomlib.a(wdog_api.o)
- .debug_abbrev  0x000037ff      0x2d1 icomlib.a(xmem.o)
- .debug_abbrev  0x00003ad0      0x227 icomlib.a(bsp.o)
- .debug_abbrev  0x00003cf7      0x229 icomlib.a(crypthw.o)
- .debug_abbrev  0x00003f20      0x5db icomlib.a(dbg-atcmd-api.o)
- .debug_abbrev  0x000044fb       0xb9 icomlib.a(drv_mac.o)
- .debug_abbrev  0x000045b4      0x30b icomlib.a(drv_phy.o)
- .debug_abbrev  0x000048bf      0x27d icomlib.a(drv_pktbuf.o)
- .debug_abbrev  0x00004b3c      0x111 icomlib.a(drv_pktbuf_slow)
- .debug_abbrev  0x00004c4d      0x16d icomlib.a(hash_alg.o)
- .debug_abbrev  0x00004dba      0x165 icomlib.a(hmac_md5.o)
- .debug_abbrev  0x00004f1f      0x154 icomlib.a(hmac_sha1.o)
- .debug_abbrev  0x00005073      0x5cc icomlib.a(ieee80211_mgmt.)
- .debug_abbrev  0x0000563f      0x1e1 icomlib.a(ieee80211_rdc.o)
- .debug_abbrev  0x00005820      0x1aa icomlib.a(irq.o)
- .debug_abbrev  0x000059ca       0xd8 icomlib.a(netstack.o)
- .debug_abbrev  0x00005aa2      0x3c3 icomlib.a(powersave.o)
- .debug_abbrev  0x00005e65      0x231 icomlib.a(rate_control.o)
- .debug_abbrev  0x00006096      0x112 icomlib.a(sha1.o)
- .debug_abbrev  0x000061a8      0x5d8 icomlib.a(soft_ap.o)
- .debug_abbrev  0x00006780      0x494 icomlib.a(ssv6200_rx.o)
- .debug_abbrev  0x00006c14      0x334 icomlib.a(ssvradio.o)
- .debug_abbrev  0x00006f48      0x4dd icomlib.a(wpa.o)
- .debug_abbrev  0x00007425      0x294 icomlib.a(sys_status_api.)
- .debug_abbrev  0x000076b9      0x26d icomlib.a(AES_decrypt.o)
- .debug_abbrev  0x00007926      0x183 icomlib.a(arc4.o)
- .debug_abbrev  0x00007aa9      0x1f2 icomlib.a(md5.o)
- .debug_abbrev  0x00007c9b      0x393 icomlib.a(wep.o)
- .debug_abbrev  0x0000802e      0x170 icomlib.a(autostart.o)
- .debug_abbrev  0x0000819e      0x2f2 icomlib.a(shell-ping.o)
- .debug_abbrev  0x00008490       0xb5 icomlib.a(random.o)
- .debug_abbrev  0x00008545      0x347 icomlib.a(airkiss.o)
- .debug_abbrev  0x0000888c      0x2aa icomlib.a(bsp_info.o)
- .debug_abbrev  0x00008b36      0x41c icomlib.a(cfs-coffee.o)
- .debug_abbrev  0x00008f52      0x241 icomlib.a(console.o)
- .debug_abbrev  0x00009193      0x2e8 icomlib.a(drv_flash.o)
- .debug_abbrev  0x0000947b      0x153 icomlib.a(drv_gpio.o)
- .debug_abbrev  0x000095ce      0x378 icomlib.a(drv_pmu.o)
- .debug_abbrev  0x00009946       0x76 icomlib.a(drv_wdog.o)
- .debug_abbrev  0x000099bc      0x122 icomlib.a(fence.o)
- .debug_abbrev  0x00009ade      0x294 icomlib.a(flash_api.o)
- .debug_abbrev  0x00009d72      0x4a4 icomlib.a(smartComm.o)
- .debug_abbrev  0x0000a216      0x3f9 icomlib.a(smartConf.o)
- .debug_abbrev  0x0000a60f      0x31d icomlib.a(userSmart.o)
- .debug_abbrev  0x0000a92c      0x59f icomlib.a(ieee80211_mac.o)
- .debug_abbrev  0x0000aecb      0x375 icomlib.a(ieee80211_net.o)
- .debug_abbrev  0x0000b240      0x328 icomlib.a(ssv6200_tx.o)
- .debug_abbrev  0x0000b568       0xf4 icomlib.a(drv_fence.o)
- .debug_abbrev  0x0000b65c       0x98 icomlib.a(drv_mbox.o)
- .debug_abbrev  0x0000b6f4      0x296 icomlib.a(EAPOL.o)
- .debug_abbrev  0x0000b98a      0x54f icomapps.a(atcmd.o)
- .debug_abbrev  0x0000bed9      0x36a icomapps.a(socket_app.o)
- .debug_abbrev  0x0000c243      0x2f4 icomapps.a(soft_ap_init.o)
- .debug_abbrev  0x0000c537      0x2c4 icomapps.a(tcp_server_demo)
- .debug_abbrev  0x0000c7fb      0x2b0 icomapps.a(wifi_uart_demo.)
- .debug_abbrev  0x0000caab      0x3b3 icomapps.a(ota_api.o)
- .debug_abbrev  0x0000ce5e       0xed icomlib.a(pwm_api.o)
- .debug_abbrev  0x0000cf4b      0x1e8 icomlib.a(serial_api.o)
- .debug_abbrev  0x0000d133       0xa8 icomlib.a(drv_pwm.o)
- .debug_abbrev  0x0000d1db      0x2d2 contikilib.a(dhcp_process.o)
- .debug_abbrev  0x0000d4ad      0x4c6 contikilib.a(dhcps.o)
- .debug_abbrev  0x0000d973      0x3f5 contikilib.a(resolv.o)
- .debug_abbrev  0x0000dd68      0x290 contikilib.a(simple-udp.o)
- .debug_abbrev  0x0000dff8      0x35e contikilib.a(socket_driver.o)
- .debug_abbrev  0x0000e356      0x46f contikilib.a(tcpip.o)
- .debug_abbrev  0x0000e7c5      0x3b0 contikilib.a(uip_arp.o)
- .debug_abbrev  0x0000eb75      0x405 contikilib.a(uip.o)
- .debug_abbrev  0x0000ef7a      0x123 contikilib.a(uiplib.o)
- .debug_abbrev  0x0000f09d      0x257 contikilib.a(uip-udp-packet.)
- .debug_abbrev  0x0000f2f4      0x277 contikilib.a(ntp_client.o)
- .debug_abbrev  0x0000f56b      0x52d contikilib.a(dhcpc.o)
- .debug_abbrev  0x0000fa98      0x1aa accloud.a(zc_common.o)
- .debug_abbrev  0x0000fc42      0x1fe accloud.a(zc_configuratio)
- .debug_abbrev  0x0000fe40      0x1f4 accloud.a(zc_message_queu)
- .debug_abbrev  0x00010034      0x341 accloud.a(zc_protocol_con)
- .debug_abbrev  0x00010375      0x2a9 accloud.a(zc_sec_engine.o)
- .debug_abbrev  0x0001061e      0x183 accloud.a(zc_timer.o)
- .debug_abbrev  0x000107a1      0x466 accloud.a(zc_hf_adpter.o)
- .debug_abbrev  0x00010c07      0x2e2 accloud.a(ac_api.o)
- .debug_abbrev  0x00010ee9      0x309 accloud.a(ac_hal.o)
- .debug_abbrev  0x000111f2      0x17b accloud.a(aes_cbc.o)
- .debug_abbrev  0x0001136d      0x149 accloud.a(aes_core.o)
- .debug_abbrev  0x000114b6       0xca accloud.a(crc.o)
- .debug_abbrev  0x00011580      0x3dc accloud.a(bignum.o)
- .debug_abbrev  0x0001195c      0x2da accloud.a(rsa.o)
- .debug_abbrev  0x00011c36      0x2e3 accloud.a(zc_client_manag)
- .debug_abbrev  0x00011f19      0x1e8 accloud.a(zc_cloud_event.)
- .debug_abbrev  0x00012101      0x2ae accloud.a(zc_moudle_manag)
+.debug_abbrev   0x00000000    0x1239e
+ .debug_abbrev  0x00000000       0x12 /tmp/ccwVHTJo.o
+ .debug_abbrev  0x00000012      0x415 ssv6060-main.o
+ .debug_abbrev  0x00000427      0x3c0 icomlib.a(etimer.o)
+ .debug_abbrev  0x000007e7      0x38a icomlib.a(printf.o)
+ .debug_abbrev  0x00000b71      0x3f6 icomlib.a(process.o)
+ .debug_abbrev  0x00000f67      0x2b0 icomlib.a(strformat.o)
+ .debug_abbrev  0x00001217       0xee icomlib.a(timer.o)
+ .debug_abbrev  0x00001305      0x493 icomlib.a(atcmd_icomm.o)
+ .debug_abbrev  0x00001798      0x3da icomlib.a(boot-hiflying.o)
+ .debug_abbrev  0x00001b72      0x2ac icomlib.a(clock.o)
+ .debug_abbrev  0x00001e1e      0x315 icomlib.a(contiki-main.o)
+ .debug_abbrev  0x00002133      0x150 icomlib.a(debug-uart.o)
+ .debug_abbrev  0x00002283      0x18d icomlib.a(gpio_api.o)
+ .debug_abbrev  0x00002410      0x133 icomlib.a(drv_timer.o)
+ .debug_abbrev  0x00002543      0x1e9 icomlib.a(drv_uart.o)
+ .debug_abbrev  0x0000272c      0x4d7 icomlib.a(hw_init.o)
+ .debug_abbrev  0x00002c03       0xeb icomlib.a(hw_regs_api.o)
+ .debug_abbrev  0x00002cee      0x171 icomlib.a(ssv_lib.o)
+ .debug_abbrev  0x00002e5f      0x166 icomlib.a(ssv_lib_slow.o)
+ .debug_abbrev  0x00002fc5      0x1b7 icomlib.a(swpwm.o)
+ .debug_abbrev  0x0000317c      0x3d2 icomlib.a(systemconf.o)
+ .debug_abbrev  0x0000354e      0x2a2 icomlib.a(wdog_api.o)
+ .debug_abbrev  0x000037f0      0x2d1 icomlib.a(xmem.o)
+ .debug_abbrev  0x00003ac1      0x227 icomlib.a(bsp.o)
+ .debug_abbrev  0x00003ce8      0x229 icomlib.a(crypthw.o)
+ .debug_abbrev  0x00003f11      0x5db icomlib.a(dbg-atcmd-api.o)
+ .debug_abbrev  0x000044ec       0xb9 icomlib.a(drv_mac.o)
+ .debug_abbrev  0x000045a5      0x30b icomlib.a(drv_phy.o)
+ .debug_abbrev  0x000048b0      0x27d icomlib.a(drv_pktbuf.o)
+ .debug_abbrev  0x00004b2d      0x111 icomlib.a(drv_pktbuf_slow)
+ .debug_abbrev  0x00004c3e      0x16d icomlib.a(hash_alg.o)
+ .debug_abbrev  0x00004dab      0x165 icomlib.a(hmac_md5.o)
+ .debug_abbrev  0x00004f10      0x154 icomlib.a(hmac_sha1.o)
+ .debug_abbrev  0x00005064      0x5cc icomlib.a(ieee80211_mgmt.)
+ .debug_abbrev  0x00005630      0x1e1 icomlib.a(ieee80211_rdc.o)
+ .debug_abbrev  0x00005811      0x1aa icomlib.a(irq.o)
+ .debug_abbrev  0x000059bb       0xd8 icomlib.a(netstack.o)
+ .debug_abbrev  0x00005a93      0x3c3 icomlib.a(powersave.o)
+ .debug_abbrev  0x00005e56      0x231 icomlib.a(rate_control.o)
+ .debug_abbrev  0x00006087      0x112 icomlib.a(sha1.o)
+ .debug_abbrev  0x00006199      0x5d8 icomlib.a(soft_ap.o)
+ .debug_abbrev  0x00006771      0x494 icomlib.a(ssv6200_rx.o)
+ .debug_abbrev  0x00006c05      0x334 icomlib.a(ssvradio.o)
+ .debug_abbrev  0x00006f39      0x4dd icomlib.a(wpa.o)
+ .debug_abbrev  0x00007416      0x294 icomlib.a(sys_status_api.)
+ .debug_abbrev  0x000076aa      0x26d icomlib.a(AES_decrypt.o)
+ .debug_abbrev  0x00007917      0x183 icomlib.a(arc4.o)
+ .debug_abbrev  0x00007a9a      0x1f2 icomlib.a(md5.o)
+ .debug_abbrev  0x00007c8c      0x393 icomlib.a(wep.o)
+ .debug_abbrev  0x0000801f      0x170 icomlib.a(autostart.o)
+ .debug_abbrev  0x0000818f      0x2f2 icomlib.a(shell-ping.o)
+ .debug_abbrev  0x00008481       0xb5 icomlib.a(random.o)
+ .debug_abbrev  0x00008536      0x347 icomlib.a(airkiss.o)
+ .debug_abbrev  0x0000887d      0x2aa icomlib.a(bsp_info.o)
+ .debug_abbrev  0x00008b27      0x41c icomlib.a(cfs-coffee.o)
+ .debug_abbrev  0x00008f43      0x241 icomlib.a(console.o)
+ .debug_abbrev  0x00009184      0x2e8 icomlib.a(drv_flash.o)
+ .debug_abbrev  0x0000946c      0x153 icomlib.a(drv_gpio.o)
+ .debug_abbrev  0x000095bf      0x378 icomlib.a(drv_pmu.o)
+ .debug_abbrev  0x00009937       0x76 icomlib.a(drv_wdog.o)
+ .debug_abbrev  0x000099ad      0x122 icomlib.a(fence.o)
+ .debug_abbrev  0x00009acf      0x294 icomlib.a(flash_api.o)
+ .debug_abbrev  0x00009d63      0x4a4 icomlib.a(smartComm.o)
+ .debug_abbrev  0x0000a207      0x3f9 icomlib.a(smartConf.o)
+ .debug_abbrev  0x0000a600      0x31d icomlib.a(userSmart.o)
+ .debug_abbrev  0x0000a91d      0x59f icomlib.a(ieee80211_mac.o)
+ .debug_abbrev  0x0000aebc      0x375 icomlib.a(ieee80211_net.o)
+ .debug_abbrev  0x0000b231      0x328 icomlib.a(ssv6200_tx.o)
+ .debug_abbrev  0x0000b559       0xf4 icomlib.a(drv_fence.o)
+ .debug_abbrev  0x0000b64d       0x98 icomlib.a(drv_mbox.o)
+ .debug_abbrev  0x0000b6e5      0x296 icomlib.a(EAPOL.o)
+ .debug_abbrev  0x0000b97b      0x54f icomapps.a(atcmd.o)
+ .debug_abbrev  0x0000beca      0x36a icomapps.a(socket_app.o)
+ .debug_abbrev  0x0000c234      0x2f4 icomapps.a(soft_ap_init.o)
+ .debug_abbrev  0x0000c528      0x2c4 icomapps.a(tcp_server_demo)
+ .debug_abbrev  0x0000c7ec      0x2b0 icomapps.a(wifi_uart_demo.)
+ .debug_abbrev  0x0000ca9c      0x3b3 icomapps.a(ota_api.o)
+ .debug_abbrev  0x0000ce4f       0xed icomlib.a(pwm_api.o)
+ .debug_abbrev  0x0000cf3c      0x1e8 icomlib.a(serial_api.o)
+ .debug_abbrev  0x0000d124       0xa8 icomlib.a(drv_pwm.o)
+ .debug_abbrev  0x0000d1cc      0x2d2 contikilib.a(dhcp_process.o)
+ .debug_abbrev  0x0000d49e      0x4c6 contikilib.a(dhcps.o)
+ .debug_abbrev  0x0000d964      0x3f5 contikilib.a(resolv.o)
+ .debug_abbrev  0x0000dd59      0x290 contikilib.a(simple-udp.o)
+ .debug_abbrev  0x0000dfe9      0x35e contikilib.a(socket_driver.o)
+ .debug_abbrev  0x0000e347      0x46f contikilib.a(tcpip.o)
+ .debug_abbrev  0x0000e7b6      0x3b0 contikilib.a(uip_arp.o)
+ .debug_abbrev  0x0000eb66      0x405 contikilib.a(uip.o)
+ .debug_abbrev  0x0000ef6b      0x123 contikilib.a(uiplib.o)
+ .debug_abbrev  0x0000f08e      0x257 contikilib.a(uip-udp-packet.)
+ .debug_abbrev  0x0000f2e5      0x277 contikilib.a(ntp_client.o)
+ .debug_abbrev  0x0000f55c      0x52d contikilib.a(dhcpc.o)
+ .debug_abbrev  0x0000fa89      0x1aa accloud.a(zc_common.o)
+ .debug_abbrev  0x0000fc33      0x1fe accloud.a(zc_configuratio)
+ .debug_abbrev  0x0000fe31      0x1f4 accloud.a(zc_message_queu)
+ .debug_abbrev  0x00010025      0x341 accloud.a(zc_protocol_con)
+ .debug_abbrev  0x00010366      0x2a9 accloud.a(zc_sec_engine.o)
+ .debug_abbrev  0x0001060f      0x183 accloud.a(zc_timer.o)
+ .debug_abbrev  0x00010792      0x464 accloud.a(zc_hf_adpter.o)
+ .debug_abbrev  0x00010bf6      0x2e2 accloud.a(ac_api.o)
+ .debug_abbrev  0x00010ed8      0x309 accloud.a(ac_hal.o)
+ .debug_abbrev  0x000111e1      0x17b accloud.a(aes_cbc.o)
+ .debug_abbrev  0x0001135c      0x149 accloud.a(aes_core.o)
+ .debug_abbrev  0x000114a5       0xca accloud.a(crc.o)
+ .debug_abbrev  0x0001156f      0x3dc accloud.a(bignum.o)
+ .debug_abbrev  0x0001194b      0x2da accloud.a(rsa.o)
+ .debug_abbrev  0x00011c25      0x2e3 accloud.a(zc_client_manag)
+ .debug_abbrev  0x00011f08      0x1e8 accloud.a(zc_cloud_event.)
+ .debug_abbrev  0x000120f0      0x2ae accloud.a(zc_moudle_manag)
 
 .debug_aranges  0x00000000     0x31b0
  .debug_aranges
-                0x00000000       0x30 /tmp/ccmDjWLP.o
+                0x00000000       0x30 /tmp/ccwVHTJo.o
  .debug_aranges
                 0x00000030       0x80 ssv6060-main.o
  .debug_aranges
@@ -6538,7 +6527,7 @@ OUTPUT(ssv6060-main.elf elf32-littlearm)
                 0x00003170       0x40 accloud.a(zc_moudle_manag)
 
 .debug_ranges   0x00000000     0x3710
- .debug_ranges  0x00000000       0x28 /tmp/ccmDjWLP.o
+ .debug_ranges  0x00000000       0x28 /tmp/ccwVHTJo.o
  .debug_ranges  0x00000028       0xd8 ssv6060-main.o
  .debug_ranges  0x00000100       0xc8 icomlib.a(etimer.o)
  .debug_ranges  0x000001c8       0xa0 icomlib.a(printf.o)
@@ -6648,329 +6637,329 @@ OUTPUT(ssv6060-main.elf elf32-littlearm)
  .debug_ranges  0x000036a8       0x38 accloud.a(zc_cloud_event.)
  .debug_ranges  0x000036e0       0x30 accloud.a(zc_moudle_manag)
 
-.debug_loc      0x00000000    0x245cf
- .debug_loc     0x00000000      0x6b7 ssv6060-main.o
- .debug_loc     0x000006b7      0x404 icomlib.a(etimer.o)
- .debug_loc     0x00000abb      0xa02 icomlib.a(printf.o)
- .debug_loc     0x000014bd      0x3c8 icomlib.a(process.o)
- .debug_loc     0x00001885      0xbc0 icomlib.a(strformat.o)
- .debug_loc     0x00002445       0xc3 icomlib.a(timer.o)
- .debug_loc     0x00002508      0xd1b icomlib.a(atcmd_icomm.o)
- .debug_loc     0x00003223      0xd4d icomlib.a(boot-hiflying.o)
- .debug_loc     0x00003f70       0x49 icomlib.a(clock.o)
- .debug_loc     0x00003fb9       0x84 icomlib.a(contiki-main.o)
- .debug_loc     0x0000403d      0x14d icomlib.a(debug-uart.o)
- .debug_loc     0x0000418a      0x27c icomlib.a(gpio_api.o)
- .debug_loc     0x00004406      0x218 icomlib.a(drv_timer.o)
- .debug_loc     0x0000461e      0x20a icomlib.a(drv_uart.o)
- .debug_loc     0x00004828      0x4ed icomlib.a(hw_init.o)
- .debug_loc     0x00004d15       0xef icomlib.a(hw_regs_api.o)
- .debug_loc     0x00004e04      0x6c3 icomlib.a(ssv_lib.o)
- .debug_loc     0x000054c7      0x1ab icomlib.a(ssv_lib_slow.o)
- .debug_loc     0x00005672      0x24f icomlib.a(swpwm.o)
- .debug_loc     0x000058c1      0x564 icomlib.a(systemconf.o)
- .debug_loc     0x00005e25      0x194 icomlib.a(wdog_api.o)
- .debug_loc     0x00005fb9      0x3d5 icomlib.a(xmem.o)
- .debug_loc     0x0000638e       0xce icomlib.a(bsp.o)
- .debug_loc     0x0000645c      0x5ad icomlib.a(crypthw.o)
- .debug_loc     0x00006a09     0x20d2 icomlib.a(dbg-atcmd-api.o)
- .debug_loc     0x00008adb      0x3e2 icomlib.a(drv_mac.o)
- .debug_loc     0x00008ebd     0x1c9d icomlib.a(drv_phy.o)
- .debug_loc     0x0000ab5a      0x283 icomlib.a(drv_pktbuf.o)
- .debug_loc     0x0000addd      0x4d4 icomlib.a(hash_alg.o)
- .debug_loc     0x0000b2b1       0xf1 icomlib.a(hmac_md5.o)
- .debug_loc     0x0000b3a2      0x15a icomlib.a(hmac_sha1.o)
- .debug_loc     0x0000b4fc      0xfbb icomlib.a(ieee80211_mgmt.)
- .debug_loc     0x0000c4b7       0xc6 icomlib.a(ieee80211_rdc.o)
- .debug_loc     0x0000c57d      0x3dd icomlib.a(irq.o)
- .debug_loc     0x0000c95a      0x17a icomlib.a(powersave.o)
- .debug_loc     0x0000cad4       0x93 icomlib.a(rate_control.o)
- .debug_loc     0x0000cb67       0xbd icomlib.a(sha1.o)
- .debug_loc     0x0000cc24     0x184c icomlib.a(soft_ap.o)
- .debug_loc     0x0000e470      0x4de icomlib.a(ssv6200_rx.o)
- .debug_loc     0x0000e94e      0x1e6 icomlib.a(ssvradio.o)
- .debug_loc     0x0000eb34     0x1221 icomlib.a(wpa.o)
- .debug_loc     0x0000fd55      0x19a icomlib.a(sys_status_api.)
- .debug_loc     0x0000feef     0x1222 icomlib.a(AES_decrypt.o)
- .debug_loc     0x00011111      0x24a icomlib.a(arc4.o)
- .debug_loc     0x0001135b      0xc55 icomlib.a(md5.o)
- .debug_loc     0x00011fb0      0x4ac icomlib.a(wep.o)
- .debug_loc     0x0001245c       0x6a icomlib.a(autostart.o)
- .debug_loc     0x000124c6      0x13d icomlib.a(shell-ping.o)
- .debug_loc     0x00012603       0x21 icomlib.a(random.o)
- .debug_loc     0x00012624      0x246 icomlib.a(airkiss.o)
- .debug_loc     0x0001286a      0x257 icomlib.a(bsp_info.o)
- .debug_loc     0x00012ac1      0xd53 icomlib.a(cfs-coffee.o)
- .debug_loc     0x00013814       0x63 icomlib.a(console.o)
- .debug_loc     0x00013877      0x242 icomlib.a(drv_flash.o)
- .debug_loc     0x00013ab9      0x2ab icomlib.a(drv_gpio.o)
- .debug_loc     0x00013d64      0x124 icomlib.a(drv_pmu.o)
- .debug_loc     0x00013e88       0x21 icomlib.a(fence.o)
- .debug_loc     0x00013ea9      0x4fd icomlib.a(flash_api.o)
- .debug_loc     0x000143a6      0x2d8 icomlib.a(smartComm.o)
- .debug_loc     0x0001467e      0x7d9 icomlib.a(smartConf.o)
- .debug_loc     0x00014e57      0x324 icomlib.a(userSmart.o)
- .debug_loc     0x0001517b      0x32f icomlib.a(ieee80211_mac.o)
- .debug_loc     0x000154aa      0x119 icomlib.a(ieee80211_net.o)
- .debug_loc     0x000155c3      0x252 icomlib.a(ssv6200_tx.o)
- .debug_loc     0x00015815       0x58 icomlib.a(drv_fence.o)
- .debug_loc     0x0001586d       0x42 icomlib.a(drv_mbox.o)
- .debug_loc     0x000158af      0x1b4 icomlib.a(EAPOL.o)
- .debug_loc     0x00015a63     0x1bb1 icomapps.a(atcmd.o)
- .debug_loc     0x00017614      0xb42 icomapps.a(socket_app.o)
- .debug_loc     0x00018156      0x21a icomapps.a(soft_ap_init.o)
- .debug_loc     0x00018370      0x5d5 icomapps.a(tcp_server_demo)
- .debug_loc     0x00018945      0x40b icomapps.a(wifi_uart_demo.)
- .debug_loc     0x00018d50      0x682 icomapps.a(ota_api.o)
- .debug_loc     0x000193d2       0x34 icomlib.a(pwm_api.o)
- .debug_loc     0x00019406       0x78 icomlib.a(serial_api.o)
- .debug_loc     0x0001947e       0x2e icomlib.a(drv_pwm.o)
- .debug_loc     0x000194ac      0x114 contikilib.a(dhcp_process.o)
- .debug_loc     0x000195c0      0xda2 contikilib.a(dhcps.o)
- .debug_loc     0x0001a362      0x50e contikilib.a(resolv.o)
- .debug_loc     0x0001a870      0x340 contikilib.a(simple-udp.o)
- .debug_loc     0x0001abb0      0x76b contikilib.a(socket_driver.o)
- .debug_loc     0x0001b31b      0x750 contikilib.a(tcpip.o)
- .debug_loc     0x0001ba6b      0x4c1 contikilib.a(uip_arp.o)
- .debug_loc     0x0001bf2c      0x636 contikilib.a(uip.o)
- .debug_loc     0x0001c562      0x1a0 contikilib.a(uiplib.o)
- .debug_loc     0x0001c702       0xfc contikilib.a(uip-udp-packet.)
- .debug_loc     0x0001c7fe      0x38e contikilib.a(ntp_client.o)
- .debug_loc     0x0001cb8c      0x51a contikilib.a(dhcpc.o)
- .debug_loc     0x0001d0a6      0x1db accloud.a(zc_common.o)
- .debug_loc     0x0001d281      0x1b1 accloud.a(zc_configuratio)
- .debug_loc     0x0001d432      0x48e accloud.a(zc_message_queu)
- .debug_loc     0x0001d8c0      0xd7c accloud.a(zc_protocol_con)
- .debug_loc     0x0001e63c      0x596 accloud.a(zc_sec_engine.o)
- .debug_loc     0x0001ebd2       0xc9 accloud.a(zc_timer.o)
- .debug_loc     0x0001ec9b      0x41c accloud.a(zc_hf_adpter.o)
- .debug_loc     0x0001f0b7      0x62f accloud.a(ac_api.o)
- .debug_loc     0x0001f6e6      0x255 accloud.a(ac_hal.o)
- .debug_loc     0x0001f93b      0x4b5 accloud.a(aes_cbc.o)
- .debug_loc     0x0001fdf0      0x77b accloud.a(aes_core.o)
- .debug_loc     0x0002056b      0x250 accloud.a(crc.o)
- .debug_loc     0x000207bb     0x2cc6 accloud.a(bignum.o)
- .debug_loc     0x00023481      0x46c accloud.a(rsa.o)
- .debug_loc     0x000238ed      0x259 accloud.a(zc_client_manag)
- .debug_loc     0x00023b46      0x3fd accloud.a(zc_cloud_event.)
- .debug_loc     0x00023f43      0x68c accloud.a(zc_moudle_manag)
+.debug_loc      0x00000000    0x24606
+ .debug_loc     0x00000000      0x6ee ssv6060-main.o
+ .debug_loc     0x000006ee      0x404 icomlib.a(etimer.o)
+ .debug_loc     0x00000af2      0xa02 icomlib.a(printf.o)
+ .debug_loc     0x000014f4      0x3c8 icomlib.a(process.o)
+ .debug_loc     0x000018bc      0xbc0 icomlib.a(strformat.o)
+ .debug_loc     0x0000247c       0xc3 icomlib.a(timer.o)
+ .debug_loc     0x0000253f      0xd1b icomlib.a(atcmd_icomm.o)
+ .debug_loc     0x0000325a      0xd4d icomlib.a(boot-hiflying.o)
+ .debug_loc     0x00003fa7       0x49 icomlib.a(clock.o)
+ .debug_loc     0x00003ff0       0x84 icomlib.a(contiki-main.o)
+ .debug_loc     0x00004074      0x14d icomlib.a(debug-uart.o)
+ .debug_loc     0x000041c1      0x27c icomlib.a(gpio_api.o)
+ .debug_loc     0x0000443d      0x218 icomlib.a(drv_timer.o)
+ .debug_loc     0x00004655      0x20a icomlib.a(drv_uart.o)
+ .debug_loc     0x0000485f      0x4ed icomlib.a(hw_init.o)
+ .debug_loc     0x00004d4c       0xef icomlib.a(hw_regs_api.o)
+ .debug_loc     0x00004e3b      0x6c3 icomlib.a(ssv_lib.o)
+ .debug_loc     0x000054fe      0x1ab icomlib.a(ssv_lib_slow.o)
+ .debug_loc     0x000056a9      0x24f icomlib.a(swpwm.o)
+ .debug_loc     0x000058f8      0x564 icomlib.a(systemconf.o)
+ .debug_loc     0x00005e5c      0x194 icomlib.a(wdog_api.o)
+ .debug_loc     0x00005ff0      0x3d5 icomlib.a(xmem.o)
+ .debug_loc     0x000063c5       0xce icomlib.a(bsp.o)
+ .debug_loc     0x00006493      0x5ad icomlib.a(crypthw.o)
+ .debug_loc     0x00006a40     0x20d2 icomlib.a(dbg-atcmd-api.o)
+ .debug_loc     0x00008b12      0x3e2 icomlib.a(drv_mac.o)
+ .debug_loc     0x00008ef4     0x1c9d icomlib.a(drv_phy.o)
+ .debug_loc     0x0000ab91      0x283 icomlib.a(drv_pktbuf.o)
+ .debug_loc     0x0000ae14      0x4d4 icomlib.a(hash_alg.o)
+ .debug_loc     0x0000b2e8       0xf1 icomlib.a(hmac_md5.o)
+ .debug_loc     0x0000b3d9      0x15a icomlib.a(hmac_sha1.o)
+ .debug_loc     0x0000b533      0xfbb icomlib.a(ieee80211_mgmt.)
+ .debug_loc     0x0000c4ee       0xc6 icomlib.a(ieee80211_rdc.o)
+ .debug_loc     0x0000c5b4      0x3dd icomlib.a(irq.o)
+ .debug_loc     0x0000c991      0x17a icomlib.a(powersave.o)
+ .debug_loc     0x0000cb0b       0x93 icomlib.a(rate_control.o)
+ .debug_loc     0x0000cb9e       0xbd icomlib.a(sha1.o)
+ .debug_loc     0x0000cc5b     0x184c icomlib.a(soft_ap.o)
+ .debug_loc     0x0000e4a7      0x4de icomlib.a(ssv6200_rx.o)
+ .debug_loc     0x0000e985      0x1e6 icomlib.a(ssvradio.o)
+ .debug_loc     0x0000eb6b     0x1221 icomlib.a(wpa.o)
+ .debug_loc     0x0000fd8c      0x19a icomlib.a(sys_status_api.)
+ .debug_loc     0x0000ff26     0x1222 icomlib.a(AES_decrypt.o)
+ .debug_loc     0x00011148      0x24a icomlib.a(arc4.o)
+ .debug_loc     0x00011392      0xc55 icomlib.a(md5.o)
+ .debug_loc     0x00011fe7      0x4ac icomlib.a(wep.o)
+ .debug_loc     0x00012493       0x6a icomlib.a(autostart.o)
+ .debug_loc     0x000124fd      0x13d icomlib.a(shell-ping.o)
+ .debug_loc     0x0001263a       0x21 icomlib.a(random.o)
+ .debug_loc     0x0001265b      0x246 icomlib.a(airkiss.o)
+ .debug_loc     0x000128a1      0x257 icomlib.a(bsp_info.o)
+ .debug_loc     0x00012af8      0xd53 icomlib.a(cfs-coffee.o)
+ .debug_loc     0x0001384b       0x63 icomlib.a(console.o)
+ .debug_loc     0x000138ae      0x242 icomlib.a(drv_flash.o)
+ .debug_loc     0x00013af0      0x2ab icomlib.a(drv_gpio.o)
+ .debug_loc     0x00013d9b      0x124 icomlib.a(drv_pmu.o)
+ .debug_loc     0x00013ebf       0x21 icomlib.a(fence.o)
+ .debug_loc     0x00013ee0      0x4fd icomlib.a(flash_api.o)
+ .debug_loc     0x000143dd      0x2d8 icomlib.a(smartComm.o)
+ .debug_loc     0x000146b5      0x7d9 icomlib.a(smartConf.o)
+ .debug_loc     0x00014e8e      0x324 icomlib.a(userSmart.o)
+ .debug_loc     0x000151b2      0x32f icomlib.a(ieee80211_mac.o)
+ .debug_loc     0x000154e1      0x119 icomlib.a(ieee80211_net.o)
+ .debug_loc     0x000155fa      0x252 icomlib.a(ssv6200_tx.o)
+ .debug_loc     0x0001584c       0x58 icomlib.a(drv_fence.o)
+ .debug_loc     0x000158a4       0x42 icomlib.a(drv_mbox.o)
+ .debug_loc     0x000158e6      0x1b4 icomlib.a(EAPOL.o)
+ .debug_loc     0x00015a9a     0x1bb1 icomapps.a(atcmd.o)
+ .debug_loc     0x0001764b      0xb42 icomapps.a(socket_app.o)
+ .debug_loc     0x0001818d      0x21a icomapps.a(soft_ap_init.o)
+ .debug_loc     0x000183a7      0x5d5 icomapps.a(tcp_server_demo)
+ .debug_loc     0x0001897c      0x40b icomapps.a(wifi_uart_demo.)
+ .debug_loc     0x00018d87      0x682 icomapps.a(ota_api.o)
+ .debug_loc     0x00019409       0x34 icomlib.a(pwm_api.o)
+ .debug_loc     0x0001943d       0x78 icomlib.a(serial_api.o)
+ .debug_loc     0x000194b5       0x2e icomlib.a(drv_pwm.o)
+ .debug_loc     0x000194e3      0x114 contikilib.a(dhcp_process.o)
+ .debug_loc     0x000195f7      0xda2 contikilib.a(dhcps.o)
+ .debug_loc     0x0001a399      0x50e contikilib.a(resolv.o)
+ .debug_loc     0x0001a8a7      0x340 contikilib.a(simple-udp.o)
+ .debug_loc     0x0001abe7      0x76b contikilib.a(socket_driver.o)
+ .debug_loc     0x0001b352      0x750 contikilib.a(tcpip.o)
+ .debug_loc     0x0001baa2      0x4c1 contikilib.a(uip_arp.o)
+ .debug_loc     0x0001bf63      0x636 contikilib.a(uip.o)
+ .debug_loc     0x0001c599      0x1a0 contikilib.a(uiplib.o)
+ .debug_loc     0x0001c739       0xfc contikilib.a(uip-udp-packet.)
+ .debug_loc     0x0001c835      0x38e contikilib.a(ntp_client.o)
+ .debug_loc     0x0001cbc3      0x51a contikilib.a(dhcpc.o)
+ .debug_loc     0x0001d0dd      0x1db accloud.a(zc_common.o)
+ .debug_loc     0x0001d2b8      0x1b1 accloud.a(zc_configuratio)
+ .debug_loc     0x0001d469      0x48e accloud.a(zc_message_queu)
+ .debug_loc     0x0001d8f7      0xd7c accloud.a(zc_protocol_con)
+ .debug_loc     0x0001e673      0x596 accloud.a(zc_sec_engine.o)
+ .debug_loc     0x0001ec09       0xc9 accloud.a(zc_timer.o)
+ .debug_loc     0x0001ecd2      0x41c accloud.a(zc_hf_adpter.o)
+ .debug_loc     0x0001f0ee      0x62f accloud.a(ac_api.o)
+ .debug_loc     0x0001f71d      0x255 accloud.a(ac_hal.o)
+ .debug_loc     0x0001f972      0x4b5 accloud.a(aes_cbc.o)
+ .debug_loc     0x0001fe27      0x77b accloud.a(aes_core.o)
+ .debug_loc     0x000205a2      0x250 accloud.a(crc.o)
+ .debug_loc     0x000207f2     0x2cc6 accloud.a(bignum.o)
+ .debug_loc     0x000234b8      0x46c accloud.a(rsa.o)
+ .debug_loc     0x00023924      0x259 accloud.a(zc_client_manag)
+ .debug_loc     0x00023b7d      0x3fd accloud.a(zc_cloud_event.)
+ .debug_loc     0x00023f7a      0x68c accloud.a(zc_moudle_manag)
 
-.debug_str      0x00000000     0xe164
- .debug_str     0x00000000      0xacf ssv6060-main.o
-                                0xc75 (size before relaxing)
- .debug_str     0x00000acf      0x176 icomlib.a(etimer.o)
+.debug_str      0x00000000     0xe134
+ .debug_str     0x00000000      0xac9 ssv6060-main.o
+                                0xc6f (size before relaxing)
+ .debug_str     0x00000ac9      0x176 icomlib.a(etimer.o)
                                 0x4ab (size before relaxing)
- .debug_str     0x00000c45      0x326 icomlib.a(printf.o)
+ .debug_str     0x00000c3f      0x326 icomlib.a(printf.o)
                                 0x519 (size before relaxing)
- .debug_str     0x00000f6b      0x13e icomlib.a(process.o)
+ .debug_str     0x00000f65      0x13e icomlib.a(process.o)
                                 0x44a (size before relaxing)
- .debug_str     0x000010a9       0xec icomlib.a(strformat.o)
+ .debug_str     0x000010a3       0xec icomlib.a(strformat.o)
                                 0x2c3 (size before relaxing)
- .debug_str     0x00001195       0x1b icomlib.a(timer.o)
+ .debug_str     0x0000118f       0x1b icomlib.a(timer.o)
                                 0x1ea (size before relaxing)
- .debug_str     0x000011b0      0xea8 icomlib.a(atcmd_icomm.o)
+ .debug_str     0x000011aa      0xea8 icomlib.a(atcmd_icomm.o)
                                0x142d (size before relaxing)
- .debug_str     0x00002058      0x5e5 icomlib.a(boot-hiflying.o)
+ .debug_str     0x00002052      0x5e5 icomlib.a(boot-hiflying.o)
                                 0x852 (size before relaxing)
- .debug_str     0x0000263d      0x131 icomlib.a(clock.o)
+ .debug_str     0x00002637      0x131 icomlib.a(clock.o)
                                 0xaea (size before relaxing)
- .debug_str     0x0000276e      0x1a0 icomlib.a(contiki-main.o)
+ .debug_str     0x00002768      0x1a0 icomlib.a(contiki-main.o)
                                 0x8c9 (size before relaxing)
- .debug_str     0x0000290e       0x7f icomlib.a(debug-uart.o)
+ .debug_str     0x00002908       0x7f icomlib.a(debug-uart.o)
                                 0x219 (size before relaxing)
- .debug_str     0x0000298d       0xe7 icomlib.a(gpio_api.o)
+ .debug_str     0x00002987       0xe7 icomlib.a(gpio_api.o)
                                 0x35e (size before relaxing)
- .debug_str     0x00002a74       0x3d icomlib.a(drv_timer.o)
+ .debug_str     0x00002a6e       0x3d icomlib.a(drv_timer.o)
                                 0x24b (size before relaxing)
- .debug_str     0x00002ab1      0x313 icomlib.a(drv_uart.o)
+ .debug_str     0x00002aab      0x313 icomlib.a(drv_uart.o)
                                 0x53a (size before relaxing)
- .debug_str     0x00002dc4      0x61e icomlib.a(hw_init.o)
+ .debug_str     0x00002dbe      0x61e icomlib.a(hw_init.o)
                                0x1308 (size before relaxing)
- .debug_str     0x000033e2       0x17 icomlib.a(hw_regs_api.o)
+ .debug_str     0x000033dc       0x17 icomlib.a(hw_regs_api.o)
                                 0x1a3 (size before relaxing)
- .debug_str     0x000033f9       0xa1 icomlib.a(ssv_lib.o)
+ .debug_str     0x000033f3       0xa1 icomlib.a(ssv_lib.o)
                                 0x24a (size before relaxing)
- .debug_str     0x0000349a       0x71 icomlib.a(ssv_lib_slow.o)
+ .debug_str     0x00003494       0x71 icomlib.a(ssv_lib_slow.o)
                                 0x21c (size before relaxing)
- .debug_str     0x0000350b       0xa4 icomlib.a(swpwm.o)
+ .debug_str     0x00003505       0xa4 icomlib.a(swpwm.o)
                                 0x343 (size before relaxing)
- .debug_str     0x000035af      0x39f icomlib.a(systemconf.o)
+ .debug_str     0x000035a9      0x39f icomlib.a(systemconf.o)
                                 0xee1 (size before relaxing)
- .debug_str     0x0000394e      0x15e icomlib.a(wdog_api.o)
+ .debug_str     0x00003948      0x15e icomlib.a(wdog_api.o)
                                 0x4cb (size before relaxing)
- .debug_str     0x00003aac      0x199 icomlib.a(xmem.o)
+ .debug_str     0x00003aa6      0x199 icomlib.a(xmem.o)
                                 0x4ba (size before relaxing)
- .debug_str     0x00003c45       0xad icomlib.a(bsp.o)
+ .debug_str     0x00003c3f       0xad icomlib.a(bsp.o)
                                 0x571 (size before relaxing)
- .debug_str     0x00003cf2      0x24e icomlib.a(crypthw.o)
+ .debug_str     0x00003cec      0x24e icomlib.a(crypthw.o)
                                 0x526 (size before relaxing)
- .debug_str     0x00003f40      0x983 icomlib.a(dbg-atcmd-api.o)
+ .debug_str     0x00003f3a      0x983 icomlib.a(dbg-atcmd-api.o)
                                0x1882 (size before relaxing)
- .debug_str     0x000048c3      0x1af icomlib.a(drv_mac.o)
+ .debug_str     0x000048bd      0x1af icomlib.a(drv_mac.o)
                                 0x353 (size before relaxing)
- .debug_str     0x00004a72      0xd69 icomlib.a(drv_phy.o)
+ .debug_str     0x00004a6c      0xd69 icomlib.a(drv_phy.o)
                                0x11b8 (size before relaxing)
- .debug_str     0x000057db      0x102 icomlib.a(drv_pktbuf.o)
+ .debug_str     0x000057d5      0x102 icomlib.a(drv_pktbuf.o)
                                 0x374 (size before relaxing)
- .debug_str     0x000058dd       0x17 icomlib.a(drv_pktbuf_slow)
+ .debug_str     0x000058d7       0x17 icomlib.a(drv_pktbuf_slow)
                                 0x1ec (size before relaxing)
- .debug_str     0x000058f4       0xf9 icomlib.a(hash_alg.o)
+ .debug_str     0x000058ee       0xf9 icomlib.a(hash_alg.o)
                                 0x2ad (size before relaxing)
- .debug_str     0x000059ed       0x3e icomlib.a(hmac_md5.o)
+ .debug_str     0x000059e7       0x3e icomlib.a(hmac_md5.o)
                                 0x231 (size before relaxing)
- .debug_str     0x00005a2b       0xa6 icomlib.a(hmac_sha1.o)
+ .debug_str     0x00005a25       0xa6 icomlib.a(hmac_sha1.o)
                                 0x299 (size before relaxing)
- .debug_str     0x00005ad1     0x1deb icomlib.a(ieee80211_mgmt.)
+ .debug_str     0x00005acb     0x1deb icomlib.a(ieee80211_mgmt.)
                                0x3195 (size before relaxing)
- .debug_str     0x000078bc       0x55 icomlib.a(ieee80211_rdc.o)
+ .debug_str     0x000078b6       0x55 icomlib.a(ieee80211_rdc.o)
                                 0x4b9 (size before relaxing)
- .debug_str     0x00007911      0x139 icomlib.a(irq.o)
+ .debug_str     0x0000790b      0x139 icomlib.a(irq.o)
                                 0x313 (size before relaxing)
- .debug_str     0x00007a4a       0x2d icomlib.a(netstack.o)
+ .debug_str     0x00007a44       0x2d icomlib.a(netstack.o)
                                 0x22f (size before relaxing)
- .debug_str     0x00007a77      0x19b icomlib.a(powersave.o)
+ .debug_str     0x00007a71      0x19b icomlib.a(powersave.o)
                                0x17d0 (size before relaxing)
- .debug_str     0x00007c12       0xae icomlib.a(rate_control.o)
+ .debug_str     0x00007c0c       0xae icomlib.a(rate_control.o)
                                 0xb71 (size before relaxing)
- .debug_str     0x00007cc0       0x1d icomlib.a(sha1.o)
+ .debug_str     0x00007cba       0x1d icomlib.a(sha1.o)
                                 0x22f (size before relaxing)
- .debug_str     0x00007cdd      0x9b6 icomlib.a(soft_ap.o)
+ .debug_str     0x00007cd7      0x9b6 icomlib.a(soft_ap.o)
                                0x25b7 (size before relaxing)
- .debug_str     0x00008693      0x2af icomlib.a(ssv6200_rx.o)
+ .debug_str     0x0000868d      0x2af icomlib.a(ssv6200_rx.o)
                                0x10ea (size before relaxing)
- .debug_str     0x00008942      0x1ea icomlib.a(ssvradio.o)
+ .debug_str     0x0000893c      0x1ea icomlib.a(ssvradio.o)
                                 0xe2e (size before relaxing)
- .debug_str     0x00008b2c      0x255 icomlib.a(wpa.o)
+ .debug_str     0x00008b26      0x255 icomlib.a(wpa.o)
                                0x1ab3 (size before relaxing)
- .debug_str     0x00008d81       0x95 icomlib.a(sys_status_api.)
+ .debug_str     0x00008d7b       0x95 icomlib.a(sys_status_api.)
                                 0xa6a (size before relaxing)
- .debug_str     0x00008e16      0x11e icomlib.a(AES_decrypt.o)
+ .debug_str     0x00008e10      0x11e icomlib.a(AES_decrypt.o)
                                 0x2cf (size before relaxing)
- .debug_str     0x00008f34       0x4b icomlib.a(arc4.o)
+ .debug_str     0x00008f2e       0x4b icomlib.a(arc4.o)
                                 0x1d7 (size before relaxing)
- .debug_str     0x00008f7f       0x52 icomlib.a(md5.o)
+ .debug_str     0x00008f79       0x52 icomlib.a(md5.o)
                                 0x22f (size before relaxing)
- .debug_str     0x00008fd1       0xff icomlib.a(wep.o)
+ .debug_str     0x00008fcb       0xff icomlib.a(wep.o)
                                0x1694 (size before relaxing)
- .debug_str     0x000090d0       0x1e icomlib.a(autostart.o)
+ .debug_str     0x000090ca       0x1e icomlib.a(autostart.o)
                                 0x2f0 (size before relaxing)
- .debug_str     0x000090ee      0x103 icomlib.a(shell-ping.o)
+ .debug_str     0x000090e8      0x103 icomlib.a(shell-ping.o)
                                 0x4e6 (size before relaxing)
- .debug_str     0x000091f1       0x1e icomlib.a(random.o)
+ .debug_str     0x000091eb       0x1e icomlib.a(random.o)
                                 0x19f (size before relaxing)
- .debug_str     0x0000920f      0x238 icomlib.a(airkiss.o)
+ .debug_str     0x00009209      0x238 icomlib.a(airkiss.o)
                                 0xd67 (size before relaxing)
- .debug_str     0x00009447      0x161 icomlib.a(bsp_info.o)
+ .debug_str     0x00009441      0x161 icomlib.a(bsp_info.o)
                                 0xd55 (size before relaxing)
- .debug_str     0x000095a8      0x3af icomlib.a(cfs-coffee.o)
+ .debug_str     0x000095a2      0x3af icomlib.a(cfs-coffee.o)
                                 0x7d1 (size before relaxing)
- .debug_str     0x00009957       0x47 icomlib.a(console.o)
+ .debug_str     0x00009951       0x47 icomlib.a(console.o)
                                 0x51d (size before relaxing)
- .debug_str     0x0000999e       0xf1 icomlib.a(drv_flash.o)
+ .debug_str     0x00009998       0xf1 icomlib.a(drv_flash.o)
                                 0x435 (size before relaxing)
- .debug_str     0x00009a8f       0x50 icomlib.a(drv_gpio.o)
+ .debug_str     0x00009a89       0x50 icomlib.a(drv_gpio.o)
                                 0x2e9 (size before relaxing)
- .debug_str     0x00009adf       0xfb icomlib.a(drv_pmu.o)
+ .debug_str     0x00009ad9       0xfb icomlib.a(drv_pmu.o)
                                 0xc1c (size before relaxing)
- .debug_str     0x00009bda       0x14 icomlib.a(drv_wdog.o)
+ .debug_str     0x00009bd4       0x14 icomlib.a(drv_wdog.o)
                                 0x1d4 (size before relaxing)
- .debug_str     0x00009bee       0x4c icomlib.a(fence.o)
+ .debug_str     0x00009be8       0x4c icomlib.a(fence.o)
                                 0x1e6 (size before relaxing)
- .debug_str     0x00009c3a       0xa1 icomlib.a(flash_api.o)
+ .debug_str     0x00009c34       0xa1 icomlib.a(flash_api.o)
                                 0x548 (size before relaxing)
- .debug_str     0x00009cdb      0x2b2 icomlib.a(smartComm.o)
+ .debug_str     0x00009cd5      0x2b2 icomlib.a(smartComm.o)
                                0x1002 (size before relaxing)
- .debug_str     0x00009f8d      0x1ec icomlib.a(smartConf.o)
+ .debug_str     0x00009f87      0x1ec icomlib.a(smartConf.o)
                                 0xfeb (size before relaxing)
- .debug_str     0x0000a179      0x195 icomlib.a(userSmart.o)
+ .debug_str     0x0000a173      0x195 icomlib.a(userSmart.o)
                                 0xd27 (size before relaxing)
- .debug_str     0x0000a30e       0x87 icomlib.a(ieee80211_mac.o)
+ .debug_str     0x0000a308       0x87 icomlib.a(ieee80211_mac.o)
                                 0xfe2 (size before relaxing)
- .debug_str     0x0000a395       0x7c icomlib.a(ieee80211_net.o)
+ .debug_str     0x0000a38f       0x7c icomlib.a(ieee80211_net.o)
                                 0xdac (size before relaxing)
- .debug_str     0x0000a411      0x156 icomlib.a(ssv6200_tx.o)
+ .debug_str     0x0000a40b      0x156 icomlib.a(ssv6200_tx.o)
                                 0xeb5 (size before relaxing)
- .debug_str     0x0000a567       0x22 icomlib.a(drv_fence.o)
+ .debug_str     0x0000a561       0x22 icomlib.a(drv_fence.o)
                                 0x1d8 (size before relaxing)
- .debug_str     0x0000a589       0x38 icomlib.a(drv_mbox.o)
+ .debug_str     0x0000a583       0x38 icomlib.a(drv_mbox.o)
                                 0x1c0 (size before relaxing)
- .debug_str     0x0000a5c1       0x4a icomlib.a(EAPOL.o)
+ .debug_str     0x0000a5bb       0x4a icomlib.a(EAPOL.o)
                                 0xde3 (size before relaxing)
- .debug_str     0x0000a60b      0x5a0 icomapps.a(atcmd.o)
+ .debug_str     0x0000a605      0x5a0 icomapps.a(atcmd.o)
                                0x1e36 (size before relaxing)
- .debug_str     0x0000abab      0x2c2 icomapps.a(socket_app.o)
+ .debug_str     0x0000aba5      0x2c2 icomapps.a(socket_app.o)
                                 0xadd (size before relaxing)
- .debug_str     0x0000ae6d       0x9e icomapps.a(soft_ap_init.o)
+ .debug_str     0x0000ae67       0x9e icomapps.a(soft_ap_init.o)
                                 0xc85 (size before relaxing)
- .debug_str     0x0000af0b      0x149 icomapps.a(tcp_server_demo)
+ .debug_str     0x0000af05      0x149 icomapps.a(tcp_server_demo)
                                 0x91b (size before relaxing)
- .debug_str     0x0000b054       0xac icomapps.a(wifi_uart_demo.)
+ .debug_str     0x0000b04e       0xac icomapps.a(wifi_uart_demo.)
                                 0x72e (size before relaxing)
- .debug_str     0x0000b100      0x213 icomapps.a(ota_api.o)
+ .debug_str     0x0000b0fa      0x213 icomapps.a(ota_api.o)
                                 0x87e (size before relaxing)
- .debug_str     0x0000b313       0x6b icomlib.a(pwm_api.o)
+ .debug_str     0x0000b30d       0x6b icomlib.a(pwm_api.o)
                                 0x1ec (size before relaxing)
- .debug_str     0x0000b37e       0x43 icomlib.a(serial_api.o)
+ .debug_str     0x0000b378       0x43 icomlib.a(serial_api.o)
                                 0x418 (size before relaxing)
- .debug_str     0x0000b3c1       0x13 icomlib.a(drv_pwm.o)
+ .debug_str     0x0000b3bb       0x13 icomlib.a(drv_pwm.o)
                                 0x1d3 (size before relaxing)
- .debug_str     0x0000b3d4      0x100 contikilib.a(dhcp_process.o)
+ .debug_str     0x0000b3ce      0x100 contikilib.a(dhcp_process.o)
                                 0xc33 (size before relaxing)
- .debug_str     0x0000b4d4      0x1cf contikilib.a(dhcps.o)
+ .debug_str     0x0000b4ce      0x1cf contikilib.a(dhcps.o)
                                 0x891 (size before relaxing)
- .debug_str     0x0000b6a3      0x225 contikilib.a(resolv.o)
+ .debug_str     0x0000b69d      0x225 contikilib.a(resolv.o)
                                 0x716 (size before relaxing)
- .debug_str     0x0000b8c8       0xb6 contikilib.a(simple-udp.o)
+ .debug_str     0x0000b8c2       0xb6 contikilib.a(simple-udp.o)
                                 0x5e1 (size before relaxing)
- .debug_str     0x0000b97e      0x192 contikilib.a(socket_driver.o)
+ .debug_str     0x0000b978      0x192 contikilib.a(socket_driver.o)
                                 0x7dc (size before relaxing)
- .debug_str     0x0000bb10      0x1f4 contikilib.a(tcpip.o)
+ .debug_str     0x0000bb0a      0x1f4 contikilib.a(tcpip.o)
                                 0xa36 (size before relaxing)
- .debug_str     0x0000bd04      0x175 contikilib.a(uip_arp.o)
+ .debug_str     0x0000bcfe      0x175 contikilib.a(uip_arp.o)
                                 0x6e5 (size before relaxing)
- .debug_str     0x0000be79      0x1fe contikilib.a(uip.o)
+ .debug_str     0x0000be73      0x1fe contikilib.a(uip.o)
                                 0x94a (size before relaxing)
- .debug_str     0x0000c077       0x1b contikilib.a(uiplib.o)
+ .debug_str     0x0000c071       0x1b contikilib.a(uiplib.o)
                                 0x2db (size before relaxing)
- .debug_str     0x0000c092       0x43 contikilib.a(uip-udp-packet.)
+ .debug_str     0x0000c08c       0x43 contikilib.a(uip-udp-packet.)
                                 0x459 (size before relaxing)
- .debug_str     0x0000c0d5      0x10d contikilib.a(ntp_client.o)
+ .debug_str     0x0000c0cf      0x10d contikilib.a(ntp_client.o)
                                 0x608 (size before relaxing)
- .debug_str     0x0000c1e2       0xfd contikilib.a(dhcpc.o)
+ .debug_str     0x0000c1dc       0xfd contikilib.a(dhcpc.o)
                                0x1011 (size before relaxing)
- .debug_str     0x0000c2df      0x1c1 accloud.a(zc_common.o)
+ .debug_str     0x0000c2d9      0x1c1 accloud.a(zc_common.o)
                                 0x719 (size before relaxing)
- .debug_str     0x0000c4a0      0x1c7 accloud.a(zc_configuratio)
+ .debug_str     0x0000c49a      0x1c7 accloud.a(zc_configuratio)
                                 0x8bf (size before relaxing)
- .debug_str     0x0000c667      0x1fe accloud.a(zc_message_queu)
+ .debug_str     0x0000c661      0x1fe accloud.a(zc_message_queu)
                                 0x7ae (size before relaxing)
- .debug_str     0x0000c865      0x949 accloud.a(zc_protocol_con)
+ .debug_str     0x0000c85f      0x949 accloud.a(zc_protocol_con)
                                0x127e (size before relaxing)
- .debug_str     0x0000d1ae      0x220 accloud.a(zc_sec_engine.o)
+ .debug_str     0x0000d1a8      0x220 accloud.a(zc_sec_engine.o)
                                 0x96d (size before relaxing)
- .debug_str     0x0000d3ce       0x7e accloud.a(zc_timer.o)
+ .debug_str     0x0000d3c8       0x7e accloud.a(zc_timer.o)
                                 0x96c (size before relaxing)
- .debug_str     0x0000d44c      0x28c accloud.a(zc_hf_adpter.o)
-                                0xf6f (size before relaxing)
- .debug_str     0x0000d6d8      0x2f5 accloud.a(ac_api.o)
+ .debug_str     0x0000d446      0x262 accloud.a(zc_hf_adpter.o)
+                                0xf3f (size before relaxing)
+ .debug_str     0x0000d6a8      0x2f5 accloud.a(ac_api.o)
                                 0x8cd (size before relaxing)
- .debug_str     0x0000d9cd      0x16f accloud.a(ac_hal.o)
+ .debug_str     0x0000d99d      0x16f accloud.a(ac_hal.o)
                                 0x996 (size before relaxing)
- .debug_str     0x0000db3c       0xeb accloud.a(aes_cbc.o)
+ .debug_str     0x0000db0c       0xeb accloud.a(aes_cbc.o)
                                 0x2af (size before relaxing)
- .debug_str     0x0000dc27       0x23 accloud.a(aes_core.o)
+ .debug_str     0x0000dbf7       0x23 accloud.a(aes_core.o)
                                 0x21a (size before relaxing)
- .debug_str     0x0000dc4a       0x5b accloud.a(crc.o)
+ .debug_str     0x0000dc1a       0x5b accloud.a(crc.o)
                                 0x189 (size before relaxing)
- .debug_str     0x0000dca5      0x207 accloud.a(bignum.o)
+ .debug_str     0x0000dc75      0x207 accloud.a(bignum.o)
                                 0x3d4 (size before relaxing)
- .debug_str     0x0000deac       0x49 accloud.a(rsa.o)
+ .debug_str     0x0000de7c       0x49 accloud.a(rsa.o)
                                 0x2d9 (size before relaxing)
- .debug_str     0x0000def5      0x138 accloud.a(zc_client_manag)
+ .debug_str     0x0000dec5      0x138 accloud.a(zc_client_manag)
                                 0xbf6 (size before relaxing)
- .debug_str     0x0000e02d       0x73 accloud.a(zc_cloud_event.)
+ .debug_str     0x0000dffd       0x73 accloud.a(zc_cloud_event.)
                                 0xafa (size before relaxing)
- .debug_str     0x0000e0a0       0xc4 accloud.a(zc_moudle_manag)
+ .debug_str     0x0000e070       0xc4 accloud.a(zc_moudle_manag)
                                 0xd35 (size before relaxing)
 
 .comment        0x00000000       0xe0

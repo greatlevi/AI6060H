@@ -46,6 +46,10 @@
 #include "socket_driver.h"
 #include "atcmd_icomm.h"
 #include "wdog_api.h"
+#include "zc_hf_adpter.h"
+
+#define MAX_RECV_BUFFER 	1472
+
 
 int AT_Customer(stParam *param);
 int AT_Customer2(stParam *param);
@@ -65,6 +69,7 @@ at_cmd_info atcmd_info_tbl[] =
 };
 
 int gTcpSocket = -1;
+static char *g_s8RecvBuf = NULL;
 
 
 //extern void test1();
@@ -79,6 +84,21 @@ PROCESS_NAME(wifiUartDemo_process);
 /*---------------------------------------------------------------------------*/
 AUTOSTART_PROCESSES(&main_process, &ac_tcp_connect_process);
 /*---------------------------------------------------------------------------*/
+
+extern void HF_Init(void);
+
+int allocate_buffer_in_ext(void)
+{
+    int rlt = -1;
+    if(NULL == g_s8RecvBuf)
+    {
+        g_s8RecvBuf = malloc(1472);
+        memset(g_s8RecvBuf, 0x0, 1472);
+        rlt = 0;
+    }
+    return rlt;
+}
+
  void TurnOffAllLED()
  {
 	 GPIO_CONF conf;
@@ -168,17 +188,26 @@ int AT_SmartLink(stParam *param)
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(main_process, ev, data)
 {
+    static struct etimer periodic_timer;
     //    EVENTMSG_DATA *pMesg = NULL;
     PROCESS_BEGIN();
 
     printf("********hello main_process********\n");
-    //test1();
 
-    //uip_init();
-
+    allocate_buffer_in_ext();
+    
+    HF_Init();
     
     TurnOffAllLED();
 
+    etimer_set(&periodic_timer, 100000);
+    while(1)
+    {
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+        etimer_reset(&periodic_timer);
+        HF_Run();
+        HF_TimerExpired();
+    }
 
     PROCESS_END();
 }
@@ -189,6 +218,13 @@ void Test_Connect(void)
 	process_start(&ac_nslookup_process, NULL);
 	bss_nslookup(buf);
 }
+
+void Test_Connect_GateWay(uip_ipaddr_t *ripaddr, uint16_t rport)
+{
+    gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
+    printf("create socket:%d\n", gTcpSocket);
+}
+
 
 PROCESS_THREAD(ac_nslookup_process, ev, data)
 {
@@ -259,52 +295,62 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//The TCP socket is connected, This socket can send data after now.
 			if(msg.status == SOCKET_CONNECTED)
 			{
-				printf("socked:%d connected\n", msg.socket);
+				printf("socked:%d connect cloud ok\n", msg.socket);
 				if(msg.socket == gTcpSocket)
-				    printf("Equal socket\n");
+                {            
+                    g_struProtocolController.struCloudConnection.u32Socket = gTcpSocket;
+		            g_struProtocolController.struCloudConnection.u32ConnectionTimes = 0;
+                    /*Send Access to Cloud*/
+                    ZC_Rand(g_struProtocolController.RandMsg);
+                    PCT_SendCloudAccessMsg1(&g_struProtocolController);
+                }
 			}
 			//TCP connection is closed. Clear the socket number.
 			else if(msg.status == SOCKET_CLOSED)
 			{
 				printf("socked:%d closed\n", msg.socket);
-				//At_RespOK(ATCMD_TCPDISCONNECT);
 				if(gTcpSocket == msg.socket)
-					gTcpSocket = -1;
-				//if(gserversock == msg.socket)
-				//	gserversock = -1;
+                {
+                    tcpclose(gTcpSocket);
+					gTcpSocket = -1;  
+                }
 			}
 			//Get ack, the data trasmission is done. We can send data after now.
 			else if(msg.status == SOCKET_SENDACK)
 			{
 				printf("socked:%d send data ack\n", msg.socket);
-				//At_RespOK(ATCMD_TCPSEND);
 			}
 			//There is new data coming. Receive data now.
 			else if(msg.status == SOCKET_NEWDATA)
 			{
-#if 0
 				if(0 <= msg.socket && msg.socket < UIP_CONNS)
 				{
-					recvlen = tcprecv(msg.socket, buffer_in_dynamic, MAX_SEND_BUFFER);
-					buffer_in_dynamic[recvlen] = 0;
-      #if 0              
-					printf("TCP socked:%d recvdata:%s\n", msg.socket, buffer_in_dynamic);
-      #endif
-      //printf("TCP-%d:%c-%c-%c\n", msg.socket, buffer_in_dynamic[0],buffer_in_dynamic[1],buffer_in_dynamic[2]);
-      printf("%d:%c%c\n", msg.socket, buffer_in_dynamic[0],buffer_in_dynamic[1]);
-	
+				    if (gTcpSocket == msg.socket)
+                    {            
+    					recvlen = tcprecv(msg.socket, g_s8RecvBuf, MAX_RECV_BUFFER);
+                        if (recvlen < 0)
+                        {
+                            printf("tcprecv error\n");
+                            break;
+                        }
+                        printf("Recv from cloud, data len is %d\n", recvlen);
+                        MSG_RecvDataFromCloud(g_s8RecvBuf, recvlen);
+                    }
+                    else
+                    {
+                        printf("Recv from client, socket is %d\n", msg.socket);
+                    }
 				}
 				else if(UIP_CONNS <= msg.socket && msg.socket < UIP_CONNS + UIP_UDP_CONNS)
 				{
-					recvlen = udprecvfrom(msg.socket, buffer_in_dynamic, MAX_SEND_BUFFER, &peeraddr, &peerport);
-					buffer_in_dynamic[recvlen] = 0;
-					printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, buffer_in_dynamic, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
+					recvlen = udprecvfrom(msg.socket, g_s8RecvBuf, MAX_RECV_BUFFER, &peeraddr, &peerport);
+					g_s8RecvBuf[recvlen] = 0;
+					printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, g_s8RecvBuf, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
 				}
 				else
-		{
+		        {
 					printf("Illegal socket:%d\n", msg.socket);
 				}
-#endif
 			}
 			//A new connection is created. Get the socket number and attach the calback process if needed.
 			else if(msg.status == SOCKET_NEWCONNECTION)
@@ -327,7 +373,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 				printf("unknow message type\n");
 			}
 		}	
-		}	
+	}	
 
 	PROCESS_END();
 }

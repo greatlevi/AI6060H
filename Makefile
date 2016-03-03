@@ -30,11 +30,14 @@ OBJDUMP  = $(CROSS)objdump
 DBGFLAGS   = -g
 OPTFLAGS   = -Os -fomit-frame-pointer
 INCLUDE    = -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include
+INCLUDE    += -I./src -I./src/AC/inc -I./src/ZC/inc/aes -I./src/ZC/inc/tropicssl -I./src/ZC/inc/zc
 
 CPPFLAGS  += $(INCLUDE) $(OPTFLAGS) $(DBGFLAGS)
 ARCH_FLAGS = -march=armv3m -mno-thumb-interwork 
 CFLAGS    += -Wall -Wno-trigraphs -fno-builtin $(CPPFLAGS) $(ARCH_FLAGS) -fdata-sections -ffunction-sections -DMODULE_ID=$(MODULE_ID) -DBOOT_SECTOR_UPDATE=$(BOOT_SECTOR_UPDATE) -DDISABLE_ICOMM_DISCOVER=$(DISABLE_ICOMM_DISCOVER) -Werror=implicit-function-declaration -Werror=maybe-uninitialized
 CFLAGS += -DAUTOSTART_ENABLE
+#CFLAGS += -DZC_MODULE_VERSION=0
+#CFLAGS += -DZC_MODULE_TYPE=0
 
 
 LDFLAGS += --specs=nosys.specs --specs=nano.specs -flto -Wl,-T$(LINKERSCRIPT) 
@@ -55,6 +58,7 @@ all:
 	$(MAKE) -C icomlib
 	$(MAKE) -C icomapps
 	$(MAKE) -C contikilib
+	$(MAKE) -C src
 	make ssv6060-main.bin
 
 #%.bin:%.elf
@@ -88,10 +92,11 @@ ssv6060-main.bin: ssv6060-main.elf
 
 clean:
 	/bin/rm -f *.o *.elf
-	/bin/rm -f icomlib.a icomapps.a contikilib.a *.bin *.asm *.map
+	/bin/rm -f icomlib.a icomapps.a contikilib.a accloud.a *.bin *.asm *.map
 	cd icomlib && make clean
 	cd icomapps && make clean
 	cd contikilib && make clean
+	cd src && make clean
 
 #ssv6060-main.o:ssv6060-main.c
 #	$(CC) $(CFLAGS) -DAUTOSTART_ENABLE -c ssv6060-main.c -o ssv6060-main.o
@@ -137,5 +142,6 @@ ssv6060-main.elf: $(CONTIKI_OBJ) icomlib/icomlib.a icomapps/icomapps.a contikili
 	/bin/cp icomlib/icomlib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
 	/bin/cp icomapps/icomapps.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
 	/bin/cp contikilib/contikilib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
-	$(CC) $(LDFLAGS) $(CFLAGS) $(CONTIKI_OBJ) icomlib.a icomapps.a icomlib.a contikilib.a -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss 
+	/bin/cp src/accloud.a .     # hexin add
+	$(CC) $(LDFLAGS) $(CFLAGS) $(CONTIKI_OBJ) icomlib.a icomapps.a icomlib.a contikilib.a accloud.a -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss  #hexin add
 

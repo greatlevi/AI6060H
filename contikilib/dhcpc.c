@@ -114,7 +114,8 @@ getDhcpState()
     return dhcpState;
 }
 /*---------------------------------------------------------------------------*/
-extern void Test_Connect(void);
+//extern void Test_Connect(void);
+extern void HF_WakeUp(void);
 
 void
 dhcpc_configured(const struct dhcpc_state *s)
@@ -142,7 +143,9 @@ dhcpc_configured(const struct dhcpc_state *s)
 #if (defined(SMART_ICOMM) || defined(SMART_WECHAT))
 	process_start (&smart_conf_ack, NULL);
 #endif
-    Test_Connect();
+
+    HF_WakeUp();
+    //Test_Connect();
 }
 void
 dhcpc_unconfigured(const struct dhcpc_state *s)

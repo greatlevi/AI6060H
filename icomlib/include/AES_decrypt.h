@@ -46,7 +46,7 @@ typedef enum
 
 void AES_set_key(AES_CTX *ctx, const U8 *key, const U8 *iv, AES_MODE mode) ATTRIBUTE_SECTION_SRAM;
 void AES_convert_key(AES_CTX *ctx) ATTRIBUTE_SECTION_SRAM;
-void AES_decrypt(const AES_CTX *ctx, U32 *data) ATTRIBUTE_SECTION_SRAM;
+void AES_decrypt_ext(const AES_CTX *ctx, U32 *data) ATTRIBUTE_SECTION_SRAM;
 int aes_setkey ( void *ctx, const void *key, size_t keylen ) ATTRIBUTE_SECTION_SRAM;
 int aes_wrap ( const void *kek, const void *src, void *dest, int nblk )  ATTRIBUTE_SECTION_SRAM;
 int aes_unwrap ( const void *kek, const void *src, void *dest, int nblk ) ATTRIBUTE_SECTION_SRAM;

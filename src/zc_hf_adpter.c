@@ -430,45 +430,37 @@ void HF_BcInit(void)
 * Parameter: 
 * History:
 *************************************************/
-static void HF_Cloudfunc(void* arg) 
+void HF_Cloudfunc(void) 
 {
-#if 0
+
     int fd;
     u32 u32Timer = 0;
 
-    HF_BcInit();
-
-    while(1) 
+    fd = g_struProtocolController.struCloudConnection.u32Socket;
+    //PCT_Run();
+    
+    if (PCT_STATE_DISCONNECT_CLOUD == g_struProtocolController.u8MainState)
     {
-        fd = g_struProtocolController.struCloudConnection.u32Socket;
-        PCT_Run();
-        
-        if (PCT_STATE_DISCONNECT_CLOUD == g_struProtocolController.u8MainState)
+        tcpclose(fd);
+        if (0 == g_struProtocolController.struCloudConnection.u32ConnectionTimes)
         {
-            close(fd);
-            if (0 == g_struProtocolController.struCloudConnection.u32ConnectionTimes)
-            {
-                u32Timer = 1000;
-            }
-            else
-            {
-                u32Timer = rand();
-                u32Timer = (PCT_TIMER_INTERVAL_RECONNECT) * (u32Timer % 10 + 1);
-            }
-            PCT_ReconnectCloud(&g_struProtocolController, u32Timer);
-            g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;
-            g_struUartBuffer.u32RecvLen = 0;
+            u32Timer = 1000;
         }
         else
         {
-            MSG_SendDataToCloud((u8*)&g_struProtocolController.struCloudConnection);
+            u32Timer = rand();
+            u32Timer = (PCT_TIMER_INTERVAL_RECONNECT) * (u32Timer % 10 + 1);
         }
-        ZC_SendBc();
-        sys_msleep(100);
-    } 
-#endif
+        PCT_ReconnectCloud(&g_struProtocolController, u32Timer);
+        g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;
+        g_struUartBuffer.u32RecvLen = 0;
+    }
+    else
+    {
+        MSG_SendDataToCloud((u8*)&g_struProtocolController.struCloudConnection);
+    }
+    ZC_SendBc();
 }
-
 /*************************************************
 * Function: HF_Init
 * Description: 

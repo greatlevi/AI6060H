@@ -48,7 +48,7 @@ void HF_Reboot(void);
 void HF_BcInit(void);
 void HF_Run(void);
 void HF_TimerExpired(void);
-
+void HF_Cloudfunc(void);
 
 
 #ifdef __cplusplus

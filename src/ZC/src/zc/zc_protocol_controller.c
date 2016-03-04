@@ -1113,7 +1113,7 @@ void PCT_Run()
             PCT_HandleUnbindMsg(pstruContoller);
             break;
     }
-    MSG_SendDataToCloud(&g_struProtocolController.struCloudConnection);
+   // MSG_SendDataToCloud(&g_struProtocolController.struCloudConnection);
 }
 /*************************************************
 * Function: PCT_WakeUp

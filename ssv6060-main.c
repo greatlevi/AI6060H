@@ -197,6 +197,8 @@ PROCESS_THREAD(main_process, ev, data)
     allocate_buffer_in_ext();
     
     HF_Init();
+
+    HF_BcInit();
     
     TurnOffAllLED();
 
@@ -207,6 +209,7 @@ PROCESS_THREAD(main_process, ev, data)
         etimer_reset(&periodic_timer);
         HF_Run();
         HF_TimerExpired();
+        HF_Cloudfunc();
     }
 
     PROCESS_END();

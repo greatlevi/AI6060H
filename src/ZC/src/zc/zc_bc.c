@@ -9,13 +9,13 @@
 */
 #include <zc_bc.h>
 #include <zc_protocol_controller.h>
-int g_Bcfd = 0;
+extern int g_Bcfd;
 u8* g_pu8RemoteAddr = NULL;
 unsigned int g_u32GloablIp;
 extern u32 g_u32BcSleepCount;
 /*************************************************
 * Function: ZC_SendBc
-* Description: 
+* Description:
 * Author: cxy 
 * Returns: 
 * Parameter: 

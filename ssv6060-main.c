@@ -56,6 +56,8 @@ int AT_Customer2(stParam *param);
 int AT_TCPSERVER_DEMO(stParam *param);
 int AT_WIFIUART_DEMO(stParam *param);
 int AT_SmartLink(stParam *param);
+void Ac_BcInit(void);
+
 
 
 at_cmd_info atcmd_info_tbl[] = 
@@ -69,6 +71,8 @@ at_cmd_info atcmd_info_tbl[] =
 };
 
 int gTcpSocket = -1;
+int g_Bcfd = -1;
+
 static char *g_s8RecvBuf = NULL;
 
 
@@ -198,7 +202,7 @@ PROCESS_THREAD(main_process, ev, data)
     
     HF_Init();
 
-    HF_BcInit();
+    Ac_BcInit();
     
     TurnOffAllLED();
 
@@ -227,6 +231,51 @@ void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("create socket:%d\n", gTcpSocket);
 }
+
+void Ac_BcInit(void)
+{
+#if 0
+    int tmp=1;
+    struct sockaddr_in addr; 
+
+    addr.sin_family = AF_INET; 
+    addr.sin_port = htons(ZC_MOUDLE_PORT); 
+    addr.sin_addr.s_addr=htonl(INADDR_ANY);
+
+    g_Bcfd = socket(AF_INET, SOCK_DGRAM, 0); 
+
+    tmp=1; 
+    setsockopt(g_Bcfd, SOL_SOCKET,SO_BROADCAST,&tmp,sizeof(tmp)); 
+
+    //hfnet_set_udp_broadcast_port_valid(ZC_MOUDLE_PORT, ZC_MOUDLE_PORT + 1);
+
+    bind(g_Bcfd, (struct sockaddr*)&addr, sizeof(addr)); 
+    g_struProtocolController.u16SendBcNum = 0;
+
+    memset((char*)&struRemoteAddr,0,sizeof(struRemoteAddr));
+    struRemoteAddr.sin_family = AF_INET; 
+    struRemoteAddr.sin_port = htons(ZC_MOUDLE_BROADCAST_PORT); 
+    struRemoteAddr.sin_addr.s_addr=inet_addr("255.255.255.255"); 
+    g_pu8RemoteAddr = (u8*)&struRemoteAddr;
+    //g_u32BcSleepCount = 2.5 * 250000;
+    g_u32BcSleepCount = 10;
+#endif
+
+	g_Bcfd = udpcreate(ZC_MOUDLE_PORT, &ac_tcp_connect_process);
+
+	if(g_Bcfd == -1)
+	{
+		printf("create udp socket fail\n");
+	}
+	else
+	{
+		printf("create socket:%d\n", g_Bcfd);
+	}
+
+    return;
+
+}
+
 
 PROCESS_THREAD(ac_nslookup_process, ev, data)
 {

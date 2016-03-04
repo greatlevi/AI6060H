@@ -383,6 +383,7 @@ void HF_Printf(const char *pu8format, ...)
     va_end (arg);
     printf(buffer);
 }
+#if 0
 /*************************************************
 * Function: HF_BcInit
 * Description: 
@@ -419,9 +420,22 @@ void HF_BcInit(void)
     //g_u32BcSleepCount = 2.5 * 250000;
     g_u32BcSleepCount = 10;
 #endif
-    return;
-}
 
+	g_Bcfd = udpcreate(ZC_MOUDLE_PORT, &ac_tcp_connect_process);
+
+	if(g_Bcfd == -1)
+	{
+		printf("create udp socket fail\n");
+	}
+	else
+	{
+		printf("create socket:%d\n", g_Bcfd);
+	}
+
+    return;
+
+}
+#endif
 /*************************************************
 * Function: HF_Cloudfunc
 * Description: 

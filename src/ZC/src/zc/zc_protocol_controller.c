@@ -18,7 +18,7 @@
 
 PTC_ProtocolCon  g_struProtocolController;
 extern ZC_Timer g_struTimer[ZC_TIMER_MAX_NUM];
-
+extern u8  g_u8ExAesKey[ZC_HS_SESSION_KEY_LEN];
 /*************************************************
 * Function: PCT_CheckCrc
 * Description: 
@@ -113,6 +113,10 @@ void PCT_Init(PTC_ModuleAdapter *pstruAdapter)
     g_struProtocolController.struClientConnection.u8IpType = ZC_IPTYPE_IPV4;
     g_struProtocolController.struClientConnection.u8ConnectionType = ZC_CONNECT_TYPE_TCP;
 
+    memcpy(g_struProtocolController.IvRecv, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.IvSend, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.u8SessionKey, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+
     ZC_ConfigInitDefault();
     MSG_Init();
     TIMER_Init();
@@ -190,7 +194,6 @@ void PCT_SendCloudAccessMsg1(PTC_ProtocolCon *pstruContoller)
     ZC_HandShakeMsg1 struMsg1;
     u8 *pu8DeviceId;
     u32 u32RetVal;
-    
     /*stop reconnection timer*/
     if (PCT_TIMER_INVAILD != pstruContoller->u8ReconnectTimer)
     {
@@ -198,15 +201,13 @@ void PCT_SendCloudAccessMsg1(PTC_ProtocolCon *pstruContoller)
         TIMER_StopTimer(pstruContoller->u8ReconnectTimer);
         pstruContoller->u8ReconnectTimer = PCT_TIMER_INVAILD;
     }
-
     ZC_GetStoreInfor(ZC_GET_TYPE_DEVICEID, &pu8DeviceId);
     memcpy(struMsg1.RandMsg, pstruContoller->RandMsg, ZC_HS_MSG_LEN);
     memcpy(struMsg1.DeviceId, pu8DeviceId, ZC_HS_DEVICE_ID_LEN);
     memcpy(struMsg1.u8Domain, pu8DeviceId + ZC_HS_DEVICE_ID_LEN, ZC_DOMAIN_LEN);
-   
     EVENT_BuildMsg(ZC_CODE_HANDSHAKE_1, 1, g_u8MsgBuildBuffer, &u16Len, 
         (u8*)&struMsg1, sizeof(ZC_HandShakeMsg1));
-    struSechead.u8SecType = ZC_SEC_ALG_RSA;
+    struSechead.u8SecType = ZC_SEC_ALG_NONE;//ZC_SEC_ALG_RSA;
     struSechead.u16TotalMsg = ZC_HTONS(u16Len);
     struSechead.u8Resver = 0x5A;
     u32RetVal = PCT_SendMsgToCloud(&struSechead, g_u8MsgBuildBuffer);
@@ -281,6 +282,9 @@ void PCT_DisConnectCloud(PTC_ProtocolCon *pstruContoller)
 {
     pstruContoller->u8MainState = PCT_STATE_DISCONNECT_CLOUD;
     pstruContoller->u8keyRecv = PCT_KEY_UNRECVED;
+    memcpy(pstruContoller->IvRecv, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(pstruContoller->IvSend, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(pstruContoller->u8SessionKey, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
     MSG_Init();
     PCT_SendNotifyMsg(ZC_CODE_CLOUD_DISCONNECTED);
 }
@@ -348,6 +352,10 @@ void PCT_ReconnectCloud(PTC_ProtocolCon *pstruContoller, u32 u32ReConnectTimer)
     g_struProtocolController.u8SendMoudleTimer = PCT_TIMER_INVAILD;
     g_struProtocolController.u8HeartTimer = PCT_TIMER_INVAILD;
     g_struProtocolController.u8MainState = PCT_STATE_INIT;
+
+    memcpy(g_struProtocolController.IvRecv, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.IvSend, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.u8SessionKey, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
 
     pstruContoller->pstruMoudleFun->pfunSetTimer(PCT_TIMER_RECONNECT, 
         u32ReConnectTimer, &pstruContoller->u8ReconnectTimer);
@@ -909,6 +917,7 @@ void PCT_SetTokenKey(PTC_ProtocolCon *pstruContoller, MSG_Buffer *pstruBuffer)
     ZC_MessageHead *pstruMsg;
     ZC_TokenSetReq *pstruSetKey;
 
+    ZC_Printf("PCT_SetTokenKey\n");
     pstruMsg = (ZC_MessageHead*)pstruBuffer->u8MsgBuffer;
     pstruSetKey = (ZC_TokenSetReq *)(pstruMsg + 1);
 
@@ -1084,7 +1093,7 @@ void PCT_Run()
 {
     static u32 count = 0;
     PTC_ProtocolCon *pstruContoller = &g_struProtocolController;
-
+    
     //if ((count++) % 100 == 0)
         //ZC_Printf("state is %d\n", pstruContoller->u8MainState);
     switch(pstruContoller->u8MainState)
@@ -1113,7 +1122,6 @@ void PCT_Run()
             PCT_HandleUnbindMsg(pstruContoller);
             break;
     }
-   // MSG_SendDataToCloud(&g_struProtocolController.struCloudConnection);
 }
 /*************************************************
 * Function: PCT_WakeUp
@@ -1173,6 +1181,9 @@ void PCT_Sleep()
     g_struProtocolController.u8HeartTimer = PCT_TIMER_INVAILD;
     g_struProtocolController.u8MainState = PCT_STATE_INIT;
     g_struProtocolController.u8RegisterTimer = PCT_TIMER_INVAILD;
+    memcpy(g_struProtocolController.IvRecv, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.IvSend, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
+    memcpy(g_struProtocolController.u8SessionKey, g_u8ExAesKey, ZC_HS_SESSION_KEY_LEN);
     PCT_SendNotifyMsg(ZC_CODE_WIFI_DISCONNECTED);
     ZC_ClientSleep();
 }

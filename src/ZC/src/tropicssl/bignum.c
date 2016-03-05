@@ -41,6 +41,8 @@
  *	http://math.libtomcrypt.com/files/tommath.pdf
  */
 
+#include "stdio.h"
+
 #include "secconfig.h"
 
 #if defined(TROPICSSL_BIGNUM_C)
@@ -732,16 +734,29 @@ int mpi_sub_mpi(mpi * X, const mpi * A, const mpi * B)
 {
 	int ret, s = A->s;
 
-	if (A->s * B->s > 0) {
-		if (mpi_cmp_abs(A, B) >= 0) {
+	if (A->s * B->s > 0) 
+    {
+        //printf("mpi_sub_mpi 1\n");
+		if (mpi_cmp_abs(A, B) >= 0)
+        {
+            //printf("mpi_sub_mpi 2\n");
 			MPI_CHK(mpi_sub_abs(X, A, B));
+            //printf("mpi_sub_mpi 3\n");
 			X->s = s;
-		} else {
+		} 
+        else
+	    {
+	        //printf("mpi_sub_mpi 4\n");
 			MPI_CHK(mpi_sub_abs(X, B, A));
+            //printf("mpi_sub_mpi 5\n");
 			X->s = -s;
 		}
-	} else {
+	} 
+    else
+    {
+        //printf("mpi_sub_mpi 6\n");
 		MPI_CHK(mpi_add_abs(X, A, B));
+        //printf("mpi_sub_mpi 7\n");
 		X->s = s;
 	}
 
@@ -1062,14 +1077,17 @@ int mpi_div_int(mpi * Q, mpi * R, const mpi * A, int b)
 int mpi_mod_mpi(mpi * R, const mpi * A, const mpi * B)
 {
 	int ret;
-
+    //printf("mpi_mod_mpi 1\n");
 	MPI_CHK(mpi_div_mpi(NULL, R, A, B));
+    //printf("mpi_mod_mpi 2\n");
 
 	while (mpi_cmp_int(R, 0) < 0)
 		MPI_CHK(mpi_add_mpi(R, R, B));
+    //printf("mpi_mod_mpi 3\n");
 
 	while (mpi_cmp_mpi(R, B) >= 0)
 		MPI_CHK(mpi_sub_mpi(R, R, B));
+    //printf("mpi_mod_mpi 4\n");
 
 cleanup:
 
@@ -1206,42 +1224,56 @@ int mpi_exp_mod(mpi * X, const mpi * A, const mpi * E, const mpi * N, mpi * _RR)
 	int ret, i, j, wsize, wbits;
 	int bufsize, nblimbs, nbits;
 	t_int ei, mm, state;
-
+    //printf("mpi_exp_mod 1\n");
 	if (mpi_cmp_int(N, 0) < 0 || (N->p[0] & 1) == 0)
 		return (TROPICSSL_ERR_MPI_BAD_INPUT_DATA);
+    //printf("mpi_exp_mod 2\n");
 
 	/*
 	 * Init temps and window size
 	 */
+	// printf("mpi_exp_mod 3\n");
 	mpi_montg_init(&mm, N);
+    //printf("mpi_exp_mod 4\n");
 	mpi_init(&O_RR); mpi_init(&O_T);
 	memset(O_W, 0, sizeof(O_W));
+    //printf("mpi_exp_mod 5\n");
 
 	i = mpi_msb(E);
+    //printf("mpi_exp_mod 6\n");
 
 	wsize = (i > 671) ? 6 : (i > 239) ? 5 : (i > 79) ? 4 : (i > 23) ? 3 : 1;
+    //printf("mpi_exp_mod 7\n");
 
 	j = N->n + 1;
 	MPI_CHK(mpi_grow(X, j));
-	
+	//printf("mpi_exp_mod 8\n");
 	MPI_CHK(mpi_grow(&O_W[1], j));
+    //printf("mpi_exp_mod 9\n");
 
 	MPI_CHK(mpi_grow(&O_T, j * 2));
+    //printf("mpi_exp_mod 10\n");
 
 	/*
 	 * If 1st call, pre-compute R^2 mod N
 	 */
 	if (_RR == NULL || _RR->n == 0/*_RR->p == NULL*/) {
+        //printf("mpi_exp_mod 11\n");
 		MPI_CHK(mpi_lset(&O_RR, 1));
+        //printf("mpi_exp_mod 12\n");
 		MPI_CHK(mpi_shift_l(&O_RR, N->n * 2 * biL));
+        //printf("mpi_exp_mod 13\n");
 		MPI_CHK(mpi_mod_mpi(&O_RR, &O_RR, N));
+        //printf("mpi_exp_mod 14\n");
 
 		if (_RR != NULL)
 		{
+		    //printf("mpi_exp_mod 15\n");
 			memcpy(_RR, &O_RR, sizeof(mpi));
 		}
 	} else
 	{
+	    //printf("mpi_exp_mod 16\n");
        	memcpy(&O_RR, _RR, sizeof(mpi));
 	}
 	
@@ -1250,37 +1282,59 @@ int mpi_exp_mod(mpi * X, const mpi * A, const mpi * E, const mpi * N, mpi * _RR)
 	 * W[1] = A * R^2 * R^-1 mod N = A * R mod N
 	 */
 	if (mpi_cmp_mpi(A, N) >= 0)
+    {   
+        //printf("mpi_exp_mod 17\n");
 		mpi_mod_mpi(&O_W[1], A, N);
+        //printf("mpi_exp_mod 18\n");
+    }
 	else
+    {  
+        //printf("mpi_exp_mod 19\n");
 		mpi_copy(&O_W[1], A);
-
+        //printf("mpi_exp_mod 20\n");
+   }
+    //printf("mpi_exp_mod 21\n");
 	mpi_montmul(&O_W[1], &O_RR, N, mm, &O_T);
+    //printf("mpi_exp_mod 22\n");
 	/*
 	 * X = R^2 * R^-1 mod N = R mod N
 	 */
+	 //printf("mpi_exp_mod 23\n");
 	MPI_CHK(mpi_copy(X, &O_RR));
+    //printf("mpi_exp_mod 24\n");
 	mpi_montred(X, N, mm, &O_T);
+    //printf("mpi_exp_mod 25\n");
 
 	if (wsize > 1) {
 		/*
 		 * W[1 << (wsize - 1)] = W[1] ^ (wsize - 1)
 		 */
 		j = 1 << (wsize - 1);
-
+        //printf("mpi_exp_mod 26\n");
 		MPI_CHK(mpi_grow(&O_W[j], N->n + 1));
+       // printf("mpi_exp_mod 27\n");
 		MPI_CHK(mpi_copy(&O_W[j], &O_W[1]));
+        //printf("mpi_exp_mod 28\n");
 
 		for (i = 0; i < wsize - 1; i++)
+        {      
+            //printf("mpi_exp_mod 29\n");
 			mpi_montmul(&O_W[j], &O_W[j], N, mm, &O_T);
+            //printf("mpi_exp_mod 30\n");
+        }
 
 		/*
 		 * W[i] = W[i - 1] * W[1]
 		 */
 		for (i = j + 1; i < (1 << wsize); i++) {
+            //printf("mpi_exp_mod 31\n");
 			MPI_CHK(mpi_grow(&O_W[i], N->n + 1));
+            //printf("mpi_exp_mod 32\n");
 			MPI_CHK(mpi_copy(&O_W[i], &O_W[i - 1]));
+            //printf("mpi_exp_mod 33\n");
 
 			mpi_montmul(&O_W[i], &O_W[1], N, mm, &O_T);
+            //printf("mpi_exp_mod 34\n");
 		}
 	}
 

@@ -22,7 +22,8 @@
 #include "flash_api.h"
 #include "socket_driver.h"
 #include "clock.h"
-
+#include "uiplib.h"
+#include "atcmd_icomm.h"
 
 extern PTC_ProtocolCon  g_struProtocolController;
 PTC_ModuleAdapter g_struHfAdapter;
@@ -53,6 +54,9 @@ u32 g_u32BcSleepCount = 800;
 //struct sockaddr_in struRemoteAddr;
 
 extern u8  g_u8ModuleKey[ZC_MODULE_KEY_LEN];
+
+uip_ipaddr_t g_remote_ip;
+
 
 /*************************************************
 * Function: HF_ReadDataFormFlash
@@ -190,6 +194,8 @@ u32 HF_SendDataToMoudle(u8 *pu8Data, u16 u16DataLen)
 *************************************************/
 void HF_Rest(void)
 { 
+    At_Disconnect();
+    AT_RemoveCfsConf();
     api_wdog_reboot();
 }
 /*************************************************
@@ -214,16 +220,13 @@ void HF_SendTcpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruP
 *************************************************/
 void HF_SendUdpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruParam)
 {
-    /* just test, need to modify later */
-    uip_ip4addr_t server_ip;
-#if 0
-    sendto(u32Fd,(char*)pu8Data,u16DataLen,0,
-        (struct sockaddr *)pstruParam->pu8AddrPara,
-        sizeof(struct sockaddr_in)); 
-#endif
-    if(udpsendto(u32Fd, pu8Data, u16DataLen, &server_ip, 1111) == -1)
+    if(udpsendto(u32Fd, pu8Data, u16DataLen, &g_remote_ip, ZC_MOUDLE_BROADCAST_PORT) == -1)
     {
         printf("udpsendto fail\n");
+    }
+    else
+    {
+        printf("Send udp data\n");
     }
 }
 /*************************************************
@@ -383,59 +386,6 @@ void HF_Printf(const char *pu8format, ...)
     va_end (arg);
     printf(buffer);
 }
-#if 0
-/*************************************************
-* Function: HF_BcInit
-* Description: 
-* Author: cxy 
-* Returns: 
-* Parameter: 
-* History:
-*************************************************/
-void HF_BcInit(void)
-{
-#if 0
-    int tmp=1;
-    struct sockaddr_in addr; 
-
-    addr.sin_family = AF_INET; 
-    addr.sin_port = htons(ZC_MOUDLE_PORT); 
-    addr.sin_addr.s_addr=htonl(INADDR_ANY);
-
-    g_Bcfd = socket(AF_INET, SOCK_DGRAM, 0); 
-
-    tmp=1; 
-    setsockopt(g_Bcfd, SOL_SOCKET,SO_BROADCAST,&tmp,sizeof(tmp)); 
-
-    //hfnet_set_udp_broadcast_port_valid(ZC_MOUDLE_PORT, ZC_MOUDLE_PORT + 1);
-
-    bind(g_Bcfd, (struct sockaddr*)&addr, sizeof(addr)); 
-    g_struProtocolController.u16SendBcNum = 0;
-
-    memset((char*)&struRemoteAddr,0,sizeof(struRemoteAddr));
-    struRemoteAddr.sin_family = AF_INET; 
-    struRemoteAddr.sin_port = htons(ZC_MOUDLE_BROADCAST_PORT); 
-    struRemoteAddr.sin_addr.s_addr=inet_addr("255.255.255.255"); 
-    g_pu8RemoteAddr = (u8*)&struRemoteAddr;
-    //g_u32BcSleepCount = 2.5 * 250000;
-    g_u32BcSleepCount = 10;
-#endif
-
-	g_Bcfd = udpcreate(ZC_MOUDLE_PORT, &ac_tcp_connect_process);
-
-	if(g_Bcfd == -1)
-	{
-		printf("create udp socket fail\n");
-	}
-	else
-	{
-		printf("create socket:%d\n", g_Bcfd);
-	}
-
-    return;
-
-}
-#endif
 /*************************************************
 * Function: HF_Cloudfunc
 * Description: 
@@ -511,12 +461,10 @@ void HF_Init(void)
     g_struHfAdapter.pfunFree = free;
     g_struHfAdapter.pfunPrintf = HF_Printf;
     g_u16TcpMss = 1000;
-    //g_u32SmartConfigFlag = 0;
+
+    g_u32BcSleepCount = 10;
 
     PCT_Init(&g_struHfAdapter);
-    // Initial a periodical timer
-    //gtimer_init(&g_struTimer1, TIMER0);
-    //gtimer_start_periodical(&g_struTimer1, 1000000, (void*)Timer_callback, 0);
     
     printf("QD Init\n");
 
@@ -532,20 +480,13 @@ void HF_Init(void)
     g_struRegisterInfo.u8DeviciId[17] = (MAJOR_DOMAIN_ID & 0xff00000000) >> 32;
     g_struRegisterInfo.u8DeviciId[16] = (MAJOR_DOMAIN_ID & 0xff0000000000) >> 40;
 
-    //uart_socket();
-
     g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;
     g_struUartBuffer.u32RecvLen = 0;
-#if 0
-	if(xTaskCreate(HF_Cloudfunc, ((const char*)"HF_Cloudfunc"), 512, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-    {   
-		printf("\n\r%s xTaskCreate(init_thread) failed", __FUNCTION__);
+
+    if( uiplib_ipaddrconv("255.255.255.255", &g_remote_ip) == 0)
+    {
+        printf("erro ip format\n");
     }
-	if(xTaskCreate(HF_CloudRecvfunc, ((const char*)"HF_CloudRecvfunc"), 512, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
-    {   
-		printf("\n\r%s xTaskCreate(init_thread) failed", __FUNCTION__);
-    }     
-#endif
 }
 
 /*************************************************
@@ -625,6 +566,18 @@ void HF_Run(void)
         PCT_Run();
     }
 #endif
+}
+
+u32 ac_rand(void)
+{    
+    u32 u32i;
+    u32 sum = 0;
+    for (u32i = 0; u32i < 20; u32i++)
+    {
+        sum += clock_time();
+    }
+
+    return sum;
 }
 
 

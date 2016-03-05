@@ -10,6 +10,7 @@
 #include <zc_sec_engine.h>
 #include <zc_protocol_controller.h>
 
+#if 0
 /*************************************************
 * Function: SEC_EncryptTextByRsa
 * Description:
@@ -25,8 +26,12 @@ u32 SEC_EncryptTextByRsa(u8* pu8CiperBuf, u8 *pu8Plainbuf, u16 u16Len, u16 *pu16
     u16 u16ReadLen;
     rsa_context *rsa;
 
-
     rsa = (rsa_context *)ZC_malloc(sizeof(rsa_context));
+    if (NULL == rsa)
+    {
+        ZC_Printf("malloc failed!\n");
+        return ZC_RET_ERROR;
+    }
     ZC_GetStoreInfor(ZC_GET_TYPE_CLOUDKEY, &pu8PublicKey);
 
     SEC_InitRsaContextWithPublicKey(rsa, pu8PublicKey);
@@ -37,6 +42,8 @@ u32 SEC_EncryptTextByRsa(u8* pu8CiperBuf, u8 *pu8Plainbuf, u16 u16Len, u16 *pu16
         u16ReadLen = 0;
         while (u16ReadLen + (rsa->len - 11) <= u16Len)
         {
+            //ZC_Printf("SEC_EncryptTextByRsa 1-1, rsa->len is %d, u16ReadLen is %d, *pu16CiperLen is %d\n", rsa->len, u16ReadLen, *pu16CiperLen);
+            //ZC_Printf("SEC_EncryptTextByRsa 1-1, pu8Plainbuf is 0x%08x, pu8CiperBuf is 0x%08x\n", pu8Plainbuf, pu8CiperBuf);
             s32Ret = rsa_pkcs1_encrypt(rsa, RSA_PUBLIC, (rsa->len - 11), 
                 pu8Plainbuf + u16ReadLen, pu8CiperBuf + *pu16CiperLen);
             if (s32Ret)
@@ -45,10 +52,12 @@ u32 SEC_EncryptTextByRsa(u8* pu8CiperBuf, u8 *pu8Plainbuf, u16 u16Len, u16 *pu16
             }
             *pu16CiperLen += rsa->len;
             u16ReadLen += rsa->len - 11;
+            //ZC_Printf("SEC_EncryptTextByRsa 1-2, rsa->len is %d, u16ReadLen is %d, *pu16CiperLen is %d\n", rsa->len, u16ReadLen, *pu16CiperLen);
         }
 
         if (u16ReadLen < u16Len)
         {
+            //ZC_Printf("SEC_EncryptTextByRsa 2\n");
             s32Ret = rsa_pkcs1_encrypt(rsa, RSA_PUBLIC, (u16Len - u16ReadLen),
                 pu8Plainbuf + u16ReadLen, pu8CiperBuf + *pu16CiperLen);
             *pu16CiperLen += rsa->len;
@@ -56,6 +65,7 @@ u32 SEC_EncryptTextByRsa(u8* pu8CiperBuf, u8 *pu8Plainbuf, u16 u16Len, u16 *pu16
     }
     else
     {
+        //ZC_Printf("SEC_EncryptTextByRsa 3\n");
         s32Ret = rsa_pkcs1_encrypt(rsa, RSA_PUBLIC, u16Len, pu8Plainbuf, pu8CiperBuf);
         *pu16CiperLen = rsa->len;
     }
@@ -195,6 +205,7 @@ void SEC_InitRsaContextWithPrivateKey(rsa_context *pstrRsa, const u8 *pu8Private
     ZC_Printf("pstrRsa->Q.s = %d, pstrRsa->Q.n = %d, pstrRsa->Q.p[0] = %d, pstrRsa->Q.p = %d\n",
         pstrRsa->Q.s,pstrRsa->Q.n, pstrRsa->Q.p[0], pstrRsa->Q.p);
 }
+#endif
 /*************************************************
 * Function: SEC_AesEncrypt
 * Description: 
@@ -245,12 +256,12 @@ u32 SEC_AesDecrypt(u8* pu8CiperBuf, u8 *pu8Plainbuf, u16 u16Len, u16 *pu16PlainL
     /*must assign the outlen*/
     u32OutLen = u16Len;
     pstruCon = &g_struProtocolController;
-    
+#if 0
     if (PCT_KEY_RECVED != pstruCon->u8keyRecv)
     {
         return ZC_RET_ERROR;            
     }
-    
+#endif
     pu8Key = pstruCon->u8SessionKey;
     pu8IvRecv = pstruCon->IvRecv;
 #if 0    
@@ -354,7 +365,7 @@ u32 SEC_Encrypt(ZC_SecHead *pstruSecHead, u8 *pu8CiperBuf, u8 *pu8PlainBuf, u16 
             *pu16CiperLen = ZC_HTONS(pstruSecHead->u16TotalMsg);
             break;
         case ZC_SEC_ALG_RSA:
-            u32RetVal = SEC_EncryptTextByRsa(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16CiperLen);
+            //u32RetVal = SEC_EncryptTextByRsa(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16CiperLen);
             break;
         case ZC_SEC_ALG_AES:
             u32RetVal = SEC_AesEncrypt(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16CiperLen);
@@ -402,7 +413,7 @@ u32 SEC_Decrypt(ZC_SecHead *pstruSecHead, u8 *pu8CiperBuf, u8 *pu8PlainBuf, u16 
             *pu16PlainLen = ZC_HTONS(pstruSecHead->u16TotalMsg);
             break;
         case ZC_SEC_ALG_RSA:
-            u32RetVal = SEC_DecryptTextByRsa(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16PlainLen);
+            //u32RetVal = SEC_DecryptTextByRsa(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16PlainLen);
             break;
         case ZC_SEC_ALG_AES:
             u32RetVal = SEC_AesDecrypt(pu8CiperBuf, pu8PlainBuf, ZC_HTONS(pstruSecHead->u16TotalMsg), pu16PlainLen);

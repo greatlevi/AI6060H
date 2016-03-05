@@ -310,6 +310,8 @@ PROCESS_THREAD(TCP_arpcheck_process, ev, data)
     PROCESS_END();
 }
 
+extern unsigned int ac_rand(void);
+
 struct uip_conn *
 tcp_connect_icomm(uip_ipaddr_t *ripaddr, uint16_t port, struct process *sockethandler, struct process *apphandler)
 {
@@ -321,6 +323,8 @@ tcp_connect_icomm(uip_ipaddr_t *ripaddr, uint16_t port, struct process *socketha
     return NULL;
   }
 
+  c->lport = (unsigned short)ac_rand();         /* hexin add */
+  printf("local port is %d\n", c->lport);
   c->appstate.p = sockethandler;
   c->appstate.appp = apphandler;
   c->appstate.state = NULL;

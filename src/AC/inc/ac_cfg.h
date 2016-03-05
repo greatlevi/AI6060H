@@ -16,9 +16,9 @@
 
 #define DEVICE_ID "6666666666666666" //必须填写8个字节，不足的前面补0
 
-#define MAJOR_DOMAIN_ID 411//主域id
+#define MAJOR_DOMAIN_ID    557          //411//主域id
 
-#define SUB_DOMAIN_ID  703 //子域id
+#define SUB_DOMAIN_ID      647          //703 //子域id
 
 #define DEFAULT_IOT_CLOUD_KEY {\
     0xb8, 0xd9, 0x35, 0xe4,\
@@ -62,6 +62,14 @@
     0x18,0x6A,0x16,0x84,\
     0x4F,0xD7,0xC5,0x1E \
 }
+
+#define DEFAULT_IOT_EXAES_KEY  { \
+    0x60,0x3f,0x0b,0x56,  \
+    0x0b,0x4c,0x0a,0xd6,  \
+    0x40,0x35,0x11,0xc2,  \
+    0x52,0x7b,0x0e,0x91   \
+}
+
 
 #endif
 /******************************* FILE END ***********************************/

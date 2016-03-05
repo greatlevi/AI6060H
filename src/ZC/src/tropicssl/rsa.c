@@ -38,7 +38,7 @@
 *	http://theory.lcs.mit.edu/~rivest/rsapaper.pdf
 *	http://www.cacr.math.uwaterloo.ca/hac/about/chap8.pdf
 */
-
+#include "stdio.h"
 #include "secconfig.h"
 
 #if defined(TROPICSSL_RSA_C)
@@ -139,18 +139,24 @@ mpi T;
 int rsa_public(rsa_context * ctx, const unsigned char *input, unsigned char *output)
 {
     int ret, olen;
+    //printf("rsa_public 1\n");
     mpi_init(&T);
+    //printf("rsa_public 2\n");
 
     MPI_CHK(mpi_read_binary(&T, input, ctx->len));
+    //printf("rsa_public 3\n");
 
     if (mpi_cmp_mpi(&T, &ctx->N) >= 0) {
         mpi_free(&T);
         return (TROPICSSL_ERR_RSA_BAD_INPUT_DATA);
     }
+    //printf("rsa_public 4\n");
 
     olen = ctx->len;
     MPI_CHK(mpi_exp_mod(&T, &T, &ctx->E, &ctx->N, &ctx->RN));
+    //printf("rsa_public 5\n");
     MPI_CHK(mpi_write_binary(&T, output, olen));
+    //printf("rsa_public 6\n");
 
 cleanup:
 
@@ -249,7 +255,9 @@ int rsa_pkcs1_encrypt(rsa_context * ctx,
             p++;
         }
         *p++ = 0;
+        //printf("rsa_pkcs1_encrypt 1\n");
         memcpy(p, input, ilen);
+        //printf("rsa_pkcs1_encrypt 2\n");
         break;
 
     default:

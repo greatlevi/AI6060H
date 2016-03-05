@@ -30,8 +30,6 @@ AC/src/ac_hal.c \
 ZC/src/aes/aes_cbc.c \
 ZC/src/aes/aes_core.c \
 ZC/src/crc/crc.c \
-ZC/src/tropicssl/bignum.c \
-ZC/src/tropicssl/rsa.c \
 ZC/src/zc/zc_bc.c \
 ZC/src/zc/zc_client_manager.c \
 ZC/src/zc/zc_cloud_event.c \

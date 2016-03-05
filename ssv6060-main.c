@@ -47,6 +47,8 @@
 #include "atcmd_icomm.h"
 #include "wdog_api.h"
 #include "zc_hf_adpter.h"
+#include "zc_configuration.h"
+
 
 #define MAX_RECV_BUFFER 	1472
 
@@ -56,6 +58,8 @@ int AT_Customer2(stParam *param);
 int AT_TCPSERVER_DEMO(stParam *param);
 int AT_WIFIUART_DEMO(stParam *param);
 int AT_SmartLink(stParam *param);
+int AT_Reset(stParam *param);
+
 void Ac_BcInit(void);
 
 
@@ -67,14 +71,18 @@ at_cmd_info atcmd_info_tbl[] =
 	{"AT+TCPSERVER_DEMO=",	&AT_TCPSERVER_DEMO},
 	{"AT+WIFIUART_DEMO=",&AT_WIFIUART_DEMO},
     {"AT+SMNT",&AT_SmartLink},
+    {"AT+RESET",&AT_Reset},
     {"",    NULL}
 };
+
+
 
 int gTcpSocket = -1;
 int g_Bcfd = -1;
 
 static char *g_s8RecvBuf = NULL;
 
+unsigned int g_connectflag = 0;
 
 //extern void test1();
 /*---------------------------------------------------------------------------*/
@@ -87,6 +95,7 @@ PROCESS_NAME(tcpServerDemo_process);
 PROCESS_NAME(wifiUartDemo_process);
 /*---------------------------------------------------------------------------*/
 AUTOSTART_PROCESSES(&main_process, &ac_tcp_connect_process);
+
 /*---------------------------------------------------------------------------*/
 
 extern void HF_Init(void);
@@ -189,6 +198,13 @@ int AT_SmartLink(stParam *param)
     AT_RemoveCfsConf();
     api_wdog_reboot();
 }
+
+int AT_Reset(stParam *param)
+{
+    ZC_ConfigReset();
+}
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(main_process, ev, data)
 {
@@ -206,7 +222,7 @@ PROCESS_THREAD(main_process, ev, data)
     
     TurnOffAllLED();
 
-    etimer_set(&periodic_timer, 100000);
+    etimer_set(&periodic_timer, 50000);
     while(1)
     {
         PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
@@ -215,13 +231,11 @@ PROCESS_THREAD(main_process, ev, data)
         HF_TimerExpired();
         HF_Cloudfunc();
     }
-
     PROCESS_END();
 }
 
 void Ac_Dns(char *buf)
-{
-    //char *buf = "test.ablecloud.cn";
+{ 
 	process_start(&ac_nslookup_process, NULL);
 	bss_nslookup(buf);
 }
@@ -229,38 +243,12 @@ void Ac_Dns(char *buf)
 void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
-    printf("create socket:%d\n", gTcpSocket);
+    printf("1 create tcp socket:%d\n", gTcpSocket);
+    g_connectflag = 1;
 }
 
 void Ac_BcInit(void)
-{
-#if 0
-    int tmp=1;
-    struct sockaddr_in addr; 
-
-    addr.sin_family = AF_INET; 
-    addr.sin_port = htons(ZC_MOUDLE_PORT); 
-    addr.sin_addr.s_addr=htonl(INADDR_ANY);
-
-    g_Bcfd = socket(AF_INET, SOCK_DGRAM, 0); 
-
-    tmp=1; 
-    setsockopt(g_Bcfd, SOL_SOCKET,SO_BROADCAST,&tmp,sizeof(tmp)); 
-
-    //hfnet_set_udp_broadcast_port_valid(ZC_MOUDLE_PORT, ZC_MOUDLE_PORT + 1);
-
-    bind(g_Bcfd, (struct sockaddr*)&addr, sizeof(addr)); 
-    g_struProtocolController.u16SendBcNum = 0;
-
-    memset((char*)&struRemoteAddr,0,sizeof(struRemoteAddr));
-    struRemoteAddr.sin_family = AF_INET; 
-    struRemoteAddr.sin_port = htons(ZC_MOUDLE_BROADCAST_PORT); 
-    struRemoteAddr.sin_addr.s_addr=inet_addr("255.255.255.255"); 
-    g_pu8RemoteAddr = (u8*)&struRemoteAddr;
-    //g_u32BcSleepCount = 2.5 * 250000;
-    g_u32BcSleepCount = 10;
-#endif
-
+{ 
 	g_Bcfd = udpcreate(ZC_MOUDLE_PORT, &ac_tcp_connect_process);
 
 	if(g_Bcfd == -1)
@@ -269,11 +257,10 @@ void Ac_BcInit(void)
 	}
 	else
 	{
-		printf("create socket:%d\n", g_Bcfd);
+		printf("create udp socket:%d\n", g_Bcfd);
 	}
 
     return;
-
 }
 
 
@@ -297,7 +284,7 @@ PROCESS_THREAD(ac_nslookup_process, ev, data)
 			printf("AT+NSLOOKUP=%d.%d.%d.%d\n", addr.u8[0], addr.u8[1], addr.u8[2], addr.u8[3]);
 
             gTcpSocket = tcpconnect( &addr, ZC_CLOUD_PORT, &ac_tcp_connect_process);
-            printf("create socket:%d\n", gTcpSocket);
+            printf("2 create tcp socket:%d\n", gTcpSocket);
 		}
 	}
 	PROCESS_END();
@@ -315,7 +302,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 	{
 		PROCESS_WAIT_EVENT();
 
-		if( ev == PROCESS_EVENT_EXIT) 
+		if(ev == PROCESS_EVENT_EXIT) 
 		{
 			break;
 		} 
@@ -325,9 +312,10 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//The TCP socket is connected, This socket can send data after now.
 			if(msg.status == SOCKET_CONNECTED)
 			{
-				printf("socked:%d connect cloud ok\n", msg.socket);
+				printf("socket:%d connect cloud ok\n", msg.socket);
 				if(msg.socket == gTcpSocket)
                 {            
+                    g_struProtocolController.u8MainState = PCT_STATE_WAIT_ACCESS;
                     g_struProtocolController.struCloudConnection.u32Socket = gTcpSocket;
 		            g_struProtocolController.struCloudConnection.u32ConnectionTimes = 0;
                     /*Send Access to Cloud*/
@@ -339,10 +327,13 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			else if(msg.status == SOCKET_CLOSED)
 			{
 				printf("socked:%d closed\n", msg.socket);
-				if(gTcpSocket == msg.socket)
+				if(gTcpSocket == msg.socket && 1 == g_connectflag)
                 {
                     tcpclose(gTcpSocket);
 					gTcpSocket = -1;  
+                    g_connectflag = 0;
+                    /* ÖØÁ¬ */
+                    g_struProtocolController.u8MainState = PCT_STATE_ACCESS_NET;
                 }
                 else
                 {

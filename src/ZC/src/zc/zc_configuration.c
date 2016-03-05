@@ -43,7 +43,7 @@ u8 g_u8DefaultTokenKey[ZC_HS_SESSION_KEY_LEN] =
 *************************************************/
 void ZC_ConfigInitDefault(void)
 {
-    g_struZcConfigDb.struSwitchInfo.u32SecSwitch = 1;
+    g_struZcConfigDb.struSwitchInfo.u32SecSwitch = 2;
     g_struZcConfigDb.struSwitchInfo.u32TraceSwitch = 0;
     g_struZcConfigDb.struSwitchInfo.u32WifiConfig = 0;
     g_struZcConfigDb.struSwitchInfo.u32ServerAddrConfig = 0;
@@ -67,6 +67,7 @@ void ZC_ConfigInitDefault(void)
 *************************************************/
 void ZC_ConfigInitPara(void)
 {
+#if 0
     u32 u32Crc;
     g_struProtocolController.pstruMoudleFun->pfunReadFlash((u8 *)&g_struZcConfigDb,sizeof(g_struZcConfigDb));
     u32Crc = crc16_ccitt(((u8 *)&g_struZcConfigDb) + sizeof(u32), sizeof(g_struZcConfigDb) - sizeof(u32));
@@ -79,6 +80,7 @@ void ZC_ConfigInitPara(void)
     {
         ZC_Printf("Crc check ok\n");
     }
+#endif
 }
 /*************************************************
 * Function: ZC_ConfigPara

@@ -47,16 +47,16 @@ u8 g_u8recvbuffer[HF_MAX_SOCKET_LEN];
 ZC_UartBuffer g_struUartBuffer;
 struct etimer g_struHfTimer[ZC_TIMER_MAX_NUM];
 
-//HF_TimerInfo g_struHfTimer[ZC_TIMER_MAX_NUM];
-//sys_mutex_t g_struTimermutex;
 u8  g_u8BcSendBuffer[100];
 u32 g_u32BcSleepCount = 800;
-//struct sockaddr_in struRemoteAddr;
 
 extern u8  g_u8ModuleKey[ZC_MODULE_KEY_LEN];
 
 uip_ipaddr_t g_remote_ip;
 
+extern void Ac_Dns(char *buf);
+extern void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, unsigned short rport);
+extern void Ac_ListenClient(PTC_Connection *pstruConnection);
 
 /*************************************************
 * Function: HF_ReadDataFormFlash
@@ -121,7 +121,6 @@ void HF_StopTimer(u8 u8TimerIndex)
 {
     
 }
-
 /*************************************************
 * Function: HF_SetTimer
 * Description: 
@@ -226,7 +225,7 @@ void HF_SendUdpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruP
     }
     else
     {
-        printf("Send udp data\n");
+        //printf("Send udp data\n");
     }
 }
 /*************************************************
@@ -266,12 +265,8 @@ void HF_Reboot(void)
 * Parameter: 
 * History:
 *************************************************/
-extern void Ac_Dns(char *buf);
-extern void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, unsigned short rport);
-
 u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
 {
-    //struct uip_conn *conn=NULL;
     uip_ipaddr_t ip;
     u16  u16Port;
     u16_t  *ipaddr = NULL;
@@ -287,45 +282,10 @@ u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
     }
     else
     { 
-       //u16Port = pstruConnection->u16Port;
        Ac_Dns(g_struZcConfigDb.struCloudInfo.u8CloudAddr);
-#if 0
-       ipaddr =  resolv_lookup(g_struZcConfigDb.struCloudInfo.u8CloudAddr);
-       if(NULL == ipaddr)
-       {
-           return ZC_RET_ERROR;
-       } 
-#endif
        ZC_Printf("Connect %s\n",g_struZcConfigDb.struCloudInfo.u8CloudAddr);
        
     }
-#if 0
-    if (ZC_CONNECT_TYPE_TCP == pstruConnection->u8ConnectionType)
-    {
-        conn = uip_connect((uip_ipaddr_t *)ipaddr, ZC_HTONS(u16Port));
-        if (NULL == conn) 
-        {
-            return ZC_RET_ERROR;
-        }
-
-        if (conn) {
-            conn->lport = (u16)rand();
-        }
-        
-        //g_struProtocolController.struCloudConnection.u32ConnectionTimes = 0;
-        
-        pstruConnection->u32Socket = conn->fd;
-        g_u16LocalPort = ZC_HTONS(conn->lport);
-
-        ZC_Printf("Connection Sokcet = %d, conn->lport = %d\n",conn->fd, g_u16LocalPort);
-        /* add for g_struProtocolController.RandMsg*/
-        ZC_Rand(g_struProtocolController.RandMsg);
-    }
-    else
-    {
-
-    }
-#endif
     return ZC_RET_OK;
 }
 
@@ -339,36 +299,9 @@ u32 HF_ConnectToCloud(PTC_Connection *pstruConnection)
 *************************************************/
 u32 HF_ListenClient(PTC_Connection *pstruConnection)
 {
-#if 0
-    int fd; 
-    struct sockaddr_in servaddr;
-
-    fd = socket(AF_INET, SOCK_STREAM, 0);
-    if(fd<0)
-        return ZC_RET_ERROR;
-
-    memset(&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
-    servaddr.sin_port = htons(pstruConnection->u16Port);
-    if(bind(fd,(struct sockaddr *)&servaddr,sizeof(servaddr))<0)
-    {
-        close(fd);
-        return ZC_RET_ERROR;
-    }
-    
-    if (listen(fd, TCP_DEFAULT_LISTEN_BACKLOG)< 0)
-    {
-        close(fd);
-        return ZC_RET_ERROR;
-    }
-
-    ZC_Printf("Tcp Listen Port = %d\n", pstruConnection->u16Port);
-    g_struProtocolController.struClientConnection.u32Socket = fd;
-#endif
+    Ac_ListenClient(pstruConnection);
     return ZC_RET_OK;
 }
-
 /*************************************************
 * Function: HF_Printf
 * Description: 
@@ -401,7 +334,6 @@ void HF_Cloudfunc(void)
     u32 u32Timer = 0;
 
     fd = g_struProtocolController.struCloudConnection.u32Socket;
-    //PCT_Run();
     
     if (PCT_STATE_DISCONNECT_CLOUD == g_struProtocolController.u8MainState)
     {
@@ -500,8 +432,8 @@ void HF_Init(void)
 void HF_WakeUp(void)
 {
     ZC_Printf("HF_WakeUp\n\r");
-    //g_u32SmartConfigFlag = 0;
     PCT_WakeUp();
+    ZC_StartClientListen();
 }
 /*************************************************
 * Function: HF_Sleep
@@ -513,61 +445,59 @@ void HF_WakeUp(void)
 *************************************************/
 void HF_Sleep(void)
 {
-#if 0
     u32 u32Index;
-    ZC_Printf("HF_Sleep\r\n");
-    close(g_Bcfd);
+
+    ZC_Printf("HF_Sleep\n");
 
     if (PCT_INVAILD_SOCKET != g_struProtocolController.struClientConnection.u32Socket)
     {
-        close(g_struProtocolController.struClientConnection.u32Socket);
+        tcpclose(g_struProtocolController.struClientConnection.u32Socket);
         g_struProtocolController.struClientConnection.u32Socket = PCT_INVAILD_SOCKET;
     }
-
-    if (PCT_INVAILD_SOCKET != g_struProtocolController.struCloudConnection.u32Socket)
-    {
-        close(g_struProtocolController.struCloudConnection.u32Socket);
-        g_struProtocolController.struCloudConnection.u32Socket = PCT_INVAILD_SOCKET;
-    }
-    
-    for (u32Index = 0; u32Index < ZC_MAX_CLIENT_NUM; u32Index++)
-    {
-        if (0 == g_struClientInfo.u32ClientVaildFlag[u32Index])
-        {
-            close(g_struClientInfo.u32ClientFd[u32Index]);
-            g_struClientInfo.u32ClientFd[u32Index] = PCT_INVAILD_SOCKET;
-        }
-    }
-#endif
-
-    ZC_Printf("HF_Sleep\n");
 
     if (PCT_INVAILD_SOCKET != g_struProtocolController.struCloudConnection.u32Socket)
     {
         tcpclose(g_struProtocolController.struCloudConnection.u32Socket);
         g_struProtocolController.struCloudConnection.u32Socket = PCT_INVAILD_SOCKET;
     }    
+
+    for (u32Index = 0; u32Index < ZC_MAX_CLIENT_NUM; u32Index++)
+    {
+        if (0 == g_struClientInfo.u32ClientVaildFlag[u32Index])
+        {
+            tcpclose(g_struClientInfo.u32ClientFd[u32Index]);
+            g_struClientInfo.u32ClientFd[u32Index] = PCT_INVAILD_SOCKET;
+        }
+    }
+
     PCT_Sleep();
     
     g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;
     g_struUartBuffer.u32RecvLen = 0;
 }
-
+/*************************************************
+* Function: HF_Run
+* Description: 
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 void HF_Run(void)
 {
-#if 1
     if(PCT_STATE_WAIT_ACCESS != g_struProtocolController.u8MainState)
     {
         PCT_Run();
     }
-#else
-    if(PCT_STATE_ACCESS_NET == g_struProtocolController.u8MainState)
-    {
-        PCT_Run();
-    }
-#endif
 }
-
+/*************************************************
+* Function: ac_rand
+* Description: 
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 u32 ac_rand(void)
 {    
     u32 u32i;
@@ -579,8 +509,6 @@ u32 ac_rand(void)
 
     return sum;
 }
-
-
 /*************************************************
 * Function: AC_UartSend
 * Description: 

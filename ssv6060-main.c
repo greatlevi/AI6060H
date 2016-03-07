@@ -62,8 +62,6 @@ int AT_Reset(stParam *param);
 
 void Ac_BcInit(void);
 
-
-
 at_cmd_info atcmd_info_tbl[] = 
 {
 	{"AT+CUSTOMER_CMD",	&AT_Customer},
@@ -74,8 +72,6 @@ at_cmd_info atcmd_info_tbl[] =
     {"AT+RESET",&AT_Reset},
     {"",    NULL}
 };
-
-
 
 int gTcpSocket = -1;
 int g_Bcfd = -1;
@@ -100,6 +96,14 @@ AUTOSTART_PROCESSES(&main_process, &ac_tcp_connect_process);
 
 extern void HF_Init(void);
 
+/*************************************************
+* Function: allocate_buffer_in_ext
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int allocate_buffer_in_ext(void)
 {
     int rlt = -1;
@@ -111,7 +115,14 @@ int allocate_buffer_in_ext(void)
     }
     return rlt;
 }
-
+ /*************************************************
+ * Function: TurnOffAllLED
+ * Description:
+ * Author: cxy 
+ * Returns: 
+ * Parameter: 
+ * History:
+ *************************************************/
  void TurnOffAllLED()
  {
 	 GPIO_CONF conf;
@@ -129,7 +140,14 @@ int allocate_buffer_in_ext(void)
  
 	 return;
  }
-/*---------------------------------------------------------------------------*/
+ /*************************************************
+ * Function: SetLED
+ * Description:
+ * Author: cxy 
+ * Returns: 
+ * Parameter: 
+ * History:
+ *************************************************/
  int SetLED (uint8_t nEnable)
  {
  	GPIO_CONF conf;
@@ -149,12 +167,27 @@ int allocate_buffer_in_ext(void)
  	}
  	return ERROR_SUCCESS;
  }
-
+ /*************************************************
+ * Function: AT_Customer
+ * Description:
+ * Author: cxy 
+ * Returns: 
+ * Parameter: 
+ * History:
+ *************************************************/
 int AT_Customer(stParam *param)
 {
 	printf("Call AT_Customer\n");
 	return 0;
 }
+/*************************************************
+* Function: AT_Customer2
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int AT_Customer2(stParam *param)
 {
 	int i = 0;
@@ -165,6 +198,14 @@ int AT_Customer2(stParam *param)
 	}
 	return 0;
 }
+/*************************************************
+* Function: AT_WIFIUART_DEMO
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int AT_WIFIUART_DEMO(stParam *param)
 {
 	int i = 0;
@@ -178,6 +219,14 @@ int AT_WIFIUART_DEMO(stParam *param)
 	}
 	return 0;
 }
+/*************************************************
+* Function: AT_TCPSERVER_DEMO
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int AT_TCPSERVER_DEMO(stParam *param)
 {
 	int i = 0;
@@ -191,21 +240,40 @@ int AT_TCPSERVER_DEMO(stParam *param)
 	}
 	return 0;
 }
-
+/*************************************************
+* Function: AT_SmartLink
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int AT_SmartLink(stParam *param)
 {
     At_Disconnect();
     AT_RemoveCfsConf();
     api_wdog_reboot();
 }
-
+/*************************************************
+* Function: AT_Reset
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 int AT_Reset(stParam *param)
 {
     ZC_ConfigReset();
 }
-
-
-/*---------------------------------------------------------------------------*/
+/*************************************************
+* Function: main_process
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 PROCESS_THREAD(main_process, ev, data)
 {
     static struct etimer periodic_timer;
@@ -233,20 +301,41 @@ PROCESS_THREAD(main_process, ev, data)
     }
     PROCESS_END();
 }
-
+/*************************************************
+* Function: Ac_Dns
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 void Ac_Dns(char *buf)
 { 
 	process_start(&ac_nslookup_process, NULL);
 	bss_nslookup(buf);
 }
-
+/*************************************************
+* Function: Ac_ConnectGateway
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("1 create tcp socket:%d\n", gTcpSocket);
     g_connectflag = 1;
 }
-
+/*************************************************
+* Function: Ac_BcInit
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 void Ac_BcInit(void)
 { 
 	g_Bcfd = udpcreate(ZC_MOUDLE_PORT, &ac_tcp_connect_process);
@@ -262,8 +351,38 @@ void Ac_BcInit(void)
 
     return;
 }
+/*************************************************
+* Function: Ac_ListenClient
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
+void Ac_ListenClient(PTC_Connection *pstruConnection)
+{
+    printf("Listen \n");
+    
+    if (ZC_CONNECT_TYPE_TCP == pstruConnection->u8ConnectionType)
+    {
+        tcplisten(pstruConnection->u16Port, &ac_tcp_connect_process);
 
+        printf("Tcp Listen Port = %d\n", pstruConnection->u16Port);
+    }
+    else
+    {
 
+    }
+    return;
+}
+/*************************************************
+* Function: ac_nslookup_process
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 PROCESS_THREAD(ac_nslookup_process, ev, data)
 {
     static NETSOCKET httpsock;
@@ -289,7 +408,14 @@ PROCESS_THREAD(ac_nslookup_process, ev, data)
 	}
 	PROCESS_END();
 }
-
+/*************************************************
+* Function: ac_tcp_connect_process
+* Description:
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
 PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 {
 	PROCESS_BEGIN();
@@ -343,13 +469,14 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//Get ack, the data trasmission is done. We can send data after now.
 			else if(msg.status == SOCKET_SENDACK)
 			{
-				printf("socked:%d send data ack\n", msg.socket);
+				//printf("socket:%d send data ack\n", msg.socket);
 			}
 			//There is new data coming. Receive data now.
 			else if(msg.status == SOCKET_NEWDATA)
 			{
 				if(0 <= msg.socket && msg.socket < UIP_CONNS)
 				{
+				    /* recv from cloud */
 				    if (gTcpSocket == msg.socket)
                     {            
     					recvlen = tcprecv(msg.socket, g_s8RecvBuf, MAX_RECV_BUFFER);
@@ -361,16 +488,31 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
                         printf("Recv from cloud, data len is %d\n", recvlen);
                         MSG_RecvDataFromCloud(g_s8RecvBuf, recvlen);
                     }
-                    else
+                    else  /* recv from client */
                     {
-                        printf("Recv from client, socket is %d\n", msg.socket);
+                        recvlen = tcprecv(msg.socket, g_s8RecvBuf, MAX_RECV_BUFFER); 
+                        if (recvlen > 0)
+                        {
+                            ZC_RecvDataFromClient(msg.socket, g_s8RecvBuf, recvlen);
+                            printf("Recv from client, socket is %d\n", msg.socket);
+                        }
+                        else
+                        {   
+                            ZC_ClientDisconnect(msg.socket);
+                            tcpclose(msg.socket);
+                            break;
+                        }
                     }
 				}
 				else if(UIP_CONNS <= msg.socket && msg.socket < UIP_CONNS + UIP_UDP_CONNS)
 				{
 					recvlen = udprecvfrom(msg.socket, g_s8RecvBuf, MAX_RECV_BUFFER, &peeraddr, &peerport);
-					g_s8RecvBuf[recvlen] = 0;
-					printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, g_s8RecvBuf, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
+                    if (recvlen > 0)
+                    {
+                        ZC_SendClientQueryReq(g_s8RecvBuf, recvlen);
+                    }
+					//g_s8RecvBuf[recvlen] = 0;
+					//printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, g_s8RecvBuf, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
 				}
 				else
 		        {
@@ -380,18 +522,14 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//A new connection is created. Get the socket number and attach the calback process if needed.
 			else if(msg.status == SOCKET_NEWCONNECTION)
 			{
-			#if 0
-				if(gserversock == -1)
-				{
-					gserversock = msg.socket;
-					printf("new connected to listen port(%d), socket:%d\n", msg.lport, msg.socket);
-				}
-				else
-				{
-					//Only allow one client connection for this application.
-					//tcpclose(msg.socket);
-				}
-            #endif
+                if (ZC_RET_ERROR == ZC_ClientConnect((u32)msg.socket))
+                {
+                    tcpclose(msg.socket);
+                }
+                else
+                {
+                    ZC_Printf("tcp new connect fd is %d\n", msg.socket);
+                }
 			}
 			else
 			{

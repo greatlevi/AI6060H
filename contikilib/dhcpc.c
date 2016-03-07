@@ -347,11 +347,13 @@ msg_for_me(void)
   return -1;
 }
 /*---------------------------------------------------------------------------*/
+extern unsigned int g_u32GloablIp;
 extern void HF_Sleep(void);
 static
 PT_THREAD(handle_dhcp(process_event_t ev, void *data))
 {
   clock_time_t ticks;
+  uint8_t u8ip[4] = {0};
 
   PT_BEGIN(&s.pt);
   printf ("[handle_dhcp] +++\n");
@@ -419,7 +421,13 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
   
  bound:
   printf ("dhcp : bound\n");
-#if 1
+#if 1 
+  u8ip[0] = s.ipaddr.u8[3];
+  u8ip[1] = s.ipaddr.u8[2];
+  u8ip[2] = s.ipaddr.u8[1];
+  u8ip[3] = s.ipaddr.u8[0];
+  memcpy((void *)&g_u32GloablIp, u8ip, 4);
+  //printf("g_u32GloablIp is 0x%08x\n", g_u32GloablIp);
   printf("Got IP address %d.%d.%d.%d\n", uip_ipaddr_to_quad(&s.ipaddr));
   printf("Got netmask %d.%d.%d.%d\n",	 uip_ipaddr_to_quad(&s.netmask));
   printf("Got DNS server %d.%d.%d.%d\n", uip_ipaddr_to_quad(&s.dnsaddr));

@@ -9,7 +9,7 @@ make -C icomapps
 make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
 make icomapps.a 
 make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/icomapps'
-make[2]: Warning: File `objs' has modification time 2.7 s in the future
+make[2]: Warning: File `objs' has modification time 4.9 s in the future
 -----------------make z1 target:objs/atcmd.o -----------------
 arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c atcmd.c -o objs/atcmd.o
 atcmd.c: In function 'At_ShowNtpTime':
@@ -275,7 +275,7 @@ make -C contikilib
 make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
 make contikilib.a 
 make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib'
-make[2]: Warning: File `objs' has modification time 2.7 s in the future
+make[2]: Warning: File `objs' has modification time 4.9 s in the future
 -----------------make z1 target:objs/dhcpc.o -----------------
 arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I../include -I../icomlib/include/net -I../icomlib/include/bsp -I../icomlib/include/net/ieee80211_bss -I../icomlib/include/sys -I../icomlib/include/net/mac -I../icomlib/include/dev -I../icomlib/include -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -c dhcpc.c -o objs/dhcpc.o
 -----------------make z1 target:objs/dhcp_process.o -----------------
@@ -349,7 +349,7 @@ make -C src
 make[1]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/src'
 make accloud.a 
 make[2]: Entering directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/src'
-make[2]: Warning: File `objs' has modification time 2.7 s in the future
+make[2]: Warning: File `objs' has modification time 4.9 s in the future
 -----------------make z1 target:objs/AC/src/ac_api.o -----------------
 arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c AC/src/ac_api.c -o objs/AC/src/ac_api.o
 AC/src/ac_api.c: In function 'AC_CheckSum':
@@ -368,9 +368,72 @@ arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/ae
 arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/aes/aes_core.c -o objs/ZC/src/aes/aes_core.o
 -----------------make z1 target:objs/ZC/src/crc/crc.o -----------------
 arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/crc/crc.c -o objs/ZC/src/crc/crc.o
-echo "ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o"
-ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o
-ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o
+-----------------make z1 target:objs/ZC/src/zc/zc_bc.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_bc.c -o objs/ZC/src/zc/zc_bc.o
+-----------------make z1 target:objs/ZC/src/zc/zc_client_manager.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_client_manager.c -o objs/ZC/src/zc/zc_client_manager.o
+-----------------make z1 target:objs/ZC/src/zc/zc_cloud_event.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_cloud_event.c -o objs/ZC/src/zc/zc_cloud_event.o
+-----------------make z1 target:objs/ZC/src/zc/zc_common.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_common.c -o objs/ZC/src/zc/zc_common.o
+-----------------make z1 target:objs/ZC/src/zc/zc_configuration.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_configuration.c -o objs/ZC/src/zc/zc_configuration.o
+-----------------make z1 target:objs/ZC/src/zc/zc_message_queue.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_message_queue.c -o objs/ZC/src/zc/zc_message_queue.o
+-----------------make z1 target:objs/ZC/src/zc/zc_moudle_manager.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_moudle_manager.c -o objs/ZC/src/zc/zc_moudle_manager.o
+-----------------make z1 target:objs/ZC/src/zc/zc_protocol_controller.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_protocol_controller.c -o objs/ZC/src/zc/zc_protocol_controller.o
+ZC/src/zc/zc_protocol_controller.c: In function 'PCT_HandleOtaFileBeginMsg':
+ZC/src/zc/zc_protocol_controller.c:761:9: warning: unused variable 'u32Ret' [-Wunused-variable]
+     u32 u32Ret;
+         ^
+ZC/src/zc/zc_protocol_controller.c: In function 'PCT_TurnOnOffLight':
+ZC/src/zc/zc_protocol_controller.c:968:9: warning: variable 'u32Value' set but not used [-Wunused-but-set-variable]
+     u32 u32Value;
+         ^
+ZC/src/zc/zc_protocol_controller.c: In function 'PCT_Run':
+ZC/src/zc/zc_protocol_controller.c:1094:16: warning: unused variable 'count' [-Wunused-variable]
+     static u32 count = 0;
+                ^
+-----------------make z1 target:objs/ZC/src/zc/zc_sec_engine.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_sec_engine.c -o objs/ZC/src/zc/zc_sec_engine.o
+-----------------make z1 target:objs/ZC/src/zc/zc_timer.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c ZC/src/zc/zc_timer.c -o objs/ZC/src/zc/zc_timer.o
+-----------------make z1 target:objs/zc_hf_adpter.o -----------------
+arm-none-eabi-gcc -Wall -Wno-trigraphs -fno-builtin -I. -I./AC/inc -I./ZC/inc/aes -I./ZC/inc/tropicssl -I./ZC/inc/zc -I../icomlib/include/sys -I../include -I../icomlib/include -I../icomlib/include/dev -I../icomlib/include/net -I../icomlib/include/net/mac -I../icomlib/include/net/ieee80211_bss -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DFUNC_OTA_ON=1 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DZC_MODULE_VERSION=0 -DZC_MODULE_TYPE=0 -c zc_hf_adpter.c -o objs/zc_hf_adpter.o
+zc_hf_adpter.c: In function 'HF_SendTcpData':
+zc_hf_adpter.c:210:5: warning: pointer targets in passing argument 2 of 'tcpsend' differ in signedness [-Wpointer-sign]
+     tcpsend(u32Fd, pu8Data, u16DataLen);
+     ^
+In file included from zc_hf_adpter.c:23:0:
+../icomlib/include/net/socket_driver.h:90:5: note: expected 'char *' but argument is of type 'u8 *'
+ int tcpsend(NETSOCKET socket, char *data, U16 datalen);
+     ^
+zc_hf_adpter.c: In function 'HF_SendUdpData':
+zc_hf_adpter.c:222:5: warning: pointer targets in passing argument 2 of 'udpsendto' differ in signedness [-Wpointer-sign]
+     if(udpsendto(u32Fd, pu8Data, u16DataLen, &g_remote_ip, ZC_MOUDLE_BROADCAST_PORT) == -1)
+     ^
+In file included from zc_hf_adpter.c:23:0:
+../icomlib/include/net/socket_driver.h:139:5: note: expected 'char *' but argument is of type 'u8 *'
+ int udpsendto(NETSOCKET socket, char *data, U16 datalen, uip_ipaddr_t *peeraddr, U16 peerport);
+     ^
+zc_hf_adpter.c: In function 'HF_ConnectToCloud':
+zc_hf_adpter.c:277:12: warning: assignment from incompatible pointer type [enabled by default]
+     ipaddr = &ip;
+            ^
+zc_hf_adpter.c:290:8: warning: pointer targets in passing argument 1 of 'Ac_Dns' differ in signedness [-Wpointer-sign]
+        Ac_Dns(g_struZcConfigDb.struCloudInfo.u8CloudAddr);
+        ^
+zc_hf_adpter.c:268:13: note: expected 'char *' but argument is of type 'u8 *'
+ extern void Ac_Dns(char *buf);
+             ^
+zc_hf_adpter.c:276:13: warning: variable 'ipaddr' set but not used [-Wunused-but-set-variable]
+     u16_t  *ipaddr = NULL;
+             ^
+echo "ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o objs/ZC/src/zc/zc_bc.o objs/ZC/src/zc/zc_client_manager.o objs/ZC/src/zc/zc_cloud_event.o objs/ZC/src/zc/zc_common.o objs/ZC/src/zc/zc_configuration.o objs/ZC/src/zc/zc_message_queue.o objs/ZC/src/zc/zc_moudle_manager.o objs/ZC/src/zc/zc_protocol_controller.o objs/ZC/src/zc/zc_sec_engine.o objs/ZC/src/zc/zc_timer.o objs/zc_hf_adpter.o"
+ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o objs/ZC/src/zc/zc_bc.o objs/ZC/src/zc/zc_client_manager.o objs/ZC/src/zc/zc_cloud_event.o objs/ZC/src/zc/zc_common.o objs/ZC/src/zc/zc_configuration.o objs/ZC/src/zc/zc_message_queue.o objs/ZC/src/zc/zc_moudle_manager.o objs/ZC/src/zc/zc_protocol_controller.o objs/ZC/src/zc/zc_sec_engine.o objs/ZC/src/zc/zc_timer.o objs/zc_hf_adpter.o
+ar rcf accloud.a objs/AC/src/ac_api.o objs/AC/src/ac_hal.o objs/ZC/src/aes/aes_cbc.o objs/ZC/src/aes/aes_core.o objs/ZC/src/crc/crc.o objs/ZC/src/zc/zc_bc.o objs/ZC/src/zc/zc_client_manager.o objs/ZC/src/zc/zc_cloud_event.o objs/ZC/src/zc/zc_common.o objs/ZC/src/zc/zc_configuration.o objs/ZC/src/zc/zc_message_queue.o objs/ZC/src/zc/zc_moudle_manager.o objs/ZC/src/zc/zc_protocol_controller.o objs/ZC/src/zc/zc_sec_engine.o objs/ZC/src/zc/zc_timer.o objs/zc_hf_adpter.o
 make[2]: warning:  Clock skew detected.  Your build may be incomplete.
 make[2]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/src'
 make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/src'
@@ -386,24 +449,28 @@ ssv6060-main.c: In function 'AT_TCPSERVER_DEMO':
 ssv6060-main.c:183:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
+ssv6060-main.c: In function 'Ac_ListenClient':
+ssv6060-main.c:274:9: error: expected ';' before 'printf'
+         printf("Tcp Listen Port = %d\n", pstruConnection->u16Port);
+         ^
 ssv6060-main.c: In function 'process_thread_ac_nslookup_process':
-ssv6060-main.c:270:15: warning: unused variable 'msg' [-Wunused-variable]
+ssv6060-main.c:287:15: warning: unused variable 'msg' [-Wunused-variable]
      SOCKETMSG msg;
                ^
-ssv6060-main.c:269:22: warning: unused variable 'httpsock' [-Wunused-variable]
+ssv6060-main.c:286:22: warning: unused variable 'httpsock' [-Wunused-variable]
      static NETSOCKET httpsock;
                       ^
 ssv6060-main.c: In function 'process_thread_ac_tcp_connect_process':
-ssv6060-main.c:315:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:332:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
      printf("socket:%d connect cloud ok\n", msg.socket);
      ^
-ssv6060-main.c:329:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:346:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
      printf("socked:%d closed\n", msg.socket);
      ^
-ssv6060-main.c:346:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:363:5: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
      printf("socked:%d send data ack\n", msg.socket);
      ^
-ssv6060-main.c:362:25: warning: pointer targets in passing argument 1 of 'MSG_RecvDataFromCloud' differ in signedness [-Wpointer-sign]
+ssv6060-main.c:379:25: warning: pointer targets in passing argument 1 of 'MSG_RecvDataFromCloud' differ in signedness [-Wpointer-sign]
                          MSG_RecvDataFromCloud(g_s8RecvBuf, recvlen);
                          ^
 In file included from ./src/ZC/inc/zc/zc_protocol_controller.h:16:0,
@@ -412,13 +479,13 @@ In file included from ./src/ZC/inc/zc/zc_protocol_controller.h:16:0,
 ./src/ZC/inc/zc/zc_message_queue.h:58:6: note: expected 'u8 *' but argument is of type 'char *'
  void MSG_RecvDataFromCloud(u8 *pu8Data, u32 u32DataLen);
       ^
-ssv6060-main.c:366:25: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:383:25: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
                          printf("Recv from client, socket is %d\n", msg.socket);
                          ^
-ssv6060-main.c:373:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:390:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
       printf("UDP socked:%d recvdata:%s from %d.%d.%d.%d:%d\n", msg.socket, g_s8RecvBuf, peeraddr.u8[0], peeraddr.u8[1], peeraddr.u8[2], peeraddr.u8[3], peerport);
       ^
-ssv6060-main.c:377:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
+ssv6060-main.c:394:6: warning: format '%d' expects argument of type 'int', but argument 2 has type 'NETSOCKET' [-Wformat=]
       printf("Illegal socket:%d\n", msg.socket);
       ^
 ssv6060-main.c: In function 'AT_SmartLink':
@@ -429,31 +496,6 @@ ssv6060-main.c: In function 'AT_Reset':
 ssv6060-main.c:205:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
  ^
-make[1]: Warning: File `contikilib/contikilib.a' has modification time 1.6 s in the future
-# WARNING: if you need math.h. You need to add -lm into this linking stage.Please reference where -lm being added 
-#arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -flto -Wl,-Tcabrio.lds  -flto -Xlinker -M -Xlinker -Map=contiki-cabrio.map -nostartfiles boot.s -Wall -Wno-trigraphs -fno-builtin -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include -I./src -I./src/AC/inc -I./src/ZC/inc/aes -I./src/ZC/inc/tropicssl -I./src/ZC/inc/zc -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DAUTOSTART_ENABLE ssv6060-main.o icomlib/icomlib.a icomapps/icomapps.a contikilib/contikilib.a -lc icomlib/icomlib.a icomapps/icomapps.a contikilib/contikilib.a -lm -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss
-/bin/cp icomlib/icomlib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
-/bin/cp icomapps/icomapps.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
-/bin/cp contikilib/contikilib.a . ### use cp to copy library or the linker script will have problem for hierachy issue ###
-/bin/cp src/accloud.a .     # hexin add
-arm-none-eabi-gcc --specs=nosys.specs --specs=nano.specs -flto -Wl,-Tcabrio.lds  -flto -Xlinker -M -Xlinker -Map=contiki-cabrio.map -nostartfiles boot.s -Wall -Wno-trigraphs -fno-builtin -I./icomlib/include -I./icomlib/include/net -I./icomlib/include/bsp -I./icomlib/include/net/ieee80211_bss -I./icomlib/include/sys -I./icomlib/include/net/mac -I./icomlib/include/dev  -I./icomlib/include/matrixssl -I./include -I./src -I./src/AC/inc -I./src/ZC/inc/aes -I./src/ZC/inc/tropicssl -I./src/ZC/inc/zc -Os -fomit-frame-pointer -g -march=armv3m -mno-thumb-interwork  -fdata-sections -ffunction-sections -DMODULE_ID=5 -DBOOT_SECTOR_UPDATE=0 -DDISABLE_ICOMM_DISCOVER=0 -Werror=implicit-function-declaration -Werror=maybe-uninitialized -DAUTOSTART_ENABLE ssv6060-main.o icomlib.a icomapps.a icomlib.a contikilib.a accloud.a -o ssv6060-main.elf -L ./thirdPartyLib -lairkiss  #hexin add
-ssv6060-main.o: In function `process_thread_ac_tcp_connect_process':
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:322: undefined reference to `ZC_Rand'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:323: undefined reference to `PCT_SendCloudAccessMsg1'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:362: undefined reference to `MSG_RecvDataFromCloud'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:404: undefined reference to `g_struProtocolController'
-ssv6060-main.o: In function `AT_Reset':
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:204: undefined reference to `ZC_ConfigReset'
-ssv6060-main.o: In function `process_thread_main_process':
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:219: undefined reference to `HF_Init'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:230: undefined reference to `HF_Run'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:231: undefined reference to `HF_TimerExpired'
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/ssv6060-main.c:232: undefined reference to `HF_Cloudfunc'
-contikilib.a(dhcpc.o): In function `dhcpc_configured':
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib/dhcpc.c:146: undefined reference to `HF_WakeUp'
-contikilib.a(dhcpc.o): In function `handle_dhcp':
-/mnt/hgfs/VMSHARE/889release/SDK/Release_v889/contikilib/dhcpc.c:500: undefined reference to `HF_Sleep'
-collect2: error: ld returned 1 exit status
-make[1]: *** [ssv6060-main.elf] Error 1
+make[1]: *** [ssv6060-main.o] Error 1
 make[1]: Leaving directory `/mnt/hgfs/VMSHARE/889release/SDK/Release_v889'
 make: *** [all] Error 2

@@ -326,6 +326,10 @@ void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("1 create tcp socket:%d\n", gTcpSocket);
+    if(g_struProtocolController.struCloudConnection.u32ConnectionTimes++ > 20)
+    {
+       g_struZcConfigDb.struSwitchInfo.u32ServerAddrConfig = 0;
+    }
 }
 /*************************************************
 * Function: Ac_BcInit
@@ -461,7 +465,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
                 }
                 else
                 {
-                    printf("redirect socket:%d closed\n", msg.socket);
+                    printf("socket:%d closed\n", msg.socket);
                     tcpclose(msg.socket);
                 }
 			}

@@ -476,6 +476,22 @@ void HF_Sleep(void)
     g_struUartBuffer.u32RecvLen = 0;
 }
 /*************************************************
+* Function: HF_DisconFromCloud
+* Description: 
+* Author: cxy 
+* Returns: 
+* Parameter: 
+* History:
+*************************************************/
+void HF_DisconFromCloud(void)
+{
+    if (PCT_INVAILD_SOCKET != g_struProtocolController.struCloudConnection.u32Socket)
+    {
+        tcpclose(g_struProtocolController.struCloudConnection.u32Socket);
+        g_struProtocolController.struCloudConnection.u32Socket = PCT_INVAILD_SOCKET;
+    }        
+}
+/*************************************************
 * Function: HF_Run
 * Description: 
 * Author: cxy 

@@ -80,9 +80,6 @@ static char *g_s8RecvBuf = NULL;
 extern ZC_UartBuffer g_struUartBuffer;
 extern u8  g_u8ExAesKey[ZC_HS_SESSION_KEY_LEN];
 
-//unsigned int g_connectflag = 0;
-
-//extern void test1();
 /*---------------------------------------------------------------------------*/
 PROCESS(main_process, "main process");
 PROCESS(ac_nslookup_process, "NSLookup Process");
@@ -329,7 +326,6 @@ void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("1 create tcp socket:%d\n", gTcpSocket);
-    //g_connectflag = 1;
 }
 /*************************************************
 * Function: Ac_BcInit
@@ -444,7 +440,6 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 				printf("socket:%d connect cloud ok\n", msg.socket);
 				if(msg.socket == gTcpSocket)
                 {            
-                    //g_connectflag = 0;
                     g_struProtocolController.u8MainState = PCT_STATE_WAIT_ACCESS;
                     g_struProtocolController.struCloudConnection.u32Socket = gTcpSocket;
 		            g_struProtocolController.struCloudConnection.u32ConnectionTimes = 0;
@@ -456,7 +451,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//TCP connection is closed. Clear the socket number.
 			else if(msg.status == SOCKET_CLOSED)
 			{
-				if(gTcpSocket == msg.socket)// && 1 == g_connectflag)
+				if(gTcpSocket == msg.socket)
                 {
                     printf("gw socket:%d closed\n", msg.socket);
                     tcpclose(gTcpSocket);

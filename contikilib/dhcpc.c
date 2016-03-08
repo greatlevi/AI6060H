@@ -349,6 +349,7 @@ msg_for_me(void)
 /*---------------------------------------------------------------------------*/
 extern unsigned int g_u32GloablIp;
 extern void HF_Sleep(void);
+extern void HF_DisconFromCloud(void);
 static
 PT_THREAD(handle_dhcp(process_event_t ev, void *data))
 {
@@ -505,6 +506,7 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
   dhcpState = NOBEGIN;
   printf ("[handle_dhcp] ---\n");
   /* hexin add */
+  HF_DisconFromCloud();
   //HF_Sleep();
   PT_END(&s.pt);
 

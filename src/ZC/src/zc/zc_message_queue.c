@@ -125,14 +125,12 @@ u32 MSG_RecvData(MSG_Buffer *pstruRecvBuffer, u8 *pu8Data, u32 u32DataLen)
 {
     ZC_SecHead *pstruMsg;
     u32 u32MsgLen;
-    
     if (MSG_BUFFER_FULL == pstruRecvBuffer->u8Status)
     {
         return ZC_RET_ERROR;
     }
     if (MSG_BUFFER_IDLE == pstruRecvBuffer->u8Status)
     {
-
         if (u32DataLen < sizeof(ZC_SecHead))
         {
             memcpy(pstruRecvBuffer->u8MsgBuffer, pu8Data, u32DataLen);
@@ -174,7 +172,6 @@ u32 MSG_RecvData(MSG_Buffer *pstruRecvBuffer, u8 *pu8Data, u32 u32DataLen)
     {
         pstruMsg = (ZC_SecHead *)(pstruRecvBuffer->u8MsgBuffer);
         u32MsgLen = ZC_HTONS(pstruMsg->u16TotalMsg) + sizeof(ZC_SecHead);
-
         if (u32MsgLen <= u32DataLen + pstruRecvBuffer->u32Len)
         {
             memcpy((pstruRecvBuffer->u8MsgBuffer + pstruRecvBuffer->u32Len), 
@@ -195,7 +192,6 @@ u32 MSG_RecvData(MSG_Buffer *pstruRecvBuffer, u8 *pu8Data, u32 u32DataLen)
 
         return ZC_RET_OK;
     }
-
     if (MSG_BUFFER_SEGMENT_NOHEAD == pstruRecvBuffer->u8Status)
     {
         if ((pstruRecvBuffer->u32Len + u32DataLen) < sizeof(ZC_SecHead))
@@ -248,7 +244,6 @@ u32 MSG_RecvData(MSG_Buffer *pstruRecvBuffer, u8 *pu8Data, u32 u32DataLen)
     
     return ZC_RET_ERROR;
     
-
 }
 /*************************************************
 * Function: MSG_RecvDataFromCloud
@@ -270,7 +265,7 @@ void MSG_RecvDataFromCloud(u8 *pu8Data, u32 u32DataLen)
         {
             u32RetVal = SEC_Decrypt((ZC_SecHead*)g_struRecvBuffer.u8MsgBuffer, 
                 g_struRecvBuffer.u8MsgBuffer + sizeof(ZC_SecHead), g_u8MsgBuildBuffer, &u16PlainLen);
-
+            ZC_Printf("u16PlainLen is %d\n", u16PlainLen);
             /*copy data*/
             memcpy(g_struRecvBuffer.u8MsgBuffer, g_u8MsgBuildBuffer, u16PlainLen);
 

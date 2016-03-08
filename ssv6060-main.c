@@ -77,8 +77,10 @@ int gTcpSocket = -1;
 int g_Bcfd = -1;
 
 static char *g_s8RecvBuf = NULL;
+extern ZC_UartBuffer g_struUartBuffer;
+extern u8  g_u8ExAesKey[ZC_HS_SESSION_KEY_LEN];
 
-unsigned int g_connectflag = 0;
+//unsigned int g_connectflag = 0;
 
 //extern void test1();
 /*---------------------------------------------------------------------------*/
@@ -95,6 +97,7 @@ AUTOSTART_PROCESSES(&main_process, &ac_tcp_connect_process);
 /*---------------------------------------------------------------------------*/
 
 extern void HF_Init(void);
+extern void HF_Sleep(void);
 
 /*************************************************
 * Function: allocate_buffer_in_ext
@@ -326,7 +329,7 @@ void Ac_ConnectGateway(uip_ipaddr_t *ripaddr, uint16_t rport)
 {
     gTcpSocket = tcpconnect(ripaddr, rport, &ac_tcp_connect_process);
     printf("1 create tcp socket:%d\n", gTcpSocket);
-    g_connectflag = 1;
+    //g_connectflag = 1;
 }
 /*************************************************
 * Function: Ac_BcInit
@@ -441,6 +444,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 				printf("socket:%d connect cloud ok\n", msg.socket);
 				if(msg.socket == gTcpSocket)
                 {            
+                    //g_connectflag = 0;
                     g_struProtocolController.u8MainState = PCT_STATE_WAIT_ACCESS;
                     g_struProtocolController.struCloudConnection.u32Socket = gTcpSocket;
 		            g_struProtocolController.struCloudConnection.u32ConnectionTimes = 0;
@@ -452,17 +456,17 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//TCP connection is closed. Clear the socket number.
 			else if(msg.status == SOCKET_CLOSED)
 			{
-				printf("socked:%d closed\n", msg.socket);
-				if(gTcpSocket == msg.socket && 1 == g_connectflag)
+				if(gTcpSocket == msg.socket)// && 1 == g_connectflag)
                 {
+                    printf("gw socket:%d closed\n", msg.socket);
                     tcpclose(gTcpSocket);
 					gTcpSocket = -1;  
-                    g_connectflag = 0;
-                    /* ÖØÁ¬ */
+                    HF_Sleep();
                     g_struProtocolController.u8MainState = PCT_STATE_ACCESS_NET;
                 }
                 else
                 {
+                    printf("redirect socket:%d closed\n", msg.socket);
                     tcpclose(msg.socket);
                 }
 			}

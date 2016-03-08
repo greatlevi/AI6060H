@@ -505,7 +505,7 @@ PT_THREAD(handle_dhcp(process_event_t ev, void *data))
   dhcpState = NOBEGIN;
   printf ("[handle_dhcp] ---\n");
   /* hexin add */
-  HF_Sleep();
+  //HF_Sleep();
   PT_END(&s.pt);
 
 

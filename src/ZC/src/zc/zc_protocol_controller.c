@@ -461,7 +461,7 @@ void PCT_RecvAccessMsg2(PTC_ProtocolCon *pstruContoller)
 
                     ZC_StoreAccessInfo((u8 *)&u32Addr,(u8 *)&u16Port);
                     PCT_DisConnectCloud(pstruContoller);
-                    ZC_Printf("Recv Access Point ok,Cloud Addr=%x,port=%x!\n",u32Addr,u16Port);
+                    ZC_Printf("Recv Access Point ok,Cloud Addr=0x%x,port=%d!\n",u32Addr,u16Port);
                 }
             }
             else

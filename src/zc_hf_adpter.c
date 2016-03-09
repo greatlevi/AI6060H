@@ -40,7 +40,6 @@ MSG_Queue  g_struSendQueue;
 u8 g_u8MsgBuildBuffer[MSG_BULID_BUFFER_MAXLEN];
 u8 g_u8ClientSendLen = 0;
 
-u16 g_u16TcpMss;
 u16 g_u16LocalPort;
 
 u8 g_u8recvbuffer[HF_MAX_SOCKET_LEN];
@@ -49,6 +48,8 @@ struct etimer g_struHfTimer[ZC_TIMER_MAX_NUM];
 
 u8  g_u8BcSendBuffer[100];
 u32 g_u32BcSleepCount = 800;
+
+u32 g_u32AckFlag = 0;
 
 extern u8  g_u8ModuleKey[ZC_MODULE_KEY_LEN];
 
@@ -208,6 +209,7 @@ void HF_Rest(void)
 void HF_SendTcpData(u32 u32Fd, u8 *pu8Data, u16 u16DataLen, ZC_SendParam *pstruParam)
 {
     tcpsend(u32Fd, pu8Data, u16DataLen);
+    g_u32AckFlag = 1;
 }
 /*************************************************
 * Function: HF_SendUdpData
@@ -392,9 +394,8 @@ void HF_Init(void)
     g_struHfAdapter.pfunMalloc = malloc;
     g_struHfAdapter.pfunFree = free;
     g_struHfAdapter.pfunPrintf = HF_Printf;
-    g_u16TcpMss = 1000;
 
-    g_u32BcSleepCount = 10;
+    g_u32BcSleepCount = 20;
 
     PCT_Init(&g_struHfAdapter);
     
@@ -471,6 +472,8 @@ void HF_Sleep(void)
     }
 
     PCT_Sleep();
+
+    g_u32AckFlag = 0;
     
     g_struUartBuffer.u32Status = MSG_BUFFER_IDLE;
     g_struUartBuffer.u32RecvLen = 0;

@@ -67,7 +67,6 @@ void ZC_ConfigInitDefault(void)
 *************************************************/
 void ZC_ConfigInitPara(void)
 {
-#if 0
     u32 u32Crc;
     g_struProtocolController.pstruMoudleFun->pfunReadFlash((u8 *)&g_struZcConfigDb,sizeof(g_struZcConfigDb));
     u32Crc = crc16_ccitt(((u8 *)&g_struZcConfigDb) + sizeof(u32), sizeof(g_struZcConfigDb) - sizeof(u32));
@@ -80,7 +79,6 @@ void ZC_ConfigInitPara(void)
     {
         ZC_Printf("Crc check ok\n");
     }
-#endif
 }
 /*************************************************
 * Function: ZC_ConfigPara

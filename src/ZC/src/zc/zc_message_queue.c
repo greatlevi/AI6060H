@@ -12,7 +12,7 @@
 #include <zc_protocol_controller.h>
 
 
-
+extern u32 g_u32AckFlag;
 
 /*************************************************
 * Function: MSG_Init()
@@ -295,6 +295,13 @@ void MSG_SendDataToCloud(u8 *pu8Connection)
     ZC_SendParam struParam;
 
     u16 u16DataLen; 
+
+    /* 检查标志位，最好的是计数信号量实现 */
+    if (1 == g_u32AckFlag)
+    {
+        return;
+    }
+    
     pstruBuf = (MSG_Buffer *)MSG_PopMsg(&g_struSendQueue); 
     
     if (NULL == pstruBuf)

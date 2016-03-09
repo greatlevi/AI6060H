@@ -79,6 +79,7 @@ int g_Bcfd = -1;
 static char *g_s8RecvBuf = NULL;
 extern ZC_UartBuffer g_struUartBuffer;
 extern u8  g_u8ExAesKey[ZC_HS_SESSION_KEY_LEN];
+extern u32 g_u32AckFlag;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(main_process, "main process");
@@ -95,6 +96,7 @@ AUTOSTART_PROCESSES(&main_process, &ac_tcp_connect_process);
 
 extern void HF_Init(void);
 extern void HF_Sleep(void);
+extern void ZC_ConfigReset();
 
 /*************************************************
 * Function: allocate_buffer_in_ext
@@ -250,9 +252,12 @@ int AT_TCPSERVER_DEMO(stParam *param)
 *************************************************/
 int AT_SmartLink(stParam *param)
 {
+    ZC_ConfigReset();
+#if 0
     At_Disconnect();
     AT_RemoveCfsConf();
     api_wdog_reboot();
+#endif
 }
 /*************************************************
 * Function: AT_Reset
@@ -405,10 +410,19 @@ PROCESS_THREAD(ac_nslookup_process, ev, data)
 			uip_ipaddr_copy(&addr, addrptr);
 			printf("AT+NSLOOKUP=%d.%d.%d.%d\n", addr.u8[0], addr.u8[1], addr.u8[2], addr.u8[3]);
 
+            if (0 == addr.u8[0] && 0 == addr.u8[1] && 0 == addr.u8[2] && 0 == addr.u8[3])
+            {
+                /* ÖØÁ¬ */
+                g_struProtocolController.u8MainState = PCT_STATE_ACCESS_NET;
+                goto END;
+            }
+
             gTcpSocket = tcpconnect( &addr, ZC_CLOUD_PORT, &ac_tcp_connect_process);
             printf("2 create tcp socket:%d\n", gTcpSocket);
 		}
 	}
+END:
+    ;
 	PROCESS_END();
 }
 /*************************************************
@@ -472,6 +486,7 @@ PROCESS_THREAD(ac_tcp_connect_process, ev, data)
 			//Get ack, the data trasmission is done. We can send data after now.
 			else if(msg.status == SOCKET_SENDACK)
 			{
+			    g_u32AckFlag = 2;   /* got ack */
 				//printf("socket:%d send data ack\n", msg.socket);
 			}
 			//There is new data coming. Receive data now.
